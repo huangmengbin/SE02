@@ -58,23 +58,23 @@
                         <span>￥{{ text }}</span>
                     </span>
                     <span slot="roomType" slot-scope="text">
-                        <span v-if="text == 'BigBed'">大床房</span>
-                        <span v-if="text == 'DoubleBed'">双床房</span>
-                        <span v-if="text == 'Family'">家庭房</span>
+                        <span v-if="text === 'BigBed'">大床房</span>
+                        <span v-if="text === 'DoubleBed'">双床房</span>
+                        <span v-if="text === 'Family'">家庭房</span>
                     </span>
                     <a-tag slot="orderState" color="blue" slot-scope="text">
                         {{ text }}
                     </a-tag>
                     <span slot="action" slot-scope="record">
                         <a-button type="primary" size="small">查看</a-button>
-                        <a-divider type="vertical" v-if="record.orderState == '已预订'"></a-divider>
+                        <a-divider type="vertical" v-if="record.orderState === '已预订'"></a-divider>
                         <a-popconfirm
                             title="你确定撤销该笔订单吗？"
                             @confirm="confirmCancelOrder(record.id)"
                             @cancel="cancelCancelOrder"
                             okText="确定"
                             cancelText="取消"
-                            v-if="record.orderState == '已预订'"
+                            v-if="record.orderState === '已预订'"
                         >
                             <a-button type="danger" size="small">撤销</a-button>
                         </a-popconfirm>

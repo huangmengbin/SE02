@@ -34,9 +34,17 @@ public interface OrderService {
 
     /**
      * 撤销订单
-     * @param orderid
+     * @param orderId
      * @return
      */
-    ResponseVO annulOrder(int orderid);
+    ResponseVO annulOrder(int orderId);
+
+
+    /**
+     * 查看酒店的所有订单
+     * @param hotelId
+     * @return
+     */
+    List<Order> getHotelOrders(Integer hotelId);
 
 }

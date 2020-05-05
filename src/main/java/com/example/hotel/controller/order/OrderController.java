@@ -1,5 +1,6 @@
 package com.example.hotel.controller.order;
 
+import com.example.hotel.bl.hotel.HotelService;
 import com.example.hotel.bl.order.OrderService;
 import com.example.hotel.vo.OrderVO;
 import com.example.hotel.vo.ResponseVO;
@@ -18,6 +19,8 @@ public class OrderController {
 
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private HotelService hotelService;
 
     @PostMapping("/addOrder")
     public ResponseVO reserveHotel(@RequestBody OrderVO orderVO){
@@ -39,5 +42,9 @@ public class OrderController {
         return orderService.annulOrder(orderid);
     }
 
+    @GetMapping("/{hotelId}/allOrders")
+    public ResponseVO retrieveHotelOrders(@PathVariable Integer hotelId) {
+        return ResponseVO.buildSuccess(orderService.getHotelOrders(hotelId));
+    }
 
 }

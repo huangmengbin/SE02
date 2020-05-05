@@ -2,8 +2,7 @@ package com.example.hotel.blImpl.coupon;
 
 import com.example.hotel.bl.coupon.CouponMatchStrategy;
 import com.example.hotel.po.Coupon;
-import com.example.hotel.vo.CouponVO;
-import com.example.hotel.vo.HotelTargetMoneyCouponVO;
+import com.example.hotel.util.CouponType;
 import com.example.hotel.vo.OrderVO;
 import org.springframework.stereotype.Service;
 
@@ -18,12 +17,10 @@ public class TargetMoneyCouponStrategyImpl implements CouponMatchStrategy {
      * @return
      */
     @Override
+    @CouponType(CouponType.TargetMoneyCouponStrategy)
     public boolean isMatch(OrderVO orderVO, Coupon coupon) {
 
-        if (coupon.getCouponType() == 3 && orderVO.getPrice() >= coupon.getTargetMoney()) {
-            return true;
-        }
+        return orderVO.getPrice() >= coupon.getTargetMoney();
 
-        return false;
     }
 }

@@ -102,7 +102,7 @@ const hotelManager = {
         },
         addRoom: async({ state, dispatch, commit }) => {
             const res = await addRoomAPI(state.addRoomParams)
-            if(res){
+            if(res===null){
                 commit('set_addRoomModalVisible', false)
                 commit('set_addRoomParams', {
                     roomType: '',
@@ -110,24 +110,28 @@ const hotelManager = {
                     price: '',
                     total: 0,
                     curNum: 0,
-                })
+                });
                 message.success('添加成功')
             }else{
                 message.error('添加失败')
             }
         },
         getHotelCoupon: async({ state, commit }) => {
-            const res = await hotelAllCouponsAPI(state.activeHotelId)
+            const res = await hotelAllCouponsAPI(state.activeHotelId);
             if(res) {
                 // 获取到酒店策略之后的操作（将获取到的数组赋值给couponList）
+                commit('set_couponList',res);
+                //commit 又是什么手法法啊，草
             }
         },
         addHotelCoupon: async({ commit, dispatch }, data) => {
-            const res = await hotelTargetMoneyAPI(data)
+            const res = await hotelTargetMoneyAPI(data);
             if(res){
-                // 添加成功后的操作（提示文案、modal框显示与关闭，调用优惠列表策略等）
+                // 添加成功后的操作（提示文案、modal框显示与关闭，调用优惠列表策略等）？
+                message.success("添加成功");
             }else{
                 // 添加失败后的操作
+                message.error("添加失败");
             }
         }
     }

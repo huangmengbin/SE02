@@ -1,6 +1,6 @@
 package com.example.hotel.vo;
 
-public class CouponVO {
+public abstract class CouponVO {
     private Integer id;
     private String description;
     private Integer status;

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @Author: chenyizong
@@ -24,6 +25,7 @@ import java.util.List;
 public class OrderServiceImpl implements OrderService {
     private final static String RESERVE_ERROR = "预订失败";
     private final static String ROOMNUM_LACK = "预订房间数量剩余不足";
+    private final static String ANNUl_ERROR = "删除订单失败";
     @Autowired
     OrderMapper orderMapper;
     @Autowired
@@ -64,14 +66,33 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> getUserOrders(int userid) {
-        return orderMapper.getUserOrders(userid);
+    public List<Order> getUserOrders(int userId) {
+        return orderMapper.getUserOrders(userId);
     }
 
     @Override
-    public ResponseVO annulOrder(int orderid) {
-        //取消订单逻辑的具体实现（注意可能有和别的业务类之间的交互）
-
+    public ResponseVO annulOrder(int orderId) {
+        // 取消订单逻辑的具体实现（注意可能有和别的业务类之间的交互）
+        SimpleDateFormat sf = new SimpleDateFormat();
+       //有时间再处理时间吧
+        try{
+            Order order=orderMapper.getOrderById(orderId);
+            orderMapper.annulOrder(orderId);
+            hotelService.updateRoomInfo(order.getHotelId(),order.getRoomType(),-order.getRoomNum());
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            return ResponseVO.buildFailure(ANNUl_ERROR);
+        }
         return ResponseVO.buildSuccess(true);
+    }
+
+    /**
+     * @param hotelId
+     * @return
+     */
+    @Override
+    public List<Order> getHotelOrders(Integer hotelId) {
+        List<Order> orders = this.getAllOrders();
+        return orders.stream().filter(order -> order.getHotelId().equals(hotelId)).collect(Collectors.toList());
     }
 }

@@ -18,7 +18,8 @@ public class Coupon {
     private Integer hotelId;
 
     /**
-     * 优惠券类型 1生日特惠 2多间特惠 3满减优惠 4限时优惠
+     * 优惠券类型 1生日特惠 2多间特惠 3满减优惠 4限时优惠 ？
+     * 规则好多，前后端很难协调哎
      */
     private Integer couponType;
     /**

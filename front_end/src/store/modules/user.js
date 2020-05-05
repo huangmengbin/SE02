@@ -61,19 +61,20 @@ const user = {
 
     actions: {
         login: async ({ dispatch, commit }, userData) => {
-            const res = await loginAPI(userData)
+            const res = await loginAPI(userData);
             if(res){
-                setToken(res.id)
-                commit('set_userId', res.id)
-                dispatch('getUserInfo')
+                setToken(res.id);
+                commit('set_userId', res.id);
+                dispatch('getUserInfo');
                 router.push('/hotel/hotelList')
             }
         },
         register: async({ commit }, data) => {
             const res = await registerAPI(data)
-            if(res){
+            if(res===null){
                 message.success('注册成功')
             }
+            return res;
         },
         getUserInfo({ state, commit }) {
             return new Promise((resolve, reject) => {

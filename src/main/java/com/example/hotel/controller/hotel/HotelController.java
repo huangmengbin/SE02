@@ -34,7 +34,7 @@ public class HotelController {
     @PostMapping("/roomInfo")
     public ResponseVO addRoomInfo(@RequestBody HotelRoom hotelRoom) {
         roomService.insertRoomInfo(hotelRoom);
-        return ResponseVO.buildSuccess();
+        return ResponseVO.buildSuccess();//相当于return ResponseVO.buildSuccess(null);
     }
 
     @GetMapping("/{hotelId}/detail")
@@ -42,9 +42,5 @@ public class HotelController {
         return ResponseVO.buildSuccess(hotelService.retrieveHotelDetails(hotelId));
     }
 
-    @GetMapping("/{hotelId}/allOrders")
-    public ResponseVO retrieveHotelOrders(@PathVariable Integer hotelId) {
-        return ResponseVO.buildSuccess(hotelService.getHotelOrders(hotelId));
-    }
 
 }

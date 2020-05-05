@@ -36,9 +36,9 @@
                         <span>￥{{ text }}</span>
                     </span>
                     <span slot="roomType" slot-scope="text">
-                        <span v-if="text == 'BigBed'">大床房</span>
-                        <span v-if="text == 'DoubleBed'">双床房</span>
-                        <span v-if="text == 'Family'">家庭房</span>
+                        <span v-if="text === 'BigBed'">大床房</span>
+                        <span v-if="text === 'DoubleBed'">双床房</span>
+                        <span v-if="text === 'Family'">家庭房</span>
                     </span>
                     <span slot="action" slot-scope="record">
                         <a-button type="primary" size="small">订单详情</a-button>
@@ -68,7 +68,7 @@ import AddRoomModal from './components/addRoomModal'
 import Coupon from './components/coupon'
 const moment = require('moment')
 const columns1 = [
-    {  
+    {
         title: '酒店名',
         dataIndex: 'name',
     },
@@ -188,7 +188,7 @@ export default {
         showCoupon(record) {
             this.set_activeHotelId(record.id)
             this.set_couponVisible(true)
-            this.getHotelCoupon()
+            this.getHotelCoupon(this);
         },
         deleteHotel(){
 
