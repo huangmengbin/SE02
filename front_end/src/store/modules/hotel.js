@@ -3,13 +3,13 @@ import store from '@/store'
 import {
     getHotelsAPI,
     getHotelByIdAPI
-} from '@/api/hotel'
+} from '../../api/hotel'
 import {
     reserveHotelAPI
-} from '@/api/order'
+} from '../../api/order'
 import {
     orderMatchCouponsAPI,
-} from '@/api/coupon'
+} from '../../api/coupon'
 
 const hotel = {
     state: {

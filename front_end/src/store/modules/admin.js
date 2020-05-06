@@ -1,7 +1,7 @@
 import {
     getManagerListAPI,
     addManagerAPI,
-} from '@/api/admin'
+} from '../../api/admin'
 import { message } from 'ant-design-vue'
 
 const admin = {

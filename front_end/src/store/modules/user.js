@@ -1,19 +1,19 @@
 import Vue from 'vue'
-import router from '@/router'
-import { getToken, setToken, removeToken } from '@/utils/auth'
-import { resetRouter } from '@/router'
+import router from '../../router'
+import { getToken, setToken, removeToken } from '../../utils/auth'
+import { resetRouter } from '../../router'
 import { message } from 'ant-design-vue'
 import {
     loginAPI,
     registerAPI,
     getUserInfoAPI,
     updateUserInfoAPI,
-} from '@/api/user'
+} from '../../api/user'
 
 import {
     getUserOrdersAPI,
     cancelOrderAPI,
-} from '@/api/order'
+} from '../../api/order'
 
 const getDefaultState = () => {
     return {
@@ -35,7 +35,7 @@ const user = {
             state.token = '',
             state.userId = '',
             state.userInfo = {
-                
+
             },
             state.userOrderList = []
         },

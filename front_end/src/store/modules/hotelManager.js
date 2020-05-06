@@ -1,14 +1,14 @@
 import {
     addRoomAPI,
     addHotelAPI,
-} from '@/api/hotelManager'
+} from '../../api/hotelManager'
 import {
     getAllOrdersAPI,
-} from '@/api/order'
+} from '../../api/order'
 import {
     hotelAllCouponsAPI,
     hotelTargetMoneyAPI,
-} from '@/api/coupon'
+} from '../../api/coupon'
 import { message } from 'ant-design-vue'
 
 const hotelManager = {
