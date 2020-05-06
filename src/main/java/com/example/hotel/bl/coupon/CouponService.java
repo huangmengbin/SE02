@@ -25,6 +25,13 @@ public interface CouponService {
     List<Coupon> getHotelAllCoupon(Integer hotelId);
 
     /**
+     * 添加酒店多间优惠策略
+     * @param couponVO
+     * @return
+     */
+    CouponVO addHotelTargetRoomCoupon(HotelTargetRoomCouponVO couponVO);
+
+    /**
      * 添加酒店满减优惠策略
      * @param couponVO
      * @return
@@ -32,16 +39,10 @@ public interface CouponService {
     CouponVO addHotelTargetMoneyCoupon(HotelTargetMoneyCouponVO couponVO);
 
     /**
-     * 添加节日优惠策略
+     * 添加限时优惠策略
      * @param couponVO
      * @return
      */
     CouponVO addTimeCoupon(TimeCouponVO couponVO);
 
-    /**
-     * 添加酒店多间优惠策略
-     * @param couponVO
-     * @return
-     */
-    CouponVO addHotelTargetRoomCoupon(HotelTargetRoomCouponVO couponVO);
 }
