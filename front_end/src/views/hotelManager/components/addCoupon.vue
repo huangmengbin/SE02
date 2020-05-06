@@ -18,7 +18,7 @@
                             'couponType',
                     { rules: [{ required: true, message: '宁还没选择优惠券类型' }] }]"
                 >
-                    <a-select-option :value="c.id" v-for="c in couponList" :key="c.id" >{{c.name}}</a-select-option>
+                    <a-select-option v-on:click="clear()" :value="c.id" v-for="c in couponList" :key="c.id" >{{c.name}}</a-select-option>
                 </a-select>
             </a-form-item>
             <a-form-item label="优惠券名称" v-bind="formItemLayout">
@@ -52,7 +52,7 @@
                         placeholder="请输入目标金额"
                         v-decorator="[
                             'targetMoney',
-                    {rules: [{ required: changeType==='3', message: '宁还没输入目标金额/间数' }, { validator: isMoney}], validateTrigger: 'blur'}]"
+                    {rules: [{ required: changeType==='3', message: '宁还没输入目标金额' }, { validator: isMoney}], validateTrigger: 'blur'}]"
                 >
                 </a-input>
             </a-form-item>
@@ -63,7 +63,7 @@
                         placeholder="请输入目标间数"
                         v-decorator="[
                             'targetRoom',/*自己的名字*/
-                    {rules: [{ required: (changeType==='2')/*和上面对应*/, message: '宁还没输入目标金额/间数' }, { validator: isMoney}], validateTrigger: 'blur'}]"
+                    {rules: [{ required: (changeType==='2')/*和上面对应*/, message: '宁还没输入目标金间数' }, { validator: isMoney}], validateTrigger: 'blur'}]"
                 >
                 </a-input>
             </a-form-item>
@@ -86,10 +86,10 @@
                         placeholder="请选择优惠方式"
                         v-decorator="[
                             'discountType',
-                    { rules: [{ required: changeType==='4', message: '宁还没选择优惠方式' }] }]"
+                    { rules: [{ required: changeType==='4', message: '宁还没选择优惠方式喔' }] }]"
                 >
-                    <a-select-option value='1' >折扣</a-select-option>
-                    <a-select-option value='2' >立减</a-select-option>
+                    <a-select-option value='1' :key="discountType">折扣</a-select-option>
+                    <a-select-option value='2' :key="discountType">立减</a-select-option>
                 </a-select>
             </a-form-item>
             <a-form-item v-bind="formItemLayout" label="折扣值" v-show="testDiscount()">
@@ -110,7 +110,7 @@
                         type="text"
                         placeholder="请输入立减金额"
                         v-decorator="[
-                            'targetMoney',
+                            'subMoney',
                     {rules: [{ required: discountType==='2', message: '宁还没输入折扣' }, { validator: isMoney}], validateTrigger: 'blur'}
                   ]"
                 >
@@ -140,6 +140,7 @@
         data() {
             return {
                 changeType:"",
+                discountType:"",
                 formItemLayout: {
                     labelCol: {
                         xs: { span: 12 },
@@ -248,15 +249,33 @@
                     return false;
             },
 
+            clear(){    //清除已有内容
+                this.form.setFieldsValue({
+                    'couponName': '',
+                    'couponType': '',
+                    'description': '',
+                    'targetMoney': '',
+                    'targetRoom': '',
+                    'discountMoney': '',
+                    'startTime': '',
+                    'endTime': '',
+                    'discountType':'',
+                    'discount':''
+                });
+            },
+
             cancel() {
                 this.set_addCouponVisible(false);
             },
 
             handleSubmit(e) {
                 e.preventDefault();
+                alert(this.changeType);
 
                 this.form.validateFieldsAndScroll((err, values) => {
+                    alert(10*this.changeType);
                     if (!err) {
+                        alert(100*this.changeType);
                         if(this.changeType==='1'){
 
                         }
@@ -267,20 +286,12 @@
                             this.hotelTargetMoney();
                         }
                         else if(this.changeType==='4'){
+                            alert(1000*this.changeType);
                             this.hotelTime();
                         }
 
-                        this.form.setFieldsValue({
-                            'couponName': '',
-                            'couponType': '',
-                            'description': '',
-                            'targetMoney': '',
-                            'targetRoom': '',
-                            'discountMoney': '',
-                            'startTime': '',
-                            'endTime': '',
-                            'discountType':''
-                        });
+                        this.clear();
+
                         this.set_addCouponVisible(false);//设置成不可见
                         this.set_couponVisible(true);
                     }
@@ -317,7 +328,7 @@
                     name: this.form.getFieldValue('couponName'),
                     type: this.form.getFieldValue('couponType'),
                     description: this.form.getFieldValue('description'),
-                    targetMoney: this.form.getFieldValue('targetMoney'),
+                    targetMoney: this.form.getFieldValue('subMoney'),
                     discount: this.form.getFieldValue('discountMoney'),
                     startTime:moment(this.form.getFieldValue('date')[0]).format('YYYY-MM-DD'),
                     endTime:moment(this.form.getFieldValue('date')[1]).format('YYYY-MM-DD'),
