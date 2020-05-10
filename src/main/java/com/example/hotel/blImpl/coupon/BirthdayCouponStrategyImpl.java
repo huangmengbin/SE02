@@ -2,9 +2,10 @@ package com.example.hotel.blImpl.coupon;
 
 import com.example.hotel.bl.coupon.CouponMatchStrategy;
 import com.example.hotel.po.Coupon;
-import com.example.hotel.util.CouponType;
+import com.example.hotel.util.CouponMatchStrategyService;
 import com.example.hotel.vo.OrderVO;
 
+@CouponMatchStrategyService(CouponMatchStrategyService.BirthdayCouponStrategy)
 public class BirthdayCouponStrategyImpl implements CouponMatchStrategy {
 
     /**
@@ -14,11 +15,10 @@ public class BirthdayCouponStrategyImpl implements CouponMatchStrategy {
      */
 
     @Override
-    @CouponType(CouponType.BirthdayCouponStrategy)
     public boolean isMatch(OrderVO orderVO, Coupon coupon) {
         if(coupon.getEndTime()!=null){
             //todo lz
         }
-        return false;
+        return true;
     }
 }

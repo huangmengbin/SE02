@@ -48,6 +48,7 @@
             <artifactId>nekohtml</artifactId>
             <version>1.9.18</version>
         </dependency>
+        <!--热部署能力，这是助教配的，-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>

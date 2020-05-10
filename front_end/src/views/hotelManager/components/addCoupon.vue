@@ -195,7 +195,7 @@
                 // addHotelCoupon：添加酒店策略接口
                 'addHotelCoupon'
             ]),
-            isMoney(rule, value, callback) {
+            isMoney(rule, value, callback) {//is正整数
                 const regex = /^\+?[1-9][0-9]*$/;
                 if (value === undefined || value === "") {
                     callback()
@@ -270,12 +270,12 @@
 
             handleSubmit(e) {
                 e.preventDefault();
-                alert(this.changeType);
 
                 this.form.validateFieldsAndScroll((err, values) => {
-                    alert(10*this.changeType);
+                    console.log(err);
+                    console.log(this.discountType);
+                    console.log(this.form.getFieldValue('subMoney'));
                     if (!err) {
-                        alert(100*this.changeType);
                         if(this.changeType==='1'){
 
                         }
