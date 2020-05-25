@@ -6,7 +6,7 @@
 3. 自行完成相关单元测试和Web功能测试，提交测试报告。
 
 ## 第一次讨论
-### 1.discount  discountMoney  0代表无
-### 2.合并添加coupon  4个地方 
-### 3.isMatch  热部署
-### 4.
+### 1.discount  discountMoney  0代表无  zjc  统一成：折扣还是立减
+### 2.合并添加coupon 从couponController开始  合并接口  4个地方  lz vo可能也要改改
+### 3.isMatch  热部署 finished
+### 4.dxw 修复那个 时间要具体一点啊 时分秒 6小时内取消 扣信用分
