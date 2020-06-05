@@ -110,7 +110,7 @@ public class OrderServiceImpl implements OrderService {
         String latestTime=order.getCheckInDate()+" 08:00:00";
         try{
             int result=curTime.compareTo(sf.parse(latestTime));
-            return result<0;
+            return result>0;
         }catch(ParseException e){
             e.printStackTrace();
         }
