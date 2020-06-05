@@ -38,5 +38,11 @@ public interface AccountMapper {
      */
      int updateAccount(@Param("id") int id, @Param("password") String password,@Param("userName") String username, @Param("phoneNumber") String phonenumber);
 
-
+    /**
+     * 更新用户信用值
+     * @param id
+     * @param credit
+     * @return
+     */
+    void updateCredit(@Param("id")int id, @Param("credit")double credit);
 }

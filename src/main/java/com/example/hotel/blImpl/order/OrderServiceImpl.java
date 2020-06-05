@@ -12,6 +12,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -72,12 +73,17 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public ResponseVO annulOrder(int orderId) {
-        // 取消订单逻辑的具体实现（注意可能有和别的业务类之间的交互）
-        SimpleDateFormat sf = new SimpleDateFormat();
-       //有时间再处理时间吧
+        // 取消订单逻辑的具体实现（注意可能有和别的业务类之间的交互
         try{
             Order order=orderMapper.getOrderById(orderId);
+            if(order.getOrderState().equals("已撤销"))
+                return ResponseVO.buildFailure(ANNUl_ERROR);
             orderMapper.annulOrder(orderId);
+            if(isRevocable(order)){
+                User user = accountService.getUserInfo(order.getUserId());
+                user.setCredit(user.getCredit()-order.getPrice()/2);
+                accountService.updateCredit(order.getUserId(),user.getCredit()-order.getPrice()/2);
+            }
             hotelService.updateRoomInfo(order.getHotelId(),order.getRoomType(),-order.getRoomNum());
         }catch(Exception e){
             System.out.println(e.getMessage());
@@ -94,5 +100,20 @@ public class OrderServiceImpl implements OrderService {
     public List<Order> getHotelOrders(Integer hotelId) {
         List<Order> orders = this.getAllOrders();
         return orders.stream().filter(order -> order.getHotelId().equals(hotelId)).collect(Collectors.toList());
+    }
+
+
+    private boolean isRevocable(Order order){
+
+        SimpleDateFormat sf=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        Date curTime = new Date(System.currentTimeMillis());
+        String latestTime=order.getCheckInDate()+" 08:00:00";
+        try{
+            int result=curTime.compareTo(sf.parse(latestTime));
+            return result<0;
+        }catch(ParseException e){
+            e.printStackTrace();
+        }
+        return false;
     }
 }

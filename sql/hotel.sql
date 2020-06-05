@@ -158,6 +158,7 @@ CREATE TABLE `User` (
   `phonenumber` varchar(255) DEFAULT NULL,
   `credit` double(255,0) DEFAULT NULL,
   `usertype` varchar(255) DEFAULT NULL,
+  `birthday` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -168,7 +169,7 @@ CREATE TABLE `User` (
 
 BEGIN;
 /*!40000 ALTER TABLE `User` DISABLE KEYS */;
-INSERT INTO `User` VALUES (3,'2636221659@qq.com','67is666','ddxw','+86 188...',100,'Manager'),(4,'1012681@qq.com','123456','测试一号','12345678919',100,'Client'),(5,'123@qq.com','123456','测试二号','12345678911',100,'Client'),(6,'333@qq.com','123456',NULL,NULL,NULL,'HotelManager');
+INSERT INTO `User` VALUES (3,'2636221659@qq.com','67is666','ddxw','+86 188...',100,'Manager','1999/05/20'),(4,'1012681@qq.com','123456','测试一号','12345678919',100,'Client','1993/05/20'),(5,'123@qq.com','123456','测试二号','12345678911',100,'Client','1999/09/20'),(6,'333@qq.com','123456',NULL,NULL,NULL,'HotelManager','1967/06/07');
 /*!40000 ALTER TABLE `User` ENABLE KEYS */;
 COMMIT;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

@@ -41,4 +41,12 @@ public interface AccountService {
     ResponseVO updateUserInfo(int id, String password,String username,String phonenumber);
 
 
+    /**
+     * 更新用户信用值
+     * @param id
+     * @param credit
+     * @return
+     */
+    ResponseVO updateCredit(int id, double credit);
+
 }
