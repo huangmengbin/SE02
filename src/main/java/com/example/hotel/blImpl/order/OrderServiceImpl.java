@@ -79,7 +79,7 @@ public class OrderServiceImpl implements OrderService {
             if(order.getOrderState().equals("已撤销"))
                 return ResponseVO.buildFailure(ANNUl_ERROR);
             orderMapper.annulOrder(orderId);
-            if(isRevocable(order)){
+            if(notRevocable(order)){
                 User user = accountService.getUserInfo(order.getUserId());
                 user.setCredit(user.getCredit()-order.getPrice()/2);
                 accountService.updateCredit(order.getUserId(),user.getCredit()-order.getPrice()/2);
@@ -103,7 +103,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
 
-    private boolean isRevocable(Order order){
+    private boolean notRevocable(Order order){
 
         SimpleDateFormat sf=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         Date curTime = new Date(System.currentTimeMillis());
