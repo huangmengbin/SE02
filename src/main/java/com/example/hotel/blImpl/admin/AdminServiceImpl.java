@@ -1,11 +1,13 @@
 package com.example.hotel.blImpl.admin;
 
 import com.example.hotel.bl.admin.AdminService;
+import com.example.hotel.bl.user.AccountService;
 import com.example.hotel.data.admin.AdminMapper;
 import com.example.hotel.enums.UserType;
 import com.example.hotel.po.User;
 import com.example.hotel.vo.ResponseVO;
 import com.example.hotel.vo.UserForm;
+import com.example.hotel.vo.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,9 @@ public class AdminServiceImpl implements AdminService {
     private final static String ACCOUNT_EXIST = "账号已存在";
     @Autowired
     AdminMapper adminMapper;
+    @Autowired
+    AccountService accountService;
+
     @Override
     public ResponseVO addManager(UserForm userForm) {
         User user = new User();
@@ -38,5 +43,10 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public List<User> getAllManagers() {
         return adminMapper.getAllManagers();
+    }
+
+    @Override
+    public ResponseVO deleteManager(UserVO userVO) {
+        return accountService.deleteUser(userVO.getId());
     }
 }

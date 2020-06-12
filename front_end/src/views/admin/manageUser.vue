@@ -14,8 +14,16 @@
                         <span>￥{{ text }}</span>
                     </span>
                     <span slot="action" slot-scope="text, record">
-                        <a-button type="danger" @click="order(record)">删除用户</a-button>
+                        <a-popconfirm
+                                title="确定想删除该员工吗？"
+                                @confirm="delUser(record)"
+                                okText="确定"
+                                cancelText="取消"
+                        >
+                            <a-button type="danger" >删除员工</a-button>
+                        </a-popconfirm>
                     </span>
+
                 </a-table>
             </a-tab-pane>
         </a-tabs>
@@ -53,7 +61,7 @@ const columns = [
     },
   ];
 export default {
-    name: 'manageHotel',
+    name: 'manageUser',
     data(){
         return {
             formLayout: 'horizontal',
@@ -77,13 +85,17 @@ export default {
     },
     methods: {
         ...mapActions([
-            'getManagerList'
+            'getManagerList',
+            'deleteUser'
         ]),
         ...mapMutations([
-            'set_addManagerModalVisible'
+            'set_addManagerModalVisible',
         ]),
         addManager(){
             this.set_addManagerModalVisible(true)
+        },
+        delUser(record){
+            this.deleteUser(record);
         }
     }
 }

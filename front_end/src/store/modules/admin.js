@@ -1,6 +1,7 @@
 import {
     getManagerListAPI,
     addManagerAPI,
+    deleteUserAPI,
 } from '../../api/admin'
 import { message } from 'ant-design-vue'
 
@@ -27,7 +28,7 @@ const admin = {
                 ...state.addManagerParams,
                 ...data,
             }
-        }
+        },
     },
     actions: {
         getManagerList: async({ commit }) => {
@@ -42,12 +43,19 @@ const admin = {
                 commit('set_addManagerParams',{
                     email:'',
                     password:''
-                })
+                });
                 commit('set_addManagerModalVisible', false)
                 message.success('添加成功')
                 dispatch('getManagerList')
             }else{
                 message.error('添加失败')
+            }
+        },
+        deleteUser: async ({state, commit, dispatch}, data)=> {
+            const res = await deleteUserAPI(data);
+            if(res){
+                message.success('删除成功');
+                dispatch('getManagerList');
             }
         }
     }

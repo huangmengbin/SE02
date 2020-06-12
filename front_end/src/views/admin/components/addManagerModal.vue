@@ -12,7 +12,7 @@
                 <a-input
                     v-decorator="[
                         'email',
-                        { rules: [{required: true, message: '请输入用户邮箱', }] }
+                        { rules: [{ required: true, type: 'email', message: '请输入邮箱' }] }
                     ]"
                 />
             </a-form-item>

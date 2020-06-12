@@ -32,6 +32,17 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    public ResponseVO deleteUser(int userID) {
+        try{
+            accountMapper.deleteAccount(userID);
+            return ResponseVO.buildSuccess(true);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return ResponseVO.buildFailure("删除失败");
+        }
+    }
+
+    @Override
     public User login(UserForm userForm) {
         User user = accountMapper.getAccountByName(userForm.getEmail());
         if (null == user || !user.getPassword().equals(userForm.getPassword())) {

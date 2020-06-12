@@ -20,6 +20,10 @@
         where id=#{id}
     </update>
 
+    <delete id="deleteAccount">
+        delete from User where id=#{id}
+    </delete>
+
     <update id="updateCredit">
         update User set credit=#{credit}
         where id=#{id}

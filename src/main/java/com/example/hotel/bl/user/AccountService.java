@@ -17,6 +17,14 @@ public interface AccountService {
     ResponseVO registerAccount(UserVO userVO);
 
     /**
+     * 删除账号
+     *
+     * @return
+     */
+    ResponseVO deleteUser(int userID);
+
+
+    /**
      * 用户登录，登录成功会将用户信息保存再session中
      *
      * @return
