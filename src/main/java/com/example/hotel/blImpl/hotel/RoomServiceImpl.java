@@ -24,14 +24,10 @@ public class RoomServiceImpl implements RoomService {
         roomMapper.insertRoom(hotelRoom);
     }
 
-    @Override
-    public void updateRoomInfo(Integer hotelId, String roomType, Integer rooms) {
-        roomMapper.updateRoomInfo(hotelId,roomType,rooms);
-    }
 
     @Override
-    public int getRoomCurNum(Integer hotelId, String roomType) {
-        return roomMapper.getRoomCurNum(hotelId,roomType);
+    public int getRoomTotalNum(Integer hotelId, String roomType) {
+        return roomMapper.getRoomTotalNum(hotelId,roomType);
     }
 
 

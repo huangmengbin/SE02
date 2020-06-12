@@ -5,17 +5,13 @@ import com.example.hotel.bl.hotel.RoomService;
 import com.example.hotel.bl.order.OrderService;
 import com.example.hotel.bl.user.AccountService;
 import com.example.hotel.data.hotel.HotelMapper;
-import com.example.hotel.data.hotel.RoomMapper;
-import com.example.hotel.data.user.AccountMapper;
 import com.example.hotel.enums.BizRegion;
 import com.example.hotel.enums.HotelStar;
 import com.example.hotel.enums.UserType;
 import com.example.hotel.po.Hotel;
 import com.example.hotel.po.HotelRoom;
-import com.example.hotel.po.Order;
 import com.example.hotel.po.User;
 import com.example.hotel.util.ServiceException;
-import com.example.hotel.vo.CouponVO;
 import com.example.hotel.vo.HotelVO;
 import com.example.hotel.vo.RoomVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,9 +28,6 @@ public class HotelServiceImpl implements HotelService {
 
     @Autowired
     private AccountService accountService;
-
-    @Autowired
-    private OrderService orderService;
 
     @Autowired
     private RoomService roomService;
@@ -57,14 +50,10 @@ public class HotelServiceImpl implements HotelService {
         hotelMapper.insertHotel(hotel);
     }
 
-    @Override
-    public void updateRoomInfo(Integer hotelId, String roomType, Integer rooms) {
-        roomService.updateRoomInfo(hotelId,roomType,rooms);
-    }
 
     @Override
-    public int getRoomCurNum(Integer hotelId, String roomType) {
-        return roomService.getRoomCurNum(hotelId,roomType);
+    public int getRoomTotalNum(Integer hotelId, String roomType) {
+        return roomService.getRoomTotalNum(hotelId,roomType);
     }
 
     @Override

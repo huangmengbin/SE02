@@ -36,9 +36,11 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public ResponseVO addOrder(OrderVO orderVO) {
-        int reserveRoomNum = orderVO.getRoomNum();
-        int curNum = hotelService.getRoomCurNum(orderVO.getHotelId(),orderVO.getRoomType());
-        if(reserveRoomNum>curNum){
+        int reserveRoomNum = orderVO.getRoomNum();//需要的数量
+        int totalNum = hotelService.getRoomTotalNum(orderVO.getHotelId(),orderVO.getRoomType());//该酒店，这种房间的总数量
+        int usedNum = this.getUsedNum(orderVO);
+        int validNum = totalNum - usedNum;
+        if(reserveRoomNum > validNum){
             return ResponseVO.buildFailure(ROOMNUM_LACK);
         }
         try {
@@ -53,7 +55,7 @@ public class OrderServiceImpl implements OrderService {
             Order order = new Order();
             BeanUtils.copyProperties(orderVO,order);
             orderMapper.addOrder(order);
-            hotelService.updateRoomInfo(orderVO.getHotelId(),orderVO.getRoomType(),orderVO.getRoomNum());
+            //hotelService.updateRoomInfo(orderVO.getHotelId(),orderVO.getRoomType(),orderVO.getRoomNum());
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseVO.buildFailure(RESERVE_ERROR);
@@ -84,7 +86,7 @@ public class OrderServiceImpl implements OrderService {
                 user.setCredit(user.getCredit()-order.getPrice()/2);
                 accountService.updateCredit(order.getUserId(),user.getCredit()-order.getPrice()/2);
             }
-            hotelService.updateRoomInfo(order.getHotelId(),order.getRoomType(),-order.getRoomNum());
+            //hotelService.updateRoomInfo(order.getHotelId(),order.getRoomType(),-order.getRoomNum());
         }catch(Exception e){
             System.out.println(e.getMessage());
             return ResponseVO.buildFailure(ANNUl_ERROR);
@@ -115,5 +117,34 @@ public class OrderServiceImpl implements OrderService {
             e.printStackTrace();
         }
         return false;
+    }
+
+    private int getUsedNum(OrderVO orderVO){
+        List<Order> orderList = this.getAllOrders().stream().
+                filter(o -> o.getHotelId().equals(orderVO.getHotelId())).
+                filter(o -> o.getRoomType().equals(orderVO.getRoomType())).
+                filter(o -> o.getOrderState().equals("已预订")).collect(Collectors.toList());
+
+        SimpleDateFormat sf=new SimpleDateFormat("yyyy-MM-dd");
+        final long oneDay = 1000 * 60 * 60 * 24L;
+        try {
+            long checkInDate = sf.parse(orderVO.getCheckInDate()).getTime();
+            long checkOutDate = sf.parse(orderVO.getCheckOutDate()).getTime();
+            int result = 0;
+            for(long date = checkInDate; date < checkOutDate; date += oneDay ){
+                int tmp = 0;
+                for(Order o : orderList){
+                    if(sf.parse(o.getCheckInDate()).getTime() <= date && date < sf.parse(o.getCheckOutDate()).getTime()){
+                        tmp += o.getRoomNum();
+                    }
+                }
+                result = Math.max(result, tmp);
+            }
+            return result;
+        }
+        catch (ParseException e){
+            e.printStackTrace();
+            return Integer.MAX_VALUE;
+        }
     }
 }

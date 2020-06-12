@@ -1,9 +1,9 @@
 <template>
     <div class="manageUser-wrapper">
         <a-tabs>
-            <a-tab-pane tab="账户管理" key="1">
+            <a-tab-pane tab="员工管理" key="1">
                 <div style="width: 100%; text-align: right; margin:20px 0">
-                    <a-button type="primary" @click="addManager"><a-icon type="plus" />添加用户</a-button>
+                    <a-button type="primary" @click="addManager"><a-icon type="plus" />添加员工</a-button>
                 </div>
                 <a-table
                     :columns="columns"
@@ -25,6 +25,9 @@
                     </span>
 
                 </a-table>
+            </a-tab-pane>
+            <a-tab-pane tab="客户管理" key="2">
+
             </a-tab-pane>
         </a-tabs>
         <AddManagerModal></AddManagerModal>
