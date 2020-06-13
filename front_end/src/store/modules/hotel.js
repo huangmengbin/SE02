@@ -76,6 +76,7 @@ const hotel = {
                 commit('set_hotelList', res)
                 commit('set_hotelListLoading', false)
             }
+            return res;
         },
         getHotelById: async({commit, state}) => {
             const res = await getHotelByIdAPI({

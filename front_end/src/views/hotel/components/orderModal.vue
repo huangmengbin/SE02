@@ -231,7 +231,7 @@ export default {
                         userId: Number(this.userId),
                         checkInDate: moment(this.form.getFieldValue('date')[0]).format('YYYY-MM-DD'),
                         checkOutDate: moment(this.form.getFieldValue('date')[1]).format('YYYY-MM-DD'),
-                        roomType: this.currentOrderRoom.roomType == '大床房' ? 'BigBed' : this.currentOrderRoom.roomType == '双床房' ? 'DoubleBed' : 'Family',
+                        roomType: this.currentOrderRoom.roomType === '大床房' ? 'BigBed' : this.currentOrderRoom.roomType === '双床房' ? 'DoubleBed' : 'Family',
                         roomNum: this.form.getFieldValue('roomNum'),
                         peopleNum: this.form.getFieldValue('peopleNum'),
                         haveChild: this.form.getFieldValue('haveChild'),

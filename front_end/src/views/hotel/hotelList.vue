@@ -1,14 +1,24 @@
 <template>
   <div class="hotelList">
-      <a-textarea></a-textarea>
+      <div>
+          <a-input
+                  size="large"
+                  v-model="searchNames"
+                  type="search"
+                  placeholder="根据酒店名搜索"
+                  v-decorator="[
+                {validateTrigger: 'blur'}]">
+              <a-icon slot="prefix" type="lock" :style="{ color: 'rgba(0,0,0,.25)' }"/>
+          </a-input>
+      </div>
     <a-layout>
         <a-layout-content style="min-width: 800px">
           <a-spin :spinning="hotelListLoading">
             <div class="card-wrapper">
-                <HotelCard :hotel="item" v-for="item in hotelList" :key="item.index" @click.native="jumpToDetails(item.id)"></HotelCard>
+                <HotelCard :hotel="item" v-for="item in currentHotelList" :key="item.index" @click.native="jumpToDetails(item.id)"></HotelCard>
                 <div v-for="item in emptyBox" :key="item.name" class="emptyBox ant-col-xs-7 ant-col-lg-5 ant-col-xxl-3">
                 </div>
-                <a-pagination showQuickJumper :total="hotelList.totalElements" :defaultCurrent="1" @change="pageChange"></a-pagination>
+                <!--<a-pagination showQuickJumper :total="hotelList.totalElements" :defaultCurrent="1" @change="pageChange"></a-pagination>a-pagination-->
             </div>
           </a-spin>
       </a-layout-content>
@@ -26,17 +36,43 @@ export default {
   },
   data(){
     return{
-      emptyBox: [{ name: 'box1' }, { name: 'box2'}, {name: 'box3'}]
+      emptyBox: [{ name: 'box1' }, { name: 'box2'}, {name: 'box3'}],
+        searchNames:"",
     }
   },
   async mounted() {
-    await this.getHotelList()
+    await this.getHotelList().then(response=>{
+        //hotelList是加载下来所有的酒店，currentHotelList是处理后的，比如排序、筛选；最后才分页（可选
+        this.currentHotelList=[...response];
+        this.currentHotelList.reverse();
+        //console.log(this.currentHotelList);//
+    })
+
   },
   computed: {
     ...mapGetters([
       'hotelList',
       'hotelListLoading'
-    ])
+    ]),
+      currentHotelList(){
+        let {hotelList, searchNames} = this;
+        let res = [...hotelList];
+
+          if(searchNames.trim()){
+              let words = searchNames.trim().split(/\s+/);
+              res = res.filter(hotel => {
+                  for(let word of words){
+                      if(hotel.name.indexOf(word) === -1){
+                          return false;
+                      }
+                  }
+                  return true;
+              })
+          }
+
+
+        return res;
+      }
   },
   methods: {
     ...mapMutations([
@@ -48,6 +84,8 @@ export default {
     ]),
 
     pageChange(page, pageSize) {
+       alert('居然可以翻页了?');
+       console.log(this);
       const data = {
         pageNo: page - 1
       };
