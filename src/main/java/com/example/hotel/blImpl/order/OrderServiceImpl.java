@@ -25,7 +25,9 @@ import java.util.stream.Collectors;
 @Service
 public class OrderServiceImpl implements OrderService {
     private final static String RESERVE_ERROR = "预订失败";
-    private final static String ROOMNUM_LACK = "预订房间数量剩余不足";
+    private final static String DATE_ERROR = "宁怎么能预订今天之前的房间???";
+    private final static String CREDIT_LACK = "宁的信用分不够了,赶紧充钱吧";
+    private final static String ROOM_NUMBER_LACK = "预订房间数量剩余不足";
     private final static String ANNUl_ERROR = "删除订单失败";
     @Autowired
     OrderMapper orderMapper;
@@ -36,17 +38,23 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public ResponseVO addOrder(OrderVO orderVO) {
+        if(accountService.getUserInfo(orderVO.getUserId()).getCredit()<=0){
+            return ResponseVO.buildFailure(CREDIT_LACK);
+        }
         int reserveRoomNum = orderVO.getRoomNum();//需要的数量
         int totalNum = hotelService.getRoomTotalNum(orderVO.getHotelId(),orderVO.getRoomType());//该酒店，这种房间的总数量
         int usedNum = this.getUsedNum(orderVO);
         int validNum = totalNum - usedNum;
         if(reserveRoomNum > validNum){
-            return ResponseVO.buildFailure(ROOMNUM_LACK);
+            return ResponseVO.buildFailure(ROOM_NUMBER_LACK);
         }
         try {
             SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
             Date date = new Date(System.currentTimeMillis());
             String curdate = sf.format(date);
+            if(curdate.compareTo(orderVO.getCheckInDate())>0){
+                return ResponseVO.buildFailure(DATE_ERROR);
+            }
             orderVO.setCreateDate(curdate);
             orderVO.setOrderState("已预订");
             User user = accountService.getUserInfo(orderVO.getUserId());

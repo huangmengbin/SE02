@@ -1,5 +1,6 @@
 <template>
   <div class="hotelList">
+      <a-textarea></a-textarea>
     <a-layout>
         <a-layout-content style="min-width: 800px">
           <a-spin :spinning="hotelListLoading">
@@ -49,7 +50,7 @@ export default {
     pageChange(page, pageSize) {
       const data = {
         pageNo: page - 1
-      }
+      };
       this.set_hotelListParams(data)
       this.set_hotelListLoading(true)
       this.getHotelList()

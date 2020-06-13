@@ -41,7 +41,7 @@
                         <span v-if="text === 'Family'">家庭房</span>
                     </span>
                     <span slot="action" slot-scope="record">
-                        <a-button type="primary" size="small">订单详情</a-button>
+                        <a-button type="primary" size="small" @click="showOrder(record)">订单详情</a-button>
                         <a-divider type="vertical"></a-divider>
                         <a-popconfirm
                             title="确定想删除该订单吗？"
@@ -178,7 +178,7 @@ export default {
             'getAllOrders',
             'getHotelCoupon'
         ]),
-        addHotel() {
+        addHotel() {//没有改后端的
             this.set_addHotelModalVisible(true)
         },
         addRoom(record) {
@@ -189,6 +189,9 @@ export default {
             this.set_activeHotelId(record.id)
             this.set_couponVisible(true)
             this.getHotelCoupon(this);
+        },
+        showOrder(record){
+            alert('不是已经够详细了吗');
         },
         deleteHotel(){
 

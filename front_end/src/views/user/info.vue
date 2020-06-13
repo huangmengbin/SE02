@@ -66,7 +66,7 @@
                         {{ text }}
                     </a-tag>
                     <span slot="action" slot-scope="record">
-                        <a-button type="primary" size="small">查看</a-button>
+                        <a-button type="primary" size="small" @click="showOrder(record)">查看</a-button>
                         <a-divider type="vertical" v-if="record.orderState === '已预订'"></a-divider>
                         <a-popconfirm
                             title="你确定撤销该笔订单吗？"
@@ -172,7 +172,7 @@ export default {
                         userName: this.form.getFieldValue('userName'),
                         phoneNumber: this.form.getFieldValue('phoneNumber'),
                         password: this.form.getFieldValue('password')
-                    }
+                    };
                     this.updateUserInfo(data).then(()=>{
                         this.modify = false
                     })
@@ -196,8 +196,10 @@ export default {
         },
         cancelCancelOrder() {
 
-        }
-        
+        },
+        showOrder(record){
+            alert('不是已经够详细了吗');
+        },
     }
 }
 </script>
