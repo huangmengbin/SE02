@@ -10,6 +10,10 @@
                 {validateTrigger: 'blur'}]">
               <a-icon slot="prefix" type="lock" :style="{ color: 'rgba(0,0,0,.25)' }"/>
           </a-input>
+          <!--这里试试 把hmb的挤掉 -->
+      </div>
+      <div>
+          <!--todo lz zjc 筛选栏 排序栏 -->
       </div>
     <a-layout>
         <a-layout-content style="min-width: 800px">
@@ -68,8 +72,10 @@ export default {
                   }
                   return true;
               })
-          }
+          }//首先，把酒店的列表根据名字筛选一次。
+          //接下来，各种高级筛选、排序的东西都写在这里
 
+          //todo lz zjc
 
         return res;
       }

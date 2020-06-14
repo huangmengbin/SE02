@@ -42,6 +42,7 @@
                     </span>
                     <span slot="action" slot-scope="record">
                         <a-button type="primary" size="small" @click="showOrder(record)">订单详情</a-button>
+                        <!-- todo dxw 让订单已完成 -->
                         <a-divider type="vertical"></a-divider>
                         <a-popconfirm
                             title="确定想删除该订单吗？"
