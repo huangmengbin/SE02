@@ -18,6 +18,7 @@ import {
 const getDefaultState = () => {
     return {
         userId: '',
+        commentVisible:false,
         userInfo: {
 
         },
@@ -56,6 +57,9 @@ const user = {
         },
         set_userOrderList: (state, data) => {
             state.userOrderList = data
+        },
+        set_CommentVisible:(state, data) => {
+            state.commentVisible = data;
         }
     },
 

@@ -12,8 +12,8 @@
     <!--感觉这有问题:   userId & userid-->
 
     <insert id="addOrder" parameterType="com.example.hotel.po.Order" useGeneratedKeys="true" keyProperty="id">
-        insert into OrderList(userId,hotelId,hotelName,checkInDate,checkOutDate,roomType,roomNum,peopleNum,haveChild,createDate,price,clientName,phoneNumber,orderState)
-        values(#{userId},#{hotelId},#{hotelName},#{checkInDate},#{checkOutDate},#{roomType},#{roomNum},#{peopleNum},#{haveChild},#{createDate},#{price},#{clientName},#{phoneNumber},#{orderState})
+        insert into OrderList(userId,hotelId,hotelName,checkInDate,checkOutDate,roomType,roomNum,peopleNum,haveChild,createDate,price,clientName,phoneNumber,orderState,comment)
+        values(#{userId},#{hotelId},#{hotelName},#{checkInDate},#{checkOutDate},#{roomType},#{roomNum},#{peopleNum},#{haveChild},#{createDate},#{price},#{clientName},#{phoneNumber},#{orderState},#{comment})
     </insert>
 
     <select id="getOrderById" resultMap="Order">
@@ -41,5 +41,6 @@
         <result column="clientName" property="clientName"></result>
         <result column="phoneNumber" property="phoneNumber"></result>
         <result column="orderState" property="orderState"></result>
+        <result column="comment" property="comment"></result>
     </resultMap>
 </mapper>

@@ -20,6 +20,9 @@ public class Hotel {
      */
     private Integer managerId;
 
+    private Integer commentNumber;
+    private Integer totalCommentScore;
+
     public Integer getId() {
         return id;
     }
@@ -90,6 +93,22 @@ public class Hotel {
 
     public void setManagerId(Integer managerId) {
         this.managerId = managerId;
+    }
+
+    public Integer getCommentNumber() {
+        return commentNumber;
+    }
+
+    public void setCommentNumber(Integer commentNumber) {
+        this.commentNumber = commentNumber;
+    }
+
+    public Integer getTotalCommentScore() {
+        return totalCommentScore;
+    }
+
+    public void setTotalCommentScore(Integer totalCommentScore) {
+        this.totalCommentScore = totalCommentScore;
     }
 }
 

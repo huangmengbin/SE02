@@ -1,5 +1,6 @@
 <template>
     <div class="info-wrapper">
+        <Comment :order="order"></Comment>
         <a-tabs>
             <a-tab-pane tab="我的信息" key="1">
                 <a-form :form="form" style="margin-top: 30px">
@@ -66,8 +67,10 @@
                         {{ text }}
                     </a-tag>
                     <span slot="action" slot-scope="record">
-                        <a-button type="primary" size="small" @click="showOrder(record)">查看</a-button>
-                        <a-divider type="vertical" v-if="record.orderState === '已预订'"></a-divider>
+                        <a-button type="primary" size="small" @click="showOrder(record)">详细查看</a-button>
+                        <a-divider type="vertical"/>
+                        <a-button size="small" @click="comment(record)" v-show="record.orderState === '已完成' || record.orderState === '已评价' || true ">评价</a-button>
+                        <a-divider type="vertical"/>
                         <a-popconfirm
                             title="你确定撤销该笔订单吗？"
                             @confirm="confirmCancelOrder(record.id)"
@@ -78,7 +81,6 @@
                         >
                             <a-button type="danger" size="small">撤销</a-button>
                         </a-popconfirm>
-                        
                     </span>
                 </a-table>
             </a-tab-pane>
@@ -87,6 +89,7 @@
 </template>
 <script>
 import { mapGetters, mapMutations, mapActions } from 'vuex'
+import Comment from './comment'
 const columns = [
     {  
         title: '订单号',
@@ -137,6 +140,7 @@ export default {
     name: 'info',
     data(){
         return {
+            order:{},
             modify: false,
             formLayout: 'horizontal',
             pagination: {},
@@ -146,12 +150,14 @@ export default {
         }
     },
     components: {
+        Comment,
     },
     computed: {
         ...mapGetters([
             'userId',
             'userInfo',
-            'userOrderList'
+            'userOrderList',
+            'commentVisible',
         ])
     },
     async mounted() {
@@ -163,7 +169,10 @@ export default {
             'getUserInfo',
             'getUserOrders',
             'updateUserInfo',
-            'cancelOrder'
+            'cancelOrder',
+        ]),
+        ...mapMutations([
+            'set_CommentVisible'
         ]),
         saveModify() {
             this.form.validateFields((err, values) => {
@@ -185,7 +194,7 @@ export default {
                     'userName': this.userInfo.userName,
                     'phoneNumber': this.userInfo.phoneNumber,
                 })
-            }, 0)
+            }, 0);
             this.modify = true
         },
         cancelModify() {
@@ -200,6 +209,11 @@ export default {
         showOrder(record){
             alert('不是已经够详细了吗');
         },
+        comment(record){
+            this.order = record;
+            this.set_CommentVisible(true);
+        },
+
     }
 }
 </script>

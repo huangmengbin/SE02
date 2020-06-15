@@ -40,16 +40,13 @@ export default {
   },
   data(){
     return{
-      emptyBox: [{ name: 'box1' }, { name: 'box2'}, {name: 'box3'}],
+        emptyBox: [{ name: 'box1' }, { name: 'box2'}, {name: 'box3'}],
         searchNames:"",
     }
   },
   async mounted() {
     await this.getHotelList().then(response=>{
         //hotelList是加载下来所有的酒店，currentHotelList是处理后的，比如排序、筛选；最后才分页（可选
-        this.currentHotelList=[...response];
-        this.currentHotelList.reverse();
-        //console.log(this.currentHotelList);//
     })
 
   },
@@ -59,6 +56,8 @@ export default {
       'hotelListLoading'
     ]),
       currentHotelList(){
+          //hotelList是加载下来所有的酒店，currentHotelList是处理后的，比如排序、筛选；最后才分页（可选
+
         let {hotelList, searchNames} = this;
         let res = [...hotelList];
 

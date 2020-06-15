@@ -203,7 +203,7 @@ export default {
 
         },
         changeDate(v) {
-            if(this.totalPrice != ''){
+            if(this.totalPrice !== ''){
                 this.totalPrice = this.form.getFieldValue('roomNum') * moment(v[1]).diff(moment(v[0]), 'day') * Number(this.currentOrderRoom.price)
             }
         },

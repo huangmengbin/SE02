@@ -2,6 +2,7 @@ const getters = {
   //user
   token: state => state.user.token,
   userId: state => state.user.userId,
+  commentVisible:state => state.user.commentVisible,
   userInfo: state => state.user.userInfo,
   userOrderList: state => state.user.userOrderList,
   hotelListLoading: state => state.hotel.hotelListLoading,
