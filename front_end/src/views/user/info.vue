@@ -172,7 +172,8 @@ export default {
             'cancelOrder',
         ]),
         ...mapMutations([
-            'set_CommentVisible'
+            'set_CommentVisible',
+            'set_OrderActive',
         ]),
         saveModify() {
             this.form.validateFields((err, values) => {
@@ -211,6 +212,7 @@ export default {
         },
         comment(record){
             this.order = record;
+            this.set_OrderActive(record);
             this.set_CommentVisible(true);
         },
 

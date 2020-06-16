@@ -4,6 +4,7 @@ import com.example.hotel.bl.hotel.HotelService;
 import com.example.hotel.bl.order.OrderService;
 import com.example.hotel.vo.OrderVO;
 import com.example.hotel.vo.ResponseVO;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,8 +20,6 @@ public class OrderController {
 
     @Autowired
     private OrderService orderService;
-    @Autowired
-    private HotelService hotelService;
 
     @PostMapping("/addOrder")
     public ResponseVO reserveHotel(@RequestBody OrderVO orderVO){
@@ -47,4 +46,8 @@ public class OrderController {
         return ResponseVO.buildSuccess(orderService.getHotelOrders(hotelId));
     }
 
+    @PostMapping("addComment")
+    public ResponseVO addComment(@RequestBody OrderVO orderVO){
+        return orderService.addComment(orderVO);
+    }
 }

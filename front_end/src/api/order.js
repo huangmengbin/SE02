@@ -27,3 +27,10 @@ export function cancelOrderAPI(orderId) {
         method: 'GET',
     })
 }
+export function commentAPI(data) {
+    return axios({
+        url:`${api.orderPre}/addComment`,
+        method:`POST`,
+        data
+    })
+}

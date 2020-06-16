@@ -155,4 +155,11 @@ public class OrderServiceImpl implements OrderService {
             return Integer.MAX_VALUE;
         }
     }
+
+    @Override
+    public ResponseVO addComment(OrderVO orderVO) {
+        orderMapper.addComment(orderVO.getId(),orderVO.getComment(),orderVO.getCommentScore());
+        hotelService.addComment(orderVO.getHotelId(),orderVO.getCommentScore());
+        return ResponseVO.buildSuccess(true);
+    }
 }

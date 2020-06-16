@@ -13,12 +13,14 @@ import {
 import {
     getUserOrdersAPI,
     cancelOrderAPI,
+    commentAPI,
 } from '../../api/order'
 
 const getDefaultState = () => {
     return {
         userId: '',
         commentVisible:false,
+        orderActive:{},
         userInfo: {
 
         },
@@ -60,7 +62,10 @@ const user = {
         },
         set_CommentVisible:(state, data) => {
             state.commentVisible = data;
-        }
+        },
+        set_OrderActive:(state, data) => {
+            state.orderActive = data;
+        },
     },
 
     actions: {
@@ -113,7 +118,6 @@ const user = {
             const res = await getUserOrdersAPI(data)
             if(res){
                 commit('set_userOrderList', res)
-                console.log(state.userOrderList)
             }
         },
         cancelOrder: async({ state, dispatch }, orderId) => {
@@ -137,6 +141,14 @@ const user = {
                 commit('reset_state')
                 resolve()
             })
+        },
+
+        commentAction:  async({ commit ,dispatch }, data) => {
+            const res = await commentAPI(data);
+            if(res===true){
+                dispatch('getUserOrders');
+                message.success('已评论');
+            }
         },
     }
 }

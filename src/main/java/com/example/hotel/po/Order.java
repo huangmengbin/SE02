@@ -23,6 +23,7 @@ public class Order {
     private String phoneNumber;
     private String orderState;
     private String comment;
+    private Integer commentScore;
 
     public Integer getId() {
         return id;
@@ -150,5 +151,13 @@ public class Order {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public Integer getCommentScore() {
+        return commentScore;
+    }
+
+    public void setCommentScore(Integer commentScore) {
+        this.commentScore = commentScore;
     }
 }

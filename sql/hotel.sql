@@ -107,6 +107,7 @@ CREATE TABLE `OrderList` (
   `phoneNumber` varchar(255) DEFAULT NULL,
   `orderState` varchar(255) DEFAULT NULL,
   `comment` varchar(676666) DEFAULT NULL,
+  `commentScore` int(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;

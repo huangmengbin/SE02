@@ -37,6 +37,6 @@ public interface HotelService {
     int getRoomTotalNum(Integer hotelId, String roomType);
 
 
-
+    void addComment(Integer hotelId, Integer score);
 
 }

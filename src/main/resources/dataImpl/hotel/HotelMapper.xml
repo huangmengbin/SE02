@@ -14,7 +14,20 @@
         select * from Hotel where id=#{id}
     </select>
 
-
+    <update id="updateHotel">
+        update Hotel set
+          hotelName=#{hotelName},
+          address=#{address},
+          bizRegion=#{bizRegion},
+          hotelDescription=#{description},
+          hotelStar=#{hotelStar},
+          phoneNum=#{phoneNum},
+          rate=#{rate},
+          manager_id=#{managerId},
+          commentNumber=#{commentNumber},
+          totalCommentScore=#{totalCommentScore}
+        where id = #{id}
+    </update>
     <resultMap id="Hotel" type="com.example.hotel.vo.HotelVO">
         <id column="id" property="id"/>
         <result column="address" property="address"/>

@@ -14,6 +14,7 @@ import com.example.hotel.po.User;
 import com.example.hotel.util.ServiceException;
 import com.example.hotel.vo.HotelVO;
 import com.example.hotel.vo.RoomVO;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -79,6 +80,18 @@ public class HotelServiceImpl implements HotelService {
 
         return hotelVO;
     }
-    
 
+    @Override
+    public void addComment(Integer hotelId, Integer score) {
+        HotelVO hotelVO = hotelMapper.selectById(hotelId);
+        hotelVO.setTotalCommentScore(hotelVO.getTotalCommentScore()+score);
+        hotelVO.setCommentNumber(hotelVO.getCommentNumber()+1);
+        hotelVO.setRate(((double)hotelVO.getTotalCommentScore())/((double)hotelVO.getCommentNumber()));
+        Hotel hotel = new Hotel();
+        BeanUtils.copyProperties(hotelVO,hotel);
+        hotel.setBizRegion(BizRegion.valueOf(hotelVO.getBizRegion()));
+        hotel.setHotelStar(HotelStar.valueOf(hotelVO.getHotelStar()));
+        hotel.setHotelName(hotelVO.getName());
+        hotelMapper.updateHotel(hotel);
+    }
 }
