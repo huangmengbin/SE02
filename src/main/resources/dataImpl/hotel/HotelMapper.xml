@@ -4,7 +4,7 @@
     <insert id="insertHotel" parameterType="com.example.hotel.po.Hotel"
     useGeneratedKeys="true" keyProperty="id">
         insert into Hotel(address,bizRegion,hotelDescription,hotelStar,hotelName,phoneNum,rate,manager_id,commentNumber,totalCommentScore)
-        values (#{address},#{bizRegion},#{description},#{hotelStar},#{hotelName},#{phoneNum},#{rate},#{managerId},#{commentNumber},#{totalCommentScore})
+        values (#{address},#{bizRegion},#{description},#{hotelStar},#{name},#{phoneNum},#{rate},#{managerId},#{commentNumber},#{totalCommentScore})
     </insert>
 
     <select id="selectAllHotel" resultMap="Hotel">
