@@ -6,6 +6,7 @@ import com.example.hotel.bl.user.AccountService;
 import com.example.hotel.data.order.OrderMapper;
 import com.example.hotel.po.Order;
 import com.example.hotel.po.User;
+import com.example.hotel.vo.CommentVO;
 import com.example.hotel.vo.OrderVO;
 import com.example.hotel.vo.ResponseVO;
 import org.springframework.beans.BeanUtils;
@@ -162,4 +163,30 @@ public class OrderServiceImpl implements OrderService {
         hotelService.addComment(orderVO.getHotelId(),orderVO.getCommentScore());
         return ResponseVO.buildSuccess(true);
     }
+
+    @Override
+    public ResponseVO getCommentByOrderId(Integer orderId) {
+        Order order = orderMapper.getOrderById(orderId);
+        return ResponseVO.buildSuccess(orderToComment(order));
+    }
+
+
+    @Override
+    public List<CommentVO> getHotelComment(Integer hotelId) {
+        return this.getAllOrders().stream()
+                .filter(order -> order.getHotelId().equals(hotelId))
+                .filter(order -> order.getOrderState().equals("已评价"))
+                .map(this::orderToComment)
+                .collect(Collectors.toList());
+    }
+
+
+    private CommentVO orderToComment(Order order){
+        CommentVO commentVO = new CommentVO();
+        commentVO.setComment(order.getComment());
+        commentVO.setCommentScore(order.getCommentScore());
+        commentVO.setUserName(accountService.getUserInfo(order.getUserId()).getUserName());
+        return commentVO;
+    }
+
 }

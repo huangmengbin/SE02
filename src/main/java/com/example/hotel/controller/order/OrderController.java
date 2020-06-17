@@ -1,10 +1,8 @@
 package com.example.hotel.controller.order;
 
-import com.example.hotel.bl.hotel.HotelService;
 import com.example.hotel.bl.order.OrderService;
 import com.example.hotel.vo.OrderVO;
 import com.example.hotel.vo.ResponseVO;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -49,5 +47,15 @@ public class OrderController {
     @PostMapping("addComment")
     public ResponseVO addComment(@RequestBody OrderVO orderVO){
         return orderService.addComment(orderVO);
+    }
+
+    @GetMapping("/{orderId}/getCommentByOrderId")
+    public ResponseVO getCommentByOrderId(@PathVariable int orderId){
+        return orderService.getCommentByOrderId(orderId);
+    }
+
+    @GetMapping("/{hotelId}/getHotelComment")
+    public ResponseVO getHotelComment(@PathVariable Integer hotelId){
+        return ResponseVO.buildSuccess(orderService.getHotelComment(hotelId));
     }
 }

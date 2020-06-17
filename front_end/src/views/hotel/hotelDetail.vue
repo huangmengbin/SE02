@@ -43,7 +43,14 @@
                         <RoomList :rooms="currentHotelInfo.rooms"></RoomList>
                     </a-tab-pane>
                     <a-tab-pane tab="酒店详情" key="2">
-
+                        <div>
+                            <a-list>
+                                <a-list-item :key="index" v-for="(line, index) in hotelCommentsList">
+                                    {{index+1}}- {{line.userName}}: {{line.commentScore}}分, {{line.comment}}
+                                </a-list-item>
+                            </a-list>
+                            <!--todo 有空把这里写得漂亮点-->
+                        </div>
                     </a-tab-pane>
                 </a-tabs>
             </div>
@@ -53,24 +60,34 @@
 <script>
 import { mapGetters, mapActions, mapMutations } from 'vuex'
 import RoomList from './components/roomList'
+import AListItem from "ant-design-vue/es/list/Item";
+const commentColumns = [
+    {title: '用户', dataIndex: 'userName'},
+    {title: '评分', dataIndex: 'commentScore'},
+    {title: '评价', dataIndex: 'comment'},
+];
 export default {
     name: 'hotelDetail',
     components: {
+        AListItem,
         RoomList,
     },
     data() {
         return {
-
+            commentColumns,
         }
     },
     computed: {
         ...mapGetters([
             'currentHotelInfo',
+            'hotelCommentsList'
         ])
     },
     mounted() {
         this.set_currentHotelId(Number(this.$route.params.hotelId))
-        this.getHotelById()
+        this.getHotelById();
+        this.getHotelCommentsList();
+        console.log(this)
     },
     beforeRouteUpdate(to, from, next) {
         this.set_currentHotelId(Number(to.params.hotelId))
@@ -82,9 +99,11 @@ export default {
             'set_currentHotelId',
         ]),
         ...mapActions([
-            'getHotelById'
+            'getHotelById',
+            'getHotelCommentsList',
         ])
     }
+
 }
 </script>
 <style scoped lang="less">

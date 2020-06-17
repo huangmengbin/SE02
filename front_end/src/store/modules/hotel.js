@@ -5,7 +5,8 @@ import {
     getHotelByIdAPI
 } from '../../api/hotel'
 import {
-    reserveHotelAPI
+    reserveHotelAPI,
+    getHotelCommentAPI
 } from '../../api/order'
 import {
     orderMatchCouponsAPI,
@@ -30,6 +31,9 @@ const hotel = {
 
         },
         orderMatchCouponList: [
+
+        ],
+        hotelCommentsList:[
 
         ]
     },
@@ -66,6 +70,9 @@ const hotel = {
         },
         set_orderMatchCouponList: function(state, data) {
             state.orderMatchCouponList = data
+        },
+        set_hotelCommentsList:function (state, data) {
+            state.hotelCommentsList = data
         }
     },
 
@@ -88,7 +95,6 @@ const hotel = {
         },
         addOrder: async({ state, commit }, data) => {
             const res = await reserveHotelAPI(data)
-            console.log(res)
             if(res){
                 message.success('预定成功')
                 commit('set_orderModalVisible', false)
@@ -99,8 +105,14 @@ const hotel = {
             if(res){
                 commit('set_orderMatchCouponList', res)
             }
+        },
+        getHotelCommentsList: async ({state, commit}) => {
+            const res = await getHotelCommentAPI(state.currentHotelId);
+            if(res){
+                commit('set_hotelCommentsList',res);
+            }
         }
     }
-}
+};
 
 export default hotel

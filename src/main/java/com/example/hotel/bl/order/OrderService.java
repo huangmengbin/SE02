@@ -1,6 +1,7 @@
 package com.example.hotel.bl.order;
 
 import com.example.hotel.po.Order;
+import com.example.hotel.vo.CommentVO;
 import com.example.hotel.vo.OrderVO;
 import com.example.hotel.vo.ResponseVO;
 
@@ -48,4 +49,20 @@ public interface OrderService {
     List<Order> getHotelOrders(Integer hotelId);
 
     ResponseVO addComment(OrderVO orderVO);
+
+
+
+    /**
+     *
+     * @param orderId
+     * @return
+     */
+    ResponseVO getCommentByOrderId(Integer orderId);
+
+    /**
+     * 列表获取某酒店评论
+     * @param hotelId
+     * @return
+     */
+    List<CommentVO> getHotelComment(Integer hotelId);
 }

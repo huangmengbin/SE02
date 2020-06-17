@@ -34,3 +34,15 @@ export function commentAPI(data) {
         data
     })
 }
+export function getCommentByOrderIdAPI(orderId) {
+    return axios({
+        url:`${api.orderPre}/${orderId}/getCommentByOrderId`,
+        method:`GET`,
+    })
+}
+export function getHotelCommentAPI(hotelId) {
+    return axios({
+        url: `${api.orderPre}/${hotelId}/getHotelComment`,
+        method: `GET`
+    })
+}
