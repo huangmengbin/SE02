@@ -35,8 +35,8 @@ public class BirthdayCouponStrategyImpl implements CouponMatchStrategy {
                 0, 0, 0, 0);
         LocalDateTime birthDate = LocalDateTime.of(
                 Integer.valueOf(orderDate.substring(0, 4)),
-                Integer.valueOf(birthDate.substring(5, 7)),
-                Integer.valueOf(birthDate.substring(8, 10)),
+                Integer.valueOf(birthday.substring(5, 7)),
+                Integer.valueOf(birthday.substring(8, 10)),
                 0, 0, 0, 0);
 
         return orderTime.equals(birthDate);
