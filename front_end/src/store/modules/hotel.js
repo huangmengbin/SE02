@@ -2,7 +2,8 @@ import { message } from 'ant-design-vue'
 import store from '@/store'
 import {
     getHotelsAPI,
-    getHotelByIdAPI
+    getHotelByIdAPI,
+    getAllRoomListAPI
 } from '../../api/hotel'
 import {
     reserveHotelAPI,
@@ -34,6 +35,9 @@ const hotel = {
 
         ],
         hotelCommentsList:[
+
+        ],
+        allRoomList:[
 
         ]
     },
@@ -73,6 +77,9 @@ const hotel = {
         },
         set_hotelCommentsList:function (state, data) {
             state.hotelCommentsList = data
+        },
+        set_allRoomList:function (state,data) {
+            state.allRoomList = data
         }
     },
 
@@ -110,6 +117,12 @@ const hotel = {
             const res = await getHotelCommentAPI(state.currentHotelId);
             if(res){
                 commit('set_hotelCommentsList',res);
+            }
+        },
+        getAllRoomList: async ({commit})=>{
+            const res = await getAllRoomListAPI();
+            if(res){
+                commit('set_allRoomList',res);
             }
         }
     }

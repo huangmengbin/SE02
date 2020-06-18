@@ -14,6 +14,7 @@ const getters = {
   currentOrderRoom: state => state.hotel.currentOrderRoom,
   orderMatchCouponList: state => state.hotel.orderMatchCouponList,
   hotelCommentsList: state => state.hotel.hotelCommentsList,
+  allRoomList: state => state.hotel.allRoomList,
   //admin
   managerList: state => state.admin.managerList,
   addManagerModalVisible: state => state.admin.addManagerModalVisible,

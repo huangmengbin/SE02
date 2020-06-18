@@ -14,3 +14,10 @@ export function getHotelByIdAPI(param) {
         method: 'GET',
     })
 }
+
+export function getAllRoomListAPI() {
+    return axios({
+        url: `${api.hotelPre}/allRoomList`,
+        method: 'GET',
+    })
+}

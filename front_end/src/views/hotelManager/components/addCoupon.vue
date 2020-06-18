@@ -8,7 +8,7 @@
             @ok="handleSubmit"
     >
         <!-- 这里是添加策略模态框区域，请编写表单 -->
-        <a-form  v-bind:form="form" >
+        <a-form  v-bind:form="form" v-on:click="clear()">
             <a-form-item label="优惠券类型" v-bind="formItemLayout">
                     <a-select
                         @change="changeTypeFunction"
@@ -67,26 +67,26 @@
                 >
                 </a-input>
             </a-form-item>
-            <a-form-item label="优惠金额" v-bind="formItemLayout" v-show="testDiscountMoney()">    <!--test用来判断是否需要“优惠金额”-->
+            <!--<a-form-item label="优惠金额" v-bind="formItemLayout" v-show="testDiscountMoney()">    &lt;!&ndash;test用来判断是否需要“优惠金额”&ndash;&gt;
                 <a-input
                         size="large"
                         type="text"
                         placeholder="请输入优惠金额"
                         v-decorator="[
                             'discountMoney',
-                    {rules: [{ required: true, message: '宁还没输入优惠金额' }, { validator: isMoney}], validateTrigger: 'blur'}
+                    {rules: [{ required: (testDiscountMoney()), message: '宁还没输入优惠金额' }, { validator: isMoney}], validateTrigger: 'blur'}
                   ]"
                 >
                 </a-input>
-            </a-form-item>
-            <a-form-item v-bind="formItemLayout" label="优惠方式" v-show="changeType==='4'">
+            </a-form-item>-->
+            <a-form-item v-bind="formItemLayout" label="优惠方式">
                 <a-select
                         @change="changeDiscountFunction"
                         size="large"
                         placeholder="请选择优惠方式"
                         v-decorator="[
                             'discountType',
-                    { rules: [{ required: changeType==='4', message: '宁还没选择优惠方式喔' }] }]"
+                    { rules: [{ required: true, message: '宁还没选择优惠方式喔' }] }]"
                 >
                     <a-select-option value='1' :key="discountType">折扣</a-select-option>
                     <a-select-option value='2' :key="discountType">立减</a-select-option>
@@ -236,14 +236,14 @@
             },
 
             testDiscount(){
-                if(this.changeType==='4' && this.discountType==='1')
+                if(this.discountType==='1')
                     return true;
                 else
                     return false;
             },
 
             testTargetMoney(){
-                if(this.changeType==='4' && this.discountType==='2')
+                if(this.discountType==='2')
                     return true;
                 else
                     return false;
@@ -260,6 +260,7 @@
                     'startTime': '',
                     'endTime': '',
                     'discountType':'',
+                    'subMoney':'',
                     'discount':''
                 });
             },

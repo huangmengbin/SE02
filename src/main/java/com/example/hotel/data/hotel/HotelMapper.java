@@ -1,6 +1,7 @@
 package com.example.hotel.data.hotel;
 
 import com.example.hotel.po.Hotel;
+import com.example.hotel.po.HotelRoom;
 import com.example.hotel.vo.HotelVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -19,4 +20,6 @@ public interface HotelMapper {
     HotelVO selectById(@Param("id") Integer id);
 
     void updateHotel(Hotel hotel);
+
+    List<HotelRoom> getAllRoomList();
 }

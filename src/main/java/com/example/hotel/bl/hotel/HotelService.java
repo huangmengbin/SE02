@@ -1,6 +1,8 @@
 package com.example.hotel.bl.hotel;
 
+import com.example.hotel.po.HotelRoom;
 import com.example.hotel.util.ServiceException;
+import com.example.hotel.vo.RoomVO;
 import com.example.hotel.vo.HotelVO;
 
 import java.util.List;
@@ -38,5 +40,12 @@ public interface HotelService {
 
 
     void addComment(Integer hotelId, Integer score);
+
+    /**
+     * 列表获取所有房间信息
+     * @param
+     * @return
+     */
+    List<HotelRoom> getAllRoomList();
 
 }

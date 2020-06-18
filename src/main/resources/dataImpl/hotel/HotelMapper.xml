@@ -13,6 +13,9 @@
     <select id="selectById" resultMap="Hotel">
         select * from Hotel where id=#{id}
     </select>
+    <select id="getAllRoomList" resultMap="room">
+        select * from Room
+    </select>
 
     <update id="updateHotel">
         update Hotel set
@@ -41,6 +44,15 @@
         <result column="commentNumber" property="commentNumber"/>
         <result column="totalCommentScore" property="totalCommentScore"/>
 
+    </resultMap>
+
+    <resultMap id="room" type="com.example.hotel.po.HotelRoom">
+        <id column="id" property="id"></id>
+        <result column="roomType" property="roomType"></result>
+        <result column="price" property="price"></result>
+        <result column="curNum" property="curNum"></result>
+        <result column="total" property="total"></result>
+        <result column="hotel_id" property="hotelId"></result>
     </resultMap>
 
 

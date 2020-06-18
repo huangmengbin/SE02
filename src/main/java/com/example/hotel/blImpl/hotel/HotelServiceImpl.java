@@ -94,4 +94,9 @@ public class HotelServiceImpl implements HotelService {
         hotel.setHotelName(hotelVO.getName());
         hotelMapper.updateHotel(hotel);
     }
+
+    @Override
+    public List<HotelRoom> getAllRoomList(){
+        return hotelMapper.getAllRoomList();
+    }
 }
