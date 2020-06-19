@@ -21,5 +21,4 @@ public interface HotelMapper {
 
     void updateHotel(Hotel hotel);
 
-    List<HotelRoom> getAllRoomList();
 }

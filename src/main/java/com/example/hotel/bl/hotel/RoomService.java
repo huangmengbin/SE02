@@ -7,6 +7,13 @@ import java.util.List;
 public interface RoomService {
 
     /**
+     * 列表获取所有房间信息
+     * @param
+     * @return
+     */
+    List<HotelRoom> getAllRoomList();
+
+    /**
      * 获取某个酒店的全部房间信息
      * @param hotelId
      * @return

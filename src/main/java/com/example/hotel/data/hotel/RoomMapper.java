@@ -13,6 +13,8 @@ public interface RoomMapper {
 
     int insertRoom(HotelRoom hotelRoom);
 
+    List<HotelRoom> getAllRoomList();
+
     List<HotelRoom> selectRoomsByHotelId(@Param("hotelId") Integer hotelId);
 
     int getRoomTotalNum(@Param("hotelId") Integer hotelId, @Param("roomType") String roomType);

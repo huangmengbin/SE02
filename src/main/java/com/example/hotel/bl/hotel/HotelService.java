@@ -41,11 +41,5 @@ public interface HotelService {
 
     void addComment(Integer hotelId, Integer score);
 
-    /**
-     * 列表获取所有房间信息
-     * @param
-     * @return
-     */
-    List<HotelRoom> getAllRoomList();
 
 }

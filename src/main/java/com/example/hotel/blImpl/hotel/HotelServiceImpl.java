@@ -95,8 +95,4 @@ public class HotelServiceImpl implements HotelService {
         hotelMapper.updateHotel(hotel);
     }
 
-    @Override
-    public List<HotelRoom> getAllRoomList(){
-        return hotelMapper.getAllRoomList();
-    }
 }

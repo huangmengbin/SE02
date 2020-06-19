@@ -8,6 +8,10 @@
         values (#{roomType},#{price},#{curNum},#{total},#{hotelId})
     </insert>
 
+    <select id="getAllRoomList" resultMap="room">
+        select * from Room
+    </select>
+
     <select id="selectRoomsByHotelId" resultMap="room">
         select * from Room where hotel_id=#{hotelId}
     </select>

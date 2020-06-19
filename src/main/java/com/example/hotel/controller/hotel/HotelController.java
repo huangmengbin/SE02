@@ -45,7 +45,7 @@ public class HotelController {
 
     @GetMapping("/allRoomList")
     public ResponseVO getAllRoomList() {
-        return ResponseVO.buildSuccess(hotelService.getAllRoomList());
+        return ResponseVO.buildSuccess(roomService.getAllRoomList());
     }
 
 
