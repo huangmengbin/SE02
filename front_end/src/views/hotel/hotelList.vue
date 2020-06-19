@@ -17,7 +17,24 @@
           <a-form
                   :label-col="labelCol"
                   :wrapper-col="wrapperCol"
+                  class="form"
           >
+              <a-form-item label="星级" prop="star" class="star" >
+                  <a-checkbox-group v-model="screen.star">
+                      <a-checkbox value="zero" name="star">
+                          经济型
+                      </a-checkbox>
+                      <a-checkbox value="three" name="star">
+                          三星
+                      </a-checkbox>
+                      <a-checkbox value="Four" name="star">
+                          四星
+                      </a-checkbox>
+                      <a-checkbox value="Five" name="star">
+                          五星
+                      </a-checkbox>
+                  </a-checkbox-group>
+              </a-form-item>
               <a-form-item label="房型" prop="roomType" class="roomType">
                   <a-checkbox-group v-model="screen.roomType">
                       <a-checkbox value="BigBed" name="roomType">
@@ -80,11 +97,12 @@ export default {
   },
   data(){
     return {
-        labelCol: { span: 4 ,offset:0},
-        wrapperCol: { span: 14 },
+        labelCol: { span: 4},
+        wrapperCol: { span: 12 },
         emptyBox: [{name: 'box1'}, {name: 'box2'}, {name: 'box3'}],
         searchNames: "",
         screen: {
+            star:[],
             roomType: [],
             minRate:'',
             maxRate:'',
@@ -131,18 +149,31 @@ export default {
           console.log("名字",res);
 
           //todo lz zjc
-          //筛选评分
+          //筛选评分、星级
           let minRate=0;
           let maxRate=5;
+          let selectedStar=[];
           if(this.screen.minRate.length!==0){
               minRate=this.screen.minRate;
           }
           if(this.screen.maxRate.length!==0){
               maxRate=this.screen.maxRate;
           }
+          if(this.screen.star.length!==0){
+              selectedStar=this.screen.star;
+          }
+          console.log("selectedStar",selectedStar)
 
           res=res.filter(hotel=>{
-              return (hotel.rate >= minRate && hotel.rate <= maxRate);
+              if(selectedStar.length===0){
+                  return (hotel.rate >= minRate && hotel.rate <= maxRate);
+              }else if(selectedStar.indexOf("zero")!==-1){
+                  console.log("selectedStar.indexOf(hotel.hotelStar)",selectedStar.indexOf(hotel.hotelStar))
+                  return (hotel.rate >= minRate && hotel.rate <= maxRate && (selectedStar.indexOf(hotel.hotelStar)!==-1 || hotel.hotelStar.length===0));
+              }else{
+                  return (hotel.rate >= minRate && hotel.rate <= maxRate && (selectedStar.indexOf(hotel.hotelStar)!==-1));
+              }
+
           });
 
           console.log("评分",res);
@@ -162,6 +193,7 @@ export default {
           }
           if(this.screen.maxPrice.length!==0){
               maxPrice=this.screen.maxPrice;
+              hasSelectedPrice=true;
           }
 
 
@@ -233,13 +265,21 @@ export default {
       height: 188px;
     }
   }
-    .roomType{
-        width: 500px;
-    }
-    .rate{
-        width: 500px;
-    }
-    .price{
-        width: 500px;
-    }
+  .form{
+      display: inline;
+  }
+  .star{
+      width:600px;
+      margin:1px 2px;
+  }
+  .roomType{
+      width: 500px;
+      margin:1px 2px;
+  }
+  .rate{
+      width: 500px;
+  }
+  .price{
+      width: 500px;
+  }
 </style>

@@ -8,7 +8,7 @@
             @ok="handleSubmit"
     >
         <!-- 这里是添加策略模态框区域，请编写表单 -->
-        <a-form  v-bind:form="form" v-on:click="clear()">
+        <a-form  v-bind:form="form">
             <a-form-item label="优惠券类型" v-bind="formItemLayout">
                     <a-select
                         @change="changeTypeFunction"
@@ -18,7 +18,7 @@
                             'couponType',
                     { rules: [{ required: true, message: '宁还没选择优惠券类型' }] }]"
                 >
-                    <a-select-option v-on:click="clear()" :value="c.id" v-for="c in couponList" :key="c.id" >{{c.name}}</a-select-option>
+                    <a-select-option @click="clear" :value="c.id" v-for="c in couponList" :key="c.id">{{c.name}}</a-select-option>
                 </a-select>
             </a-form-item>
             <a-form-item label="优惠券名称" v-bind="formItemLayout">
@@ -62,7 +62,7 @@
                         type="text"
                         placeholder="请输入目标间数"
                         v-decorator="[
-                            'targetRoom',/*自己的名字*/
+                            'targetMoney',
                     {rules: [{ required: (changeType==='2')/*和上面对应*/, message: '宁还没输入目标金间数' }, { validator: isMoney}], validateTrigger: 'blur'}]"
                 >
                 </a-input>
@@ -141,6 +141,8 @@
             return {
                 changeType:"",
                 discountType:"",
+                discount:'0',
+                subMoney:'0',
                 formItemLayout: {
                     labelCol: {
                         xs: { span: 12 },
@@ -228,25 +230,12 @@
                 this.discountType=event;
             },
 
-            testDiscountMoney(){
-                if(this.changeType==='1' || this.changeType==='2' || this.changeType==='3')
-                    return true;
-                else
-                    return false;
-            },
-
             testDiscount(){
-                if(this.discountType==='1')
-                    return true;
-                else
-                    return false;
+                return (this.discountType==='1')
             },
 
             testTargetMoney(){
-                if(this.discountType==='2')
-                    return true;
-                else
-                    return false;
+                return (this.discountType==='2')
             },
 
             clear(){    //清除已有内容
@@ -255,13 +244,12 @@
                     'couponType': '',
                     'description': '',
                     'targetMoney': '',
-                    'targetRoom': '',
                     'discountMoney': '',
                     'startTime': '',
                     'endTime': '',
                     'discountType':'',
-                    'subMoney':'',
-                    'discount':''
+                    'subMoney':'0',
+                    'discount':'0'
                 });
             },
 
@@ -273,24 +261,22 @@
                 e.preventDefault();
 
                 this.form.validateFieldsAndScroll((err, values) => {
-                    console.log(err);
-                    console.log(this.discountType);
-                    console.log(this.form.getFieldValue('subMoney'));
+                    console.log("inSetValues");
+
+                    if(this.discountType==='1'){
+                        this.discount=this.form.getFieldValue('discount');
+                    }else if(this.discountType==='2'){
+                        this.subMoney=this.form.getFieldValue('subMoney');
+                    }
                     if (!err) {
                         if(this.changeType==='1'){
-
+                            this.birthdayCoupon();
+                        }else if(this.changeType==='2' || this.changeType==='3'){
+                            console.log("enterTargetCoupon");
+                            this.targetCoupon();
+                        }else{
+                            this.timeCoupon();
                         }
-                        else if(this.changeType==='2'){
-                            this.hotelTargetRoom();
-                        }
-                        else if(this.changeType==='3'){
-                            this.hotelTargetMoney();
-                        }
-                        else if(this.changeType==='4'){
-                            alert(1000*this.changeType);
-                            this.hotelTime();
-                        }
-
                         this.clear();
 
                         this.set_addCouponVisible(false);//设置成不可见
@@ -298,44 +284,44 @@
                     }
                 });
             },
-            hotelTargetMoney(){
-                const data = {
-                    // 这里添加接口参数
-                    //id:null, 我觉得... 优惠劵id应该是后端数据层生成的 ？？？
-                    //status又是什么意思
-                    hotelId: this.activeHotelId,
+            birthdayCoupon(){
+                const data={
+                    description: this.form.getFieldValue('description'),
                     name: this.form.getFieldValue('couponName'),
                     type: this.form.getFieldValue('couponType'),
-                    description: this.form.getFieldValue('description'),
-                    targetMoney: this.form.getFieldValue('targetMoney'),
-                    discountMoney: this.form.getFieldValue('discountMoney'),
+                    hotelId: this.activeHotelId,
+                    discount: this.discount,
+                    discountMoney: this.subMoney,
                 };
                 this.addHotelCoupon(data);
             },
-            hotelTargetRoom(){
-                const data = {
-                    hotelId: this.activeHotelId,
+            targetCoupon(){
+                const data={
+                    description: this.form.getFieldValue('description'),
                     name: this.form.getFieldValue('couponName'),
                     type: this.form.getFieldValue('couponType'),
-                    description: this.form.getFieldValue('description'),
-                    targetRoom: this.form.getFieldValue('targetRoom'),
-                    discountMoney: this.form.getFieldValue('discountMoney'),
+                    hotelId: this.activeHotelId,
+                    target:this.form.getFieldValue('targetMoney'),
+                    discount: this.discount,
+                    discountMoney: this.subMoney,
                 };
+                console.log("data",data);
                 this.addHotelCoupon(data);
             },
-            hotelTime(){
-                const data = {
-                    hotelId: this.activeHotelId,
+            timeCoupon(){
+                const data={
+                    description: this.form.getFieldValue('description'),
                     name: this.form.getFieldValue('couponName'),
                     type: this.form.getFieldValue('couponType'),
-                    description: this.form.getFieldValue('description'),
-                    targetMoney: this.form.getFieldValue('subMoney'),
-                    discount: this.form.getFieldValue('discountMoney'),
+                    hotelId: this.activeHotelId,
+                    target:this.form.getFieldValue('targetMoney'),
+                    discount: this.discount,
+                    discountMoney: this.subMoney,
                     startTime:moment(this.form.getFieldValue('date')[0]).format('YYYY-MM-DD'),
                     endTime:moment(this.form.getFieldValue('date')[1]).format('YYYY-MM-DD'),
                 };
                 this.addHotelCoupon(data);
-            }
+            },
         }
     }
 </script>

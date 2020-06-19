@@ -6,10 +6,8 @@ import {
     getAllOrdersAPI,
 } from '../../api/order'
 import {
+    addCouponAPI,
     hotelAllCouponsAPI,
-    hotelTargetMoneyAPI,
-    hotelTargetRoomAPI,
-    hotelTimeAPI
 } from '../../api/coupon'
 import { message } from 'ant-design-vue'
 
@@ -127,22 +125,10 @@ const hotelManager = {
             }
         },
         addHotelCoupon: async({ commit, dispatch }, data) => {
-            let res = undefined;
-            switch (data.type) {
-                //todo
-                case '1':
-                    res = await hotelTargetMoneyAPI(data);
-                    break;
-                case '2':
-                    res = await hotelTargetRoomAPI(data);//finished
-                    break;
-                case '3':
-                    res = await hotelTargetMoneyAPI(data);//finished
-                    break;
-                case '4':
-                    res = await hotelTimeAPI(data);
-                    break;
-            }
+            //todo
+            console.log("enterAddCouponAPI");
+            console.log("data",data);
+            let res = await addCouponAPI(data);
 
             if(res){
                 // 添加成功后的操作（提示文案、modal框显示与关闭，调用优惠列表策略等）？
