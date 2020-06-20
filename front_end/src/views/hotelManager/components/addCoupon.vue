@@ -227,6 +227,10 @@
             },
 
             changeDiscountFunction(event){    //限时优惠的折扣类型
+                this.form.setFieldsValue({
+                    'subMoney':'',
+                    'discount':''
+                });
                 this.discountType=event;
             },
 
@@ -248,8 +252,8 @@
                     'startTime': '',
                     'endTime': '',
                     'discountType':'',
-                    'subMoney':'0',
-                    'discount':'0'
+                    'subMoney':'',
+                    'discount':''
                 });
             },
 
