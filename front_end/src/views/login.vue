@@ -139,7 +139,7 @@ import { mapGetters, mapActions, mapMutations } from 'vuex'
 export default {
   name: 'login',
   components: {
-    
+
   },
   data () {
     return {
