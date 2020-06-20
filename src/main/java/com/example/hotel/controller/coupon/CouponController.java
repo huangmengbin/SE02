@@ -1,7 +1,6 @@
 package com.example.hotel.controller.coupon;
 
 import com.example.hotel.bl.coupon.CouponService;
-import com.example.hotel.po.Coupon;
 import com.example.hotel.vo.CouponVO;
 import com.example.hotel.vo.OrderVO;
 import com.example.hotel.vo.ResponseVO;

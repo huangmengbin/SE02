@@ -50,28 +50,31 @@
               </a-form-item>
               <a-form-item label="评分" class="rate">
                   <a-input-group compact>
-                      <a-input style=" width: 100px; text-align: center" placeholder="Minimum" v-model="screen.minRate"/>
+                      <a-input style=" width: 70px; text-align: center" placeholder="最小值" v-model="screen.minRate"/>
                       <a-input
                               style=" width: 30px; border-left: 0; pointer-events: none; backgroundColor: #fff"
                               placeholder="~"
                               disabled
                       />
-                      <a-input style="width: 100px; text-align: center; border-left: 0" placeholder="Maximum" v-model="screen.maxRate"/>
+                      <a-input style="width: 70px; text-align: center; border-left: 0" placeholder="最大值" v-model="screen.maxRate"/>
                   </a-input-group>
               </a-form-item>
               <a-form-item label="价格" class="price">
                   <a-input-group compact>
-                      <a-input style=" width: 100px; text-align: center" placeholder="Minimum" v-model="screen.minPrice"/>
+                      <a-input style=" width: 70px; text-align: center" placeholder="最小值" v-model="screen.minPrice"/>
                       <a-input
                               style=" width: 30px; border-left: 0; pointer-events: none; backgroundColor: #fff"
                               placeholder="~"
                               disabled
                       />
-                      <a-input style="width: 100px; text-align: center; border-left: 0" placeholder="Maximum" v-model="screen.maxPrice"/>
+                      <a-input style="width: 70px; text-align: center; border-left: 0" placeholder="最大值" v-model="screen.maxPrice"/>
                   </a-input-group>
               </a-form-item>
           </a-form>
       </div>
+      <br>
+      <br>
+      <br>
     <a-layout>
         <a-layout-content style="min-width: 800px">
           <a-spin :spinning="hotelListLoading">
@@ -265,21 +268,36 @@ export default {
       height: 188px;
     }
   }
-  .form{
-      display: inline;
-  }
   .star{
-      width:600px;
-      margin:1px 2px;
+      position: fixed;
+      top: 150px;
+      left: 55px;
+      height: 100px;
+      width: 595px;
+      z-index: 0;
   }
   .roomType{
+      position: fixed;
+      top: 150px;
+      left: 495px;
+      height: 100px;
       width: 500px;
-      margin:1px 2px;
+      z-index: 0;
   }
   .rate{
-      width: 500px;
+      position: fixed;
+      top: 150px;
+      left: 875px;
+      height: 100px;
+      width: 350px;
+      z-index: 0;
   }
   .price{
-      width: 500px;
+      position: fixed;
+      top: 150px;
+      left: 1175px;
+      height: 100px;
+      width: 350px;
+      z-index: 0;
   }
 </style>
