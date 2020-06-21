@@ -1,16 +1,38 @@
 <template>
   <div class="hotelList">
       <div>
-          <a-input
-                  size="large"
-                  v-model="searchNames"
-                  type="search"
-                  placeholder="根据酒店名搜索"
-                  v-decorator="[
-                {validateTrigger: 'blur'}]">
-              <a-icon slot="prefix" type="lock" :style="{ color: 'rgba(0,0,0,.25)' }"/>
-          </a-input>
+          <a-form
+                  :label-col="labelCol"
+                  :wrapper-col="wrapperCol"
+                  class="form"
+          >
+              <a-form-item label="搜索" prop="search" class="search" >
+                  <a-input
+                          size="large"
+                          v-model="searchNames"
+                          type="search"
+                          placeholder="根据酒店名搜索"
+                          v-decorator="[
+                        {validateTrigger: 'blur'}]">
+                      <a-icon slot="prefix" type="lock" :style="{ color: 'rgba(0,0,0,.25)' }"/>
+                  </a-input>
+              </a-form-item>
           <!--这里试试 把hmb的挤掉 -->
+              <a-form-item label="排序方式" prop="sortKey" class="sortKey">
+                  <a-select
+                          v-decorator="[
+                            'sortKey',
+                            { rules: [{ required: true, message: '请选择排序关键字' }] },
+                        ]"
+                          placeholder="请选择排序关键字"
+                  >
+                      <a-select-option value='deafult' :key="sortKey">默认</a-select-option>
+                      <a-select-option value='comment' :key="sortKey">评分</a-select-option>
+                      <a-select-option value='price' :key="sortKey">价格</a-select-option>
+                      <a-select-option value='rank' :key="sortKey">星级</a-select-option>
+                  </a-select>
+              </a-form-item>
+          </a-form>
       </div>
       <div>
           <!--todo lz zjc 筛选栏 排序栏 -->
@@ -216,6 +238,41 @@ export default {
            return (room.length!==0);
           });
           console.log("房型/价格",res);
+
+          if (this.screen.sortKey=='price') {
+              let minprice= []
+              res.forEach(hotel => {
+                  let rooms=[...this.allRoomList];
+                  rooms=rooms.filter(room => {
+                      return (room.hotelId===hotel.id);
+                  });
+                  let minp = 99999999;
+                  rooms.forEach(room => {
+                      if (room.price < minp)
+                          minp = room.price;
+                  });
+                  minprice.push({id: hotel.id, value :minp});
+              });
+              res=res.sort((a, b)=>{
+                  let indexa = minprice.findIndex(item =>{ if(item.id == a.id) return true; });
+                  let indexb = minprice.findIndex(item =>{ if(item.id == b.id) return true; });
+                  return (minprice[indexa].value <= minprice[indexb].value);
+              });
+              console.log("价格",res);
+          } else if (this.screen.sortKey=='comment') {
+              res=res.sort((a, b)=>{
+                  return (a.rate >= b.rate);
+              });
+              console.log("评分",res);
+          } else if (this.screen.sortKey=='rank') {
+              res=res.sort((a, b)=>{
+                  return (a.hotelStar <= b.hotelStar);
+                  //return ((a.hotelStar == 'five')||((a.hotelStar == 'four')&&(b.hotelStar != 'five'))||((a.hotelStar == 'three')&&(b.hotelStar == 'three')));
+              });
+              console.log("星级",res);
+          } else {
+              console.log("默认",res);
+          }
 
         return res;
       }
