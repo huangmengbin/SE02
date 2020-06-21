@@ -326,7 +326,7 @@ export default {
     }
   }
   .star{
-      position: fixed;
+      position: absolute;
       top: 150px;
       left: 55px;
       height: 100px;
@@ -334,15 +334,15 @@ export default {
       z-index: 0;
   }
   .roomType{
-      position: fixed;
+      position: absolute;
       top: 150px;
-      left: 495px;
+      left: 485px;
       height: 100px;
       width: 500px;
       z-index: 0;
   }
   .rate{
-      position: fixed;
+      position: absolute;
       top: 150px;
       left: 875px;
       height: 100px;
@@ -350,7 +350,7 @@ export default {
       z-index: 0;
   }
   .price{
-      position: fixed;
+      position: absolute;
       top: 150px;
       left: 1175px;
       height: 100px;
