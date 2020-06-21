@@ -42,7 +42,7 @@
                     <a-tab-pane tab="房间信息" key="1">
                         <RoomList :rooms="currentHotelInfo.rooms"></RoomList>
                     </a-tab-pane>
-                    <a-tab-pane tab="酒店详情" key="2">
+                    <a-tab-pane tab="酒店评价" key="2">
                         <div>
                             <a-list>
                                 <a-list-item :key="index" v-for="(line, index) in hotelCommentsList">
@@ -50,6 +50,12 @@
                                 </a-list-item>
                             </a-list>
                             <!--todo 有空把这里写得漂亮点-->
+                        </div>
+                    </a-tab-pane>
+                    <a-tab-pane tab="酒店详情" key="3">
+                        <div>
+                            <a-text>{{currentHotelInfo}}</a-text>
+                            <a-text>记得从后端取到商圈、地址，todo dxw</a-text>
                         </div>
                     </a-tab-pane>
                 </a-tabs>
