@@ -29,7 +29,7 @@
                         </div>
                         <div class="items" v-if="currentHotelInfo.hotelStar">
                             <span class="label">星级:</span> 
-                            <a-rate style="font-size: 15px" :value="currentHotelInfo.rate" disabled allowHalf/>
+                            <a-rate style="font-size: 15px" :value="calculateStar(currentHotelInfo.hotelStar)" disabled allowHalf/>
                         </div>
                         <div class="items" v-if="currentHotelInfo.description">
                             <span class="label">酒店简介:</span> 
@@ -107,7 +107,13 @@ export default {
         ...mapActions([
             'getHotelById',
             'getHotelCommentsList',
-        ])
+        ]),
+        calculateStar(hotelStar){
+            if(hotelStar==='Three')return 3;
+            if(hotelStar==='Four')return 4;
+            if(hotelStar==='Five')return 5;
+            return 0;
+        }
     }
 
 }
