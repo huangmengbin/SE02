@@ -69,7 +69,7 @@
                     <span slot="action" slot-scope="record">
                         <a-button type="primary" size="small" @click="showOrder(record)">详细查看</a-button>
                         <a-divider type="vertical"/>
-                        <a-button size="small" @click="comment(record)" v-show="record.orderState === '已完成' || record.orderState === '已评价' || true ">评价</a-button>
+                        <a-button size="small" @click="comment(record)" v-show="record.orderState === '已完成' ">评价</a-button>
                         <a-divider type="vertical"/>
                         <a-popconfirm
                             title="你确定撤销该笔订单吗？"
@@ -124,7 +124,7 @@ const columns = [
     },
     {
         title: '状态',
-        filters: [{ text: '已预订', value: '已预订' }, { text: '已撤销', value: '已撤销' }, { text: '已入住', value: '已入住' }],
+        filters: [{ text: '已预订', value: '已预订' }, { text: '已撤销', value: '已撤销' }, { text: '已完成', value: '已完成' }, {text: '已评价', value: '已评价'}],
         onFilter: (value, record) => record.orderState.includes(value),
         dataIndex: 'orderState',
         scopedSlots: { customRender: 'orderState' }
