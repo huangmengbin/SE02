@@ -129,10 +129,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     private int getUsedNum(OrderVO orderVO){
-        List<Order> orderList = this.getAllOrders().stream().
-                filter(o -> o.getHotelId().equals(orderVO.getHotelId())).
-                filter(o -> o.getRoomType().equals(orderVO.getRoomType())).
-                filter(o -> o.getOrderState().equals("已预订")).collect(Collectors.toList());
+        List<Order> orderList = this.getAllOrders().stream()
+                .filter(o -> o.getHotelId().equals(orderVO.getHotelId()))
+                .filter(o -> o.getRoomType().equals(orderVO.getRoomType()))
+                .filter(o -> o.getOrderState().equals("已预订") || o.getOrderState().equals("已入住"))
+                .collect(Collectors.toList());
 
         SimpleDateFormat sf=new SimpleDateFormat("yyyy-MM-dd");
         final long oneDay = 1000 * 60 * 60 * 24L;
