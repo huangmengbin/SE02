@@ -24,6 +24,16 @@
         update Orderlist set orderState="已撤销" where id=#{orderid}
     </update>
 
+    <update id="checkOut">
+        update orderlist set orderState='已退房' where id=#{id}
+    </update>
+
+
+    <update id="updateOutTime">
+        update orderlist set checkOutDate=#{checkOutDate},orderState='已入住' where id=#{id}
+    </update>
+
+
     <update id="addComment">
         update orderlist set
             orderState="已评价",

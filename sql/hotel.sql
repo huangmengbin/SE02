@@ -173,7 +173,7 @@ CREATE TABLE `User` (
 
 BEGIN;
 /*!40000 ALTER TABLE `User` DISABLE KEYS */;
-INSERT INTO `User` VALUES (3,'2636221659@qq.com','67is666','ddxw','+86 188...',100,'Manager','1999/05/20'),(4,'1012681@qq.com','123456','测试一号','12345678919',100,'Client','1993/05/20'),(5,'123@qq.com','123456','测试二号','12345678911',100,'Client','1999/09/20'),(6,'333@qq.com','123456',NULL,NULL,NULL,'HotelManager','1967/06/07');
+INSERT INTO `User` VALUES (3,'2636221659@qq.com','67is666','网站管理员','+86 188...',100,'Manager','1999/05/20'),(4,'1012681@qq.com','123456','用户1','12345678919',100,'Client','1993/05/20'),(5,'123@qq.com','123456','用户2','12345678911',100,'Client','1999/09/20'),(6,'333@qq.com','123456',"jd工作人员",NULL,NULL,'HotelManager','1967/06/07');
 /*!40000 ALTER TABLE `User` ENABLE KEYS */;
 COMMIT;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

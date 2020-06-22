@@ -4,6 +4,7 @@ import com.example.hotel.bl.hotel.HotelService;
 import com.example.hotel.bl.order.OrderService;
 import com.example.hotel.bl.user.AccountService;
 import com.example.hotel.data.order.OrderMapper;
+import com.example.hotel.data.user.AccountMapper;
 import com.example.hotel.po.Order;
 import com.example.hotel.po.User;
 import com.example.hotel.vo.CommentVO;
@@ -30,13 +31,15 @@ public class OrderServiceImpl implements OrderService {
     private final static String CREDIT_LACK = "宁的信用分不够了,赶紧充钱吧";
     private final static String ROOM_NUMBER_LACK = "预订房间数量剩余不足";
     private final static String ANNUl_ERROR = "删除订单失败";
+    private final static String UPDATE_ERROR = "修改失败";
     @Autowired
     OrderMapper orderMapper;
     @Autowired
     HotelService hotelService;
     @Autowired
     AccountService accountService;
-
+    @Autowired
+    AccountMapper accountMapper;
     @Override
     public ResponseVO addOrder(OrderVO orderVO) {
         if(accountService.getUserInfo(orderVO.getUserId()).getCredit()<=0){
@@ -189,5 +192,22 @@ public class OrderServiceImpl implements OrderService {
         commentVO.setUserName(accountService.getUserInfo(order.getUserId()).getUserName());
         return commentVO;
     }
+    public ResponseVO checkOut(int id){
+        try{
+
+            SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+            Date date = new Date(System.currentTimeMillis());
+            String outdate = sf.format(date);
+            orderMapper.updateOutTime(id,outdate);
+            Order out=orderMapper.getOrderById(id);
+            orderMapper.checkOut(id);
+            //System.out.println(id);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return ResponseVO.buildSuccess(true);
+    }
+
+
 
 }

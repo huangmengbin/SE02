@@ -21,9 +21,10 @@
             </a-menu-item>
             <a-menu-item key="4" @click="selectMenu" v-if="userInfo.userType==='Manager'">
                 <router-link :to="{ name: 'manageUser'}">
-                     <a-icon type="user" />账户管理
+                     <a-icon type="user" />用户管理
                 </router-link>
             </a-menu-item>
+
         </a-menu>
         <div class="logout">
             <a-dropdown placement="bottomCenter">
@@ -95,7 +96,7 @@ export default {
             this.$router.push({ name: 'userInfo', params: { userId: this.userId } })
         },
         jumpToHome() {
-
+            //这里不写有个小bug
         }
     }
 }

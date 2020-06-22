@@ -40,6 +40,12 @@ public interface OrderService {
      */
     ResponseVO annulOrder(int orderId);
 
+    /**
+     * 退房
+     * @param orderId
+     * @return
+     */
+    ResponseVO checkOut(int orderId);
 
     /**
      * 查看酒店的所有订单

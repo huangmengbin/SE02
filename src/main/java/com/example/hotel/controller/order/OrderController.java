@@ -58,4 +58,10 @@ public class OrderController {
     public ResponseVO getHotelComment(@PathVariable Integer hotelId){
         return ResponseVO.buildSuccess(orderService.getHotelComment(hotelId));
     }
+
+
+    @GetMapping("/{id}/checkOut")
+    public ResponseVO checkOut(@PathVariable int id){return  orderService.checkOut(id);}
+
+
 }

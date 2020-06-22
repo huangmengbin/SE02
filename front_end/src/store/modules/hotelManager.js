@@ -1,8 +1,10 @@
 import {
     addRoomAPI,
     addHotelAPI,
+    finishOrderAPI,
 } from '../../api/hotelManager'
 import {
+    checkOutAPI,
     getAllOrdersAPI,
 } from '../../api/order'
 import {
@@ -136,6 +138,16 @@ const hotelManager = {
             }else{
                 // 添加失败后的操作
                 message.error("添加失败");
+            }
+        },
+        checkOut: async({ state, dispatch }, id) => {
+
+            let res = await checkOutAPI(id);
+
+            if(res){
+                message.success("已完成");
+            }else{
+                message.error("fail");
             }
         }
     }

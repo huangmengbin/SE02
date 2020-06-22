@@ -52,6 +52,16 @@
                         >
                             <a-button type="danger" size="small">删除订单</a-button>
                         </a-popconfirm>
+                        <a-divider type="vertical"></a-divider>
+                        <a-popconfirm
+                                title="你确定ta走了吗？"
+                                @confirm="cOut(record.id)"
+                                okText="走了"
+                                cancelText="再等等"
+                                v-if="record.orderState === '已预订'"
+                        >
+                            <a-button type="danger" size="small">退房</a-button>
+                        </a-popconfirm>
                     </span>
                 </a-table>
             </a-tab-pane>
@@ -132,6 +142,13 @@ const columns2 = [
         dataIndex: 'price',
     },
     {
+        title: '状态',
+        filters: [{ text: '已预订', value: '已预订' }, { text: '已撤销', value: '已撤销' },{ text: '已执行', value: '已执行' }, { text: '已退房', value: '已退房' },{text: '已评价', value: '已评价'}],
+        onFilter: (value, record) => record.orderState.includes(value),
+        dataIndex: 'orderState',
+        scopedSlots: { customRender: 'orderState' }
+    },
+    {
       title: '操作',
       key: 'action',
       scopedSlots: { customRender: 'action' },
@@ -177,7 +194,8 @@ export default {
         ...mapActions([
             'getHotelList',
             'getAllOrders',
-            'getHotelCoupon'
+            'getHotelCoupon',
+            'checkOut'
         ]),
         addHotel() {//没有改后端的
             this.set_addHotelModalVisible(true)
@@ -200,6 +218,10 @@ export default {
         deleteOrder(){
 
         },
+        cOut(id){
+            this.checkOut(id);
+
+        }
     }
 }
 </script>
