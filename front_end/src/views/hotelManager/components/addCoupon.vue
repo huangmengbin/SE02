@@ -243,6 +243,10 @@
             },
 
             clear(){    //清除已有内容
+                this.discount=0;
+                this.subMoney=0;
+                this.discountType=null;
+                this.changeType=null;
                 this.form.setFieldsValue({
                     'couponName': '',
                     'couponType': '',
@@ -258,6 +262,7 @@
             },
 
             cancel() {
+                this.clear();
                 this.set_addCouponVisible(false);
             },
 

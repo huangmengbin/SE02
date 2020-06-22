@@ -52,11 +52,14 @@ public class CouponServiceImpl implements CouponService {
         coupon.setDescription(couponVO.getDescription());
         coupon.setCouponType(couponVO.getType());
         coupon.setHotelId(couponVO.getHotelId());
-        coupon.setTargetMoney(couponVO.getTarget());
+        if(couponVO.getTarget()!=null)
+            coupon.setTargetMoney(couponVO.getTarget());
         coupon.setDiscount(couponVO.getDiscount());
         coupon.setDiscountMoney(couponVO.getDiscountMoney());
-        coupon.setStartTime(couponVO.getStartTime());
-        coupon.setEndTime(couponVO.getEndTime());
+        if(couponVO.getStartTime()!=null)
+            coupon.setStartTime(couponVO.getStartTime());
+        if(couponVO.getEndTime()!=null)
+            coupon.setEndTime(couponVO.getEndTime());
         coupon.setStatus(1);///???
 
         int result = couponMapper.insertCoupon(coupon);
