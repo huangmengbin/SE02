@@ -143,7 +143,7 @@ const hotelManager = {
         checkOut: async({ state, dispatch }, id) => {
 
             let res = await checkOutAPI(id);
-
+            dispatch('getAllOrders');
             if(res){
                 message.success("已完成");
             }else{
