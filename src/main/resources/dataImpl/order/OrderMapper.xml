@@ -25,12 +25,12 @@
     </update>
 
     <update id="checkOut">
-        update orderlist set orderState='已退房' where id=#{id}
+        update orderlist set orderState='已完成' where id=#{id}
     </update>
 
 
     <update id="updateOutTime">
-        update orderlist set checkOutDate=#{checkOutDate},orderState='已入住' where id=#{id}
+        update orderlist set checkOutDate=#{checkOutDate} where id=#{id}
     </update>
 
 
