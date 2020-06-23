@@ -14,6 +14,8 @@
                         <span>￥{{ text }}</span>
                     </span>
                     <span slot="action" slot-scope="text, record">
+                        <a-button type="primary"  @click="changeUserType(record)">变更职位</a-button>
+                        <a-divider type="vertical"></a-divider>
                         <a-popconfirm
                                 title="确定想删除该员工吗？"
                                 @confirm="delUser(record)"
@@ -58,6 +60,10 @@ const columns = [
         dataIndex: 'credit',
     },
     {
+      title:'员工类型',
+      dataIndex:'userType',
+    },
+    {
       title: '操作',
       key: 'action',
       scopedSlots: { customRender: 'action' },
@@ -96,6 +102,10 @@ export default {
         ]),
         addManager(){
             this.set_addManagerModalVisible(true)
+        },
+        changeUserType(user){
+            console.log(user);
+            alert(user.id);
         },
         delUser(record){
             this.deleteUser(record);

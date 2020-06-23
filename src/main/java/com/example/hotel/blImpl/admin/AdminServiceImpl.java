@@ -30,7 +30,7 @@ public class AdminServiceImpl implements AdminService {
         User user = new User();
         user.setEmail(userForm.getEmail());
         user.setPassword(userForm.getPassword());
-        user.setUserType(UserType.HotelManager);
+        user.setUserType(userForm.getUserType());
         try {
             adminMapper.addManager(user);
         } catch (Exception e) {
