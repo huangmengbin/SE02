@@ -22,11 +22,11 @@ public interface OrderMapper {
 
     List<Order> getUserOrders(@Param("userid") int userid);
 
-    int annulOrder(@Param("orderid") int orderid);
+
+    int updateOrderState(@Param("orderid") int orderid, @Param("orderState") String orderState);
 
     Order getOrderById(@Param("orderid") int orderid);
 
-    int checkOut(@Param("id") int id);
 
     int updateOutTime(@Param("id") int id,@Param("checkOutDate") String outdate);
 

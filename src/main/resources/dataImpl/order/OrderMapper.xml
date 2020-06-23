@@ -20,12 +20,8 @@
         select * from OrderList where id=#{orderid}
     </select>
 
-    <update id="annulOrder">
-        update Orderlist set orderState="已撤销" where id=#{orderid}
-    </update>
-
-    <update id="checkOut">
-        update orderlist set orderState='已完成' where id=#{id}
+    <update id="updateOrderState">
+        update Orderlist set orderState=#{orderState} where id=#{orderid}
     </update>
 
 
@@ -36,7 +32,6 @@
 
     <update id="addComment">
         update orderlist set
-            orderState="已评价",
             commentScore=#{commentScore},
             comment=#{comment}
         where id=#{orderid}

@@ -32,6 +32,17 @@ public class OrderServiceImpl implements OrderService {
     private final static String ROOM_NUMBER_LACK = "预订房间数量剩余不足";
     private final static String ANNUl_ERROR = "删除订单失败";
     private final static String UPDATE_ERROR = "修改失败";
+
+    private final static String yu_ding = "已预订" ;
+    private final static String wan_cheng = "已完成" ;
+    private final static String ping_jia = "已评价" ;
+    private final static String che_xiao = "已撤销" ;
+
+    private final static String ru_zhu = "已入住" ;
+    private final static String zhi_xing = "已执行" ;//这两个用其中之一
+
+    //private final static String = "" ;
+
     @Autowired
     OrderMapper orderMapper;
     @Autowired
@@ -60,7 +71,7 @@ public class OrderServiceImpl implements OrderService {
                 return ResponseVO.buildFailure(DATE_ERROR);
             }
             orderVO.setCreateDate(curdate);
-            orderVO.setOrderState("已预订");
+            orderVO.setOrderState(yu_ding);
             User user = accountService.getUserInfo(orderVO.getUserId());
             orderVO.setClientName(user.getUserName());
             orderVO.setPhoneNumber(user.getPhoneNumber());
@@ -90,9 +101,9 @@ public class OrderServiceImpl implements OrderService {
         // 取消订单逻辑的具体实现（注意可能有和别的业务类之间的交互
         try{
             Order order=orderMapper.getOrderById(orderId);
-            if(order.getOrderState().equals("已撤销"))
+            if(order.getOrderState().equals(che_xiao))
                 return ResponseVO.buildFailure(ANNUl_ERROR);
-            orderMapper.annulOrder(orderId);
+            orderMapper.updateOrderState(orderId, che_xiao);
             if(notRevocable(order)){
                 User user = accountService.getUserInfo(order.getUserId());
                 user.setCredit(user.getCredit()-order.getPrice()/2);
@@ -135,7 +146,7 @@ public class OrderServiceImpl implements OrderService {
         List<Order> orderList = this.getAllOrders().stream()
                 .filter(o -> o.getHotelId().equals(orderVO.getHotelId()))
                 .filter(o -> o.getRoomType().equals(orderVO.getRoomType()))
-                .filter(o -> o.getOrderState().equals("已预订") || o.getOrderState().equals("已入住"))
+                .filter(o -> o.getOrderState().equals(yu_ding) || o.getOrderState().equals(ru_zhu))
                 .collect(Collectors.toList());
 
         SimpleDateFormat sf=new SimpleDateFormat("yyyy-MM-dd");
@@ -164,6 +175,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public ResponseVO addComment(OrderVO orderVO) {
         orderMapper.addComment(orderVO.getId(),orderVO.getComment(),orderVO.getCommentScore());
+        orderMapper.updateOrderState(orderVO.getId(),ping_jia);
         hotelService.addComment(orderVO.getHotelId(),orderVO.getCommentScore());
         return ResponseVO.buildSuccess(true);
     }
@@ -179,7 +191,7 @@ public class OrderServiceImpl implements OrderService {
     public List<CommentVO> getHotelComment(Integer hotelId) {
         return this.getAllOrders().stream()
                 .filter(order -> order.getHotelId().equals(hotelId))
-                .filter(order -> order.getOrderState().equals("已评价"))
+                .filter(order -> order.getOrderState().equals(ping_jia))
                 .map(this::orderToComment)
                 .collect(Collectors.toList());
     }
@@ -200,7 +212,7 @@ public class OrderServiceImpl implements OrderService {
             String outdate = sf.format(date);
             orderMapper.updateOutTime(id,outdate);
             Order out=orderMapper.getOrderById(id);
-            orderMapper.checkOut(id);
+            orderMapper.updateOrderState(id, wan_cheng);
             //System.out.println(id);
         }catch (Exception e){
             System.out.println(e.getMessage());
