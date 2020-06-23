@@ -216,7 +216,13 @@ export default {
         onchange() {
             this.finalPrice = this.totalPrice
             if(this.checkedList.length>0){
-                this.orderMatchCouponList.filter(item => this.checkedList.indexOf(item.id)!=-1).forEach(item => this.finalPrice= this.finalPrice-item.discountMoney)
+                this.orderMatchCouponList.filter(item => this.checkedList.indexOf(item.id)!==-1).forEach(item => {
+                    if(item.discountMoney===0){
+                        this.finalPrice = this.finalPrice*item.discount/10.0
+                    } else {
+                        this.finalPrice = this.finalPrice - item.discountMoney
+                    }
+                })
             }else{
                 
             }
