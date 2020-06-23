@@ -24,6 +24,11 @@
                      <a-icon type="user" />用户管理
                 </router-link>
             </a-menu-item>
+            <a-menu-item key="5" @click="selectMenu" v-if="userInfo.userType==='WebMarketer'">
+                <router-link :to="{ name: 'manageWebsiteMarket'}">
+                    <a-icon type="user" />网站营销
+                </router-link>
+            </a-menu-item>
 
         </a-menu>
         <div class="logout">
