@@ -112,10 +112,10 @@
   </div>
 </template>
 <script>
-import HotelCard from './components/hotelCard'
-import { mapGetters, mapActions, mapMutations } from 'vuex'
+    import HotelCard from './components/hotelCard'
+    import {mapActions, mapGetters, mapMutations} from 'vuex'
 
-export default {
+    export default {
   name: 'home',
   components: {
     HotelCard
@@ -152,11 +152,11 @@ export default {
       'hotelListLoading',
       'allRoomList'
     ]),
-      currentHotelList(){
+      currentHotelList: function () {
           //hotelList是加载下来所有的酒店，currentHotelList是处理后的，比如排序、筛选；最后才分页（可选
 
-        let {hotelList, searchNames} = this;
-        let res = [...hotelList];
+          let {hotelList, searchNames} = this;
+          let res = [...hotelList];
 
           if(searchNames.trim()){
               let words = searchNames.trim().split(/\s+/);
@@ -171,110 +171,114 @@ export default {
           }//首先，把酒店的列表根据名字筛选一次。
           //接下来，各种高级筛选、排序的东西都写在这里
 
-          console.log("名字",res);
+          // console.log("名字",res);
 
           //todo lz zjc
           //筛选评分、星级
-          let minRate=0;
-          let maxRate=5;
-          let selectedStar=[];
-          if(this.screen.minRate.length!==0){
-              minRate=this.screen.minRate;
+          let minRate = 0;
+          let maxRate = 5;
+          let selectedStar = [];
+          if (this.screen.minRate.length !== 0) {
+              minRate = this.screen.minRate;
           }
-          if(this.screen.maxRate.length!==0){
-              maxRate=this.screen.maxRate;
+          if (this.screen.maxRate.length !== 0) {
+              maxRate = this.screen.maxRate;
           }
-          if(this.screen.star.length!==0){
-              selectedStar=this.screen.star;
+          if (this.screen.star.length !== 0) {
+              selectedStar = this.screen.star;
           }
-          console.log("selectedStar",selectedStar)
+          // console.log("selectedStar",selectedStar)
 
-          res=res.filter(hotel=>{
-              if(selectedStar.length===0){
+          res = res.filter(hotel => {
+              if (selectedStar.length === 0) {
                   return (hotel.rate >= minRate && hotel.rate <= maxRate);
-              }else if(selectedStar.indexOf("zero")!==-1){
-                  console.log("selectedStar.indexOf(hotel.hotelStar)",selectedStar.indexOf(hotel.hotelStar))
-                  return (hotel.rate >= minRate && hotel.rate <= maxRate && (selectedStar.indexOf(hotel.hotelStar)!==-1 || hotel.hotelStar.length===0));
-              }else{
-                  return (hotel.rate >= minRate && hotel.rate <= maxRate && (selectedStar.indexOf(hotel.hotelStar)!==-1));
+              } else if (selectedStar.indexOf("zero") !== -1) {
+                  // console.log("selectedStar.indexOf(hotel.hotelStar)",selectedStar.indexOf(hotel.hotelStar))
+                  return (hotel.rate >= minRate && hotel.rate <= maxRate && (selectedStar.indexOf(hotel.hotelStar) !== -1 || hotel.hotelStar.length === 0));
+              } else {
+                  return (hotel.rate >= minRate && hotel.rate <= maxRate && (selectedStar.indexOf(hotel.hotelStar) !== -1));
               }
 
           });
 
-          console.log("评分",res);
+          // console.log("评分",res);
 
           //筛选房型、价格
           //因为存在一个“有的酒店没有房间”的问题(即没有roomType和price)，所以弄得稍微复杂了一点 -.-|||
-          let selectedRoom=[];
-          let hasSelectedPrice=false;
-          let minPrice=0;
-          let maxPrice=99999999;
-          if(this.screen.roomType.length!==0){
-              selectedRoom=[...this.screen.roomType];
+          let selectedRoom = [];
+          let hasSelectedPrice = false;
+          let minPrice = 0;
+          let maxPrice = 99999999;
+          if (this.screen.roomType.length !== 0) {
+              selectedRoom = [...this.screen.roomType];
           }
-          if(this.screen.minPrice.length!==0){
-              minPrice=this.screen.minPrice;
-              hasSelectedPrice=true;
+          if (this.screen.minPrice.length !== 0) {
+              minPrice = this.screen.minPrice;
+              hasSelectedPrice = true;
           }
-          if(this.screen.maxPrice.length!==0){
-              maxPrice=this.screen.maxPrice;
-              hasSelectedPrice=true;
+          if (this.screen.maxPrice.length !== 0) {
+              maxPrice = this.screen.maxPrice;
+              hasSelectedPrice = true;
           }
 
 
-          res=res.filter(hotel=>{
-              let room=[...this.allRoomList];
-              if(selectedRoom.length===0 && !hasSelectedPrice){
+          res = res.filter(hotel => {
+              let room = [...this.allRoomList];
+              if (selectedRoom.length === 0 && !hasSelectedPrice) {
                   return true;
-              }else if(selectedRoom.length===0){
-                  room=room.filter(room=>{
-                      return (room.hotelId===hotel.id && room.price>=minPrice && room.price<=maxPrice)
+              } else if (selectedRoom.length === 0) {
+                  room = room.filter(room => {
+                      return (room.hotelId === hotel.id && room.price >= minPrice && room.price <= maxPrice)
                   });
-              } else{
-                  room=room.filter(room=>{
-                      return (room.hotelId===hotel.id && selectedRoom.indexOf(room.roomType)!==-1 && room.price>=minPrice && room.price<=maxPrice)
+              } else {
+                  room = room.filter(room => {
+                      return (room.hotelId === hotel.id && selectedRoom.indexOf(room.roomType) !== -1 && room.price >= minPrice && room.price <= maxPrice)
                   });
               }
-           return (room.length!==0);
+              return (room.length !== 0);
           });
-          console.log("房型/价格",res);
+          // console.log("房型/价格",res);
 
-          if (this.screen.sortKey=='price') {
-              let minprice= []
+          if (this.screen.sortKey === 'price') {
+              let minprice = []
               res.forEach(hotel => {
-                  let rooms=[...this.allRoomList];
-                  rooms=rooms.filter(room => {
-                      return (room.hotelId===hotel.id);
+                  let rooms = [...this.allRoomList];
+                  rooms = rooms.filter(room => {
+                      return (room.hotelId === hotel.id);
                   });
                   let minp = 99999999;
                   rooms.forEach(room => {
                       if (room.price < minp)
                           minp = room.price;
                   });
-                  minprice.push({id: hotel.id, value :minp});
+                  minprice.push({id: hotel.id, value: minp});
               });
-              res=res.sort((a, b)=>{
-                  let indexa = minprice.findIndex(item =>{ if(item.id == a.id) return true; });
-                  let indexb = minprice.findIndex(item =>{ if(item.id == b.id) return true; });
+              res = res.sort((a, b) => {
+                  let indexa = minprice.findIndex(item => {
+                      if (item.id === a.id) return true;
+                  });
+                  let indexb = minprice.findIndex(item => {
+                      if (item.id === b.id) return true;
+                  });
                   return (minprice[indexa].value <= minprice[indexb].value);
               });
-              console.log("价格",res);
-          } else if (this.screen.sortKey=='comment') {
-              res=res.sort((a, b)=>{
+              // console.log("价格",res);
+          } else if (this.screen.sortKey === 'comment') {
+              res = res.sort((a, b) => {
                   return (a.rate >= b.rate);
               });
-              console.log("评分",res);
-          } else if (this.screen.sortKey=='rank') {
-              res=res.sort((a, b)=>{
+              // console.log("评分",res);
+          } else if (this.screen.sortKey === 'rank') {
+              res = res.sort((a, b) => {
                   return (a.hotelStar <= b.hotelStar);
                   //return ((a.hotelStar == 'five')||((a.hotelStar == 'four')&&(b.hotelStar != 'five'))||((a.hotelStar == 'three')&&(b.hotelStar == 'three')));
               });
-              console.log("星级",res);
+              // console.log("星级",res);
           } else {
-              console.log("默认",res);
+              // console.log("默认",res);
           }
 
-        return res;
+          return res;
       }
   },
   methods: {
