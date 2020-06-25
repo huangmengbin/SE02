@@ -46,7 +46,7 @@
                       <a-checkbox value="zero" name="star">
                           经济型
                       </a-checkbox>
-                      <a-checkbox value="three" name="star">
+                      <a-checkbox value="Three" name="star">
                           三星
                       </a-checkbox>
                       <a-checkbox value="Four" name="star">
