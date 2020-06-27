@@ -54,8 +54,9 @@
                     </a-tab-pane>
                     <a-tab-pane tab="酒店详情" key="3">
                         <div>
-                            <a-text>{{currentHotelInfo}}</a-text>
-                            <a-text>记得从后端取到商圈、地址，todo dxw</a-text>
+                            <a-text><a-icon type="home" theme="twoTone" /> 地址：{{currentHotelInfo.address}}</a-text><br>
+                            <a-text><a-icon type="shop" theme="twoTone" /> 商圈：{{currentHotelInfo.bizRegion}}</a-text><br>
+                            <a-text><a-icon type="phone" theme="twoTone" /> 联系电话：{{currentHotelInfo.phoneNum}}</a-text><br>
                         </div>
                     </a-tab-pane>
                 </a-tabs>
@@ -92,8 +93,9 @@ export default {
     mounted() {
         this.set_currentHotelId(Number(this.$route.params.hotelId))
         this.getHotelById();
+        console.log("getHotelById",this);
         this.getHotelCommentsList();
-        console.log(this)
+
     },
     beforeRouteUpdate(to, from, next) {
         this.set_currentHotelId(Number(to.params.hotelId))
