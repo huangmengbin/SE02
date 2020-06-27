@@ -169,19 +169,11 @@ export default {
 
         let {hotelList, searchNames} = this;
         let res = [...hotelList];
+          res.forEach(item => this.$set(item, 'minRoomPrice', Number.MAX_VALUE));
 
-        res.forEach(item => item.minRoomPrice = 67666);
-
-          if(searchNames.trim()){
-              let words = searchNames.trim().split(/\s+/);
-              res = res.filter(hotel => {
-                  for(let word of words){
-                      if(hotel.name.indexOf(word) === -1){
-                          return false;
-                      }
-                  }
-                  return true;
-              })
+          if (searchNames.trim()) {
+              res = res.filter(hotel =>
+                  searchNames.trim().split(/\s+/).every(item => hotel.name.indexOf(item) !== -1))
           }//首先，把酒店的列表根据名字筛选一次。
           //接下来，各种高级筛选、排序的东西都写在这里
 
@@ -251,13 +243,13 @@ export default {
           });
           console.log("房型/价格",res);
 
+          let rooms=[...this.allRoomList];
+          if(selectedRoom.length>0){
+              rooms = rooms.filter( a_room => selectedRoom.indexOf(a_room.roomType) !== -1 );
+          }
           res.forEach(hotel => {
-              let rooms=[...this.allRoomList];
-              rooms=rooms.filter(room => {
-                  return (room.hotelId===hotel.id);
-              });
               rooms.forEach(room => {
-                  if (room.price < hotel.minRoomPrice)
+                  if (room.hotelId===hotel.id  &&  room.price < hotel.minRoomPrice)
                       hotel.minRoomPrice = room.price;
               });
           });

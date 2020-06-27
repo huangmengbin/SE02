@@ -11,7 +11,7 @@
         <template slot="description">
           <a-rate style="font-size: 15px" :value="hotel.rate" disabled allowHalf/> {{hotel.rate}}分
           <br>
-          {{getPrice()}}元起
+          {{minMoney}}
         </template>
       </a-card-meta>
     </a-tooltip>
@@ -27,15 +27,26 @@ export default {
   },
   data() {
     return{
+        minMoney:''
     }
   },
+    watch:{
+      hotel:{
+          immediate: true,
+          deep:true,
+          handler (newValue) {
+              let money = newValue.minRoomPrice;
+              if(money === Number.MAX_VALUE){
+                  this.minMoney = '本店没有合适的房间'
+              }
+              else {
+                  this.minMoney = money + '元起'
+              }
+
+          }
+      }
+    },
   methods: {
-    getPrice() {
-      if (this.hotel.minRoomPrice == 67666)
-        return "N/A";
-      else
-        return this.hotel.minRoomPrice;
-    }
   }
 }
 </script>
