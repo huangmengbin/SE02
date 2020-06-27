@@ -93,6 +93,7 @@ const hotel = {
             return res;
         },
         getHotelById: async({commit, state}) => {
+            console.log(state.currentHotelId)
             const res = await getHotelByIdAPI({
                 hotelId: state.currentHotelId
             })

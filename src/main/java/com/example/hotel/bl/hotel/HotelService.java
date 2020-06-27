@@ -40,6 +40,11 @@ public interface HotelService {
 
 
     void addComment(Integer hotelId, Integer score);
-
+    /**
+     * 查看酒店管理人员的所有酒店
+     * @param id
+     * @return
+     */
+    List<HotelVO> retrieveMgrHotels(int id);
 
 }

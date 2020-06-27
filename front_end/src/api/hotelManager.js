@@ -16,3 +16,9 @@ export function addHotelAPI(data) {
         data,
     })
 }
+export function mgrHotelListAPI(id) {
+    return axios({
+        url: `${api.hotelPre}/${id}/hotelMgr`,
+        method: 'GET',
+    })
+}

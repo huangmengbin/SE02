@@ -23,6 +23,10 @@ const getters = {
   orderList: state => state.hotelManager.orderList,
   addHotelModalVisible: state => state.hotelManager.addHotelModalVisible,
   addRoomModalVisible: state => state.hotelManager.addRoomModalVisible,
+  mgrHotelList: state => state.hotelManager.mgrHotelList,
+  orderVisible: state => state.hotelManager.orderVisible,
+  mgrOrderList: state => state.hotelManager.mgrOrderList,
+
   couponVisible: state => state.hotelManager.couponVisible,
   addCouponVisible: state => state.hotelManager.addCouponVisible,
   activeHotelId: state => state.hotelManager.activeHotelId,

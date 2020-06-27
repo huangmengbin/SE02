@@ -53,3 +53,10 @@ export function checkOutAPI(orderId) {
         method: 'GET',
     })
 }
+export function managedHotelOrdersAPI(hotelId) {
+    return axios({
+        url: `${api.orderPre}/managedOrders`,
+        method: 'GET',
+        params: {hotelId: hotelId},
+    })
+}

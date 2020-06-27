@@ -20,5 +20,13 @@ public interface HotelMapper {
     HotelVO selectById(@Param("id") Integer id);
 
     void updateHotel(Hotel hotel);
+    /**
+     *
+     * @param id
+     * @return
+     */
+    List<HotelVO> selectMgrHotel(int id);
+
+
 
 }

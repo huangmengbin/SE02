@@ -17,6 +17,7 @@ import com.example.hotel.vo.RoomVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -94,5 +95,9 @@ public class HotelServiceImpl implements HotelService {
         hotel.setHotelName(hotelVO.getName());
         hotelMapper.updateHotel(hotel);
     }
+    @Override
+    public  List<HotelVO> retrieveMgrHotels(@RequestParam int id){
+        return hotelMapper.selectMgrHotel(id);
+    };
 
 }

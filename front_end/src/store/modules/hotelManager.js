@@ -1,11 +1,12 @@
 import {
     addRoomAPI,
     addHotelAPI,
-    finishOrderAPI,
+    mgrHotelListAPI,
 } from '../../api/hotelManager'
 import {
     checkOutAPI,
     getAllOrdersAPI,
+    managedHotelOrdersAPI,
 } from '../../api/order'
 import {
     addCouponAPI,
@@ -16,6 +17,8 @@ import { message } from 'ant-design-vue'
 const hotelManager = {
     state: {
         orderList: [],
+        managedOrders: [],
+        mgrHotelList: [],
         addHotelParams: {
             name: '',
             address: '',
@@ -37,6 +40,8 @@ const hotelManager = {
         addRoomModalVisible: false,
         couponVisible: false,
         addCouponVisible: false,
+        orderVisible:false,
+        mgrOrderList: [],
         activeHotelId: 0,
         couponList: [],
     },
@@ -73,9 +78,28 @@ const hotelManager = {
         },
         set_addCouponVisible: function(state, data) {
             state.addCouponVisible =data
-        }
+        },
+        set_orderVisible: function (state, data) {
+            console.log('ordervisible')
+            state.orderVisible = data
+        },
+        set_managedHotelOrders: function (state, data) {
+            state.mgrOrderList = data
+        },
+        set_mgrHotelList: function (state, data) {
+            state.mgrHotelList = data
+            //console.log(data)
+        },
     },
     actions: {
+        getMgrHotelList: async ({state, commit}, id) => {
+            console.log(id)
+            const res = await mgrHotelListAPI(id)
+
+            if (res) {
+                commit('set_mgrHotelList', res)
+            }
+        },
         getAllOrders: async({ state, commit }) => {
             const res = await getAllOrdersAPI()
             if(res){
@@ -148,7 +172,15 @@ const hotelManager = {
             }else{
                 message.error("fail");
             }
+        },
+        getManagedOrders: async ({state, commit}) => {
+            console.log(state.activeHotelId)
+            const res = await managedHotelOrdersAPI(state.activeHotelId)
+            if (res) {
+                commit('set_managedHotelOrders', res)
+            }
         }
+
     }
 }
 export default hotelManager
