@@ -104,8 +104,7 @@ export default {
     async mounted() {
 
         await this.getMgrHotelList(this.userId)
-
-        await this.getHotelById()
+        //await this.getHotelById()
     },
     methods: {
         ...mapMutations([

@@ -174,8 +174,9 @@ const hotelManager = {
             }
         },
         getManagedOrders: async ({state, commit}) => {
-            console.log(state.activeHotelId)
+            //console.log("activehotel: "+state.activeHotelId)
             const res = await managedHotelOrdersAPI(state.activeHotelId)
+            //console.log(res)
             if (res) {
                 commit('set_managedHotelOrders', res)
             }

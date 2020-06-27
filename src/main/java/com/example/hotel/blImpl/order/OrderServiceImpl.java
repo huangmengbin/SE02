@@ -117,15 +117,8 @@ public class OrderServiceImpl implements OrderService {
         return ResponseVO.buildSuccess(true);
     }
 
-    /**
-     * @param hotelId
-     * @return
-     */
-    @Override
-    public List<Order> getHotelOrders(Integer hotelId) {
-        List<Order> orders = this.getAllOrders();
-        return orders.stream().filter(order -> order.getHotelId().equals(hotelId)).collect(Collectors.toList());
-    }
+
+
 
 
     private boolean notRevocable(Order order){

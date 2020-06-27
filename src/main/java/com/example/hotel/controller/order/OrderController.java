@@ -29,10 +29,11 @@ public class OrderController {
         return ResponseVO.buildSuccess(orderService.getAllOrders());
     }
 
-    @GetMapping("/{userid}/getUserOrders")
-    public  ResponseVO retrieveUserOrders(@PathVariable int userid){
-        return ResponseVO.buildSuccess(orderService.getUserOrders(userid));
+    @GetMapping("/{userId}/getUserOrders")
+    public  ResponseVO retrieveUserOrders(@PathVariable int userId){
+        return ResponseVO.buildSuccess(orderService.getUserOrders(userId));
     }
+
 
     @GetMapping("/{orderid}/annulOrder")
     public ResponseVO annulOrder(@PathVariable int orderid){
@@ -62,6 +63,8 @@ public class OrderController {
 
     @GetMapping("/{id}/checkOut")
     public ResponseVO checkOut(@PathVariable int id){return  orderService.checkOut(id);}
+
+
 
 
 }

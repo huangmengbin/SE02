@@ -47,12 +47,8 @@ public interface OrderService {
      */
     ResponseVO checkOut(int orderId);
 
-    /**
-     * 查看酒店的所有订单
-     * @param hotelId
-     * @return
-     */
-    List<Order> getHotelOrders(Integer hotelId);
+
+
 
     ResponseVO addComment(OrderVO orderVO);
 

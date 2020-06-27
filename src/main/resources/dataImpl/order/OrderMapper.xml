@@ -9,7 +9,10 @@
     <select id="getUserOrders" resultMap="Order">
         select * from OrderList where userId=#{userid}
     </select>
-    <!--感觉这有问题:   userId & userid-->
+    <select id="getHotelOrders" resultMap="Order">
+        select * from OrderList where hotelId=#{hotelId}
+    </select>
+
 
     <insert id="addOrder" parameterType="com.example.hotel.po.Order" useGeneratedKeys="true" keyProperty="id">
         insert into OrderList(userId,hotelId,hotelName,checkInDate,checkOutDate,roomType,roomNum,peopleNum,haveChild,createDate,price,clientName,phoneNumber,orderState,comment,commentScore)

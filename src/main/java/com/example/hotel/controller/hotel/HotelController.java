@@ -50,7 +50,7 @@ public class HotelController {
 
     @GetMapping("/{id}/hotelMgr")
     public ResponseVO retrieveMgrHotels(@PathVariable int id) {
-        System.out.print(id);
+
         return ResponseVO.buildSuccess(hotelService.retrieveMgrHotels(id));
 
     }
