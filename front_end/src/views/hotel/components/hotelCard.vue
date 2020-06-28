@@ -11,7 +11,7 @@
         <template slot="description">
           <a-rate style="font-size: 15px" :value="getHotelStar(hotel.hotelStar)" disabled allowHalf/> {{hotel.rate}}分
           <br>
-          {{minMoney}}
+          <a-icon type="fire" theme="twoTone" twoToneColor="#FF4500" v-if="minMoney!=='本店没有合适的房间'"/> {{minMoney}}
         </template>
       </a-card-meta>
     </a-tooltip>
