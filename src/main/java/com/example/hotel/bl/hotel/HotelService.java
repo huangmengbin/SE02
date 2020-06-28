@@ -2,6 +2,7 @@ package com.example.hotel.bl.hotel;
 
 import com.example.hotel.po.HotelRoom;
 import com.example.hotel.util.ServiceException;
+import com.example.hotel.vo.ResponseVO;
 import com.example.hotel.vo.RoomVO;
 import com.example.hotel.vo.HotelVO;
 
@@ -46,5 +47,7 @@ public interface HotelService {
      * @return
      */
     List<HotelVO> retrieveMgrHotels(int id);
+
+    ResponseVO updateHotelInfo(Integer hotelId, String name, String address, String bizRegion, String description, String hotelStar, String phoneNum);
 
 }

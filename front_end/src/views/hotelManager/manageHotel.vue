@@ -16,6 +16,8 @@
                         <a-button type="info" size="small" @click="showCoupon(record)">优惠策略</a-button>
                         <a-divider type="vertical"></a-divider>
                         <a-button type="info" size="small" @click="manageOrder(record.id)">订单管理</a-button>
+                        <a-divider type="vertical"></a-divider>
+                        <a-button type="info" size="small" @click="manageHotel(record)">信息修改</a-button>
 
 
                     </span>
@@ -28,7 +30,7 @@
         <AddRoomModal></AddRoomModal>
         <Coupon></Coupon>
         <manageOrder :hotelId="id"></manageOrder>
-
+        <ManageHotelModal :record="clickedRecord"></ManageHotelModal>
     </div>
 </template>
 <script>
@@ -37,6 +39,7 @@ import AddHotelModal from './components/addHotelModal'
 import AddRoomModal from './components/addRoomModal'
 import Coupon from './components/coupon'
 import manageOrder from "./components/manageOrder";
+import ManageHotelModal from "./components/manageHotelModal";
 const moment = require('moment')
 const columns1 = [
     {
@@ -86,6 +89,7 @@ export default {
         AddRoomModal,
         Coupon,
         manageOrder,
+        ManageHotelModal,
     },
     computed: {
         ...mapGetters([
@@ -113,6 +117,7 @@ export default {
             'set_couponVisible',
             'set_activeHotelId',
             'set_orderVisible',
+            'set_manageHotelVisible',
         ]),
         ...mapActions([
             'getMgrHotelList',
@@ -151,6 +156,12 @@ export default {
             this.set_activeHotelId(id)
             this.set_orderVisible(true)
             this.getManagedOrders()
+        },
+        manageHotel(record) {
+            this.clickedRecord=record;
+            // console.log(record)
+            this.set_activeHotelId(record.id)
+            this.set_manageHotelVisible(true)
         },
     }
 }

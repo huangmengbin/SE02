@@ -22,3 +22,10 @@ export function mgrHotelListAPI(id) {
         method: 'GET',
     })
 }
+export function submitManageHotelParamsAPI(data){
+    return axios({
+        url: `${api.hotelPre}/${data.id}/hotelInfo/update`,
+        method: 'POST',
+        data,
+    })
+}

@@ -52,6 +52,10 @@ public class HotelController {
     public ResponseVO retrieveMgrHotels(@PathVariable int id) {
 
         return ResponseVO.buildSuccess(hotelService.retrieveMgrHotels(id));
+    }
+    @PostMapping("/{id}/hotelInfo/update")
+    public ResponseVO updateHotelInfo(@RequestBody HotelVO hotelVO, @PathVariable Integer id){
+        return hotelService.updateHotelInfo(id,hotelVO.getName(),hotelVO.getAddress(),hotelVO.getBizRegion(),hotelVO.getDescription(),hotelVO.getHotelStar(),hotelVO.getPhoneNum());
 
     }
 }

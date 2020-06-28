@@ -2,6 +2,7 @@ import {
     addRoomAPI,
     addHotelAPI,
     mgrHotelListAPI,
+    submitManageHotelParamsAPI,
 } from '../../api/hotelManager'
 import {
     checkOutAPI,
@@ -41,6 +42,7 @@ const hotelManager = {
         couponVisible: false,
         addCouponVisible: false,
         orderVisible:false,
+        manageHotelVisible: false,
         mgrOrderList: [],
         activeHotelId: 0,
         couponList: [],
@@ -89,6 +91,9 @@ const hotelManager = {
         set_mgrHotelList: function (state, data) {
             state.mgrHotelList = data
             //console.log(data)
+        },
+        set_manageHotelVisible: function (state, data) {
+            state.manageHotelVisible = data
         },
     },
     actions: {
@@ -180,7 +185,20 @@ const hotelManager = {
             if (res) {
                 commit('set_managedHotelOrders', res)
             }
-        }
+        },
+        //提交酒店维护信息
+        submitManageHotelParams: async ({commit, dispatch}, data) => {
+
+            const res = await submitManageHotelParamsAPI(data)
+            if (res) {
+                dispatch('getMgrHotelList',data.managerId)
+                console.log('执行了这部分')
+                commit('set_manageHotelVisible', false);
+                message.success('修改成功')
+            } else {
+                message.error('修改失败');
+            }
+        },
 
     }
 }

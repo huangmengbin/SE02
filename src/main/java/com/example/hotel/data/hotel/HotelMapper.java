@@ -20,12 +20,12 @@ public interface HotelMapper {
     HotelVO selectById(@Param("id") Integer id);
 
     void updateHotel(Hotel hotel);
-    /**
-     *
-     * @param id
-     * @return
-     */
+
     List<HotelVO> selectMgrHotel(int id);
+
+    int updateInfo(@Param("id") Integer hotelId, @Param("name")String name, @Param("address") String address, @Param("bizRegion") String bizRegion,
+                   @Param("hotelDescription") String description, @Param("hotelStar")String hotelStar, @Param("phoneNum")String phoneNum);
+
 
 
 

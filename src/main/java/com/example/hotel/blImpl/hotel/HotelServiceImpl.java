@@ -2,7 +2,6 @@ package com.example.hotel.blImpl.hotel;
 
 import com.example.hotel.bl.hotel.HotelService;
 import com.example.hotel.bl.hotel.RoomService;
-import com.example.hotel.bl.order.OrderService;
 import com.example.hotel.bl.user.AccountService;
 import com.example.hotel.data.hotel.HotelMapper;
 import com.example.hotel.enums.BizRegion;
@@ -13,6 +12,7 @@ import com.example.hotel.po.HotelRoom;
 import com.example.hotel.po.User;
 import com.example.hotel.util.ServiceException;
 import com.example.hotel.vo.HotelVO;
+import com.example.hotel.vo.ResponseVO;
 import com.example.hotel.vo.RoomVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +24,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class HotelServiceImpl implements HotelService {
+    private final static String UPDATE_ERROR = "修改失败";
 
     @Autowired
     private HotelMapper hotelMapper;
@@ -102,4 +103,14 @@ public class HotelServiceImpl implements HotelService {
         return hotelMapper.selectMgrHotel(id);
     };
 
+    @Override
+    public ResponseVO updateHotelInfo(Integer hotelId, String name, String address, String bizRegion, String description, String hotelStar, String phoneNum){
+        try {
+            hotelMapper.updateInfo(hotelId, name,address, bizRegion, description,hotelStar,phoneNum);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseVO.buildFailure(UPDATE_ERROR);
+        }
+        return ResponseVO.buildSuccess(true);
+    };
 }

@@ -18,6 +18,12 @@
         select * from Hotel where manager_id=#{id}
     </select>
 
+
+    <update id="updateInfo">
+        update Hotel set hotelName=#{name},address=#{address},bizRegion=#{bizRegion},hotelDescription=#{hotelDescription},hotelStar=#{hotelStar},phoneNum=#{phoneNum}
+        where id=#{id}
+    </update>
+
     <update id="updateHotel">
         update Hotel set
           hotelName=#{hotelName},
