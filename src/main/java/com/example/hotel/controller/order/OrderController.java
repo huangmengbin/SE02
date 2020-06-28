@@ -41,7 +41,7 @@ public class OrderController {
     }
 
     @GetMapping("/{hotelId}/allOrders")
-    public ResponseVO retrieveHotelOrders(@PathVariable Integer hotelId) {
+    public ResponseVO retrieveHotelOrders(@PathVariable int hotelId) {
         return ResponseVO.buildSuccess(orderService.getHotelOrders(hotelId));
     }
 

@@ -97,6 +97,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public List<Order> getHotelOrders(int hotelId) {
+        return orderMapper.getHotelOrders(hotelId);
+    }
+
+    @Override
     public ResponseVO annulOrder(int orderId) {
         // 取消订单逻辑的具体实现（注意可能有和别的业务类之间的交互
         try{

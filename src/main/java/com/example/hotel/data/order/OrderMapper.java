@@ -22,7 +22,7 @@ public interface OrderMapper {
 
     List<Order> getUserOrders(@Param("userid") int userid);
 
-
+    List<Order> getHotelOrders(@Param("hotelId") int hotelId);
 
 
     int updateOrderState(@Param("orderid") int orderid, @Param("orderState") String orderState);

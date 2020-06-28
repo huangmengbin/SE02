@@ -32,6 +32,12 @@ public interface OrderService {
      * @return
      */
     List<Order> getUserOrders(int userid);
+    /**
+     * 获得指定宾馆所有订单
+     * @hotelId
+     * @return
+     */
+    List<Order> getHotelOrders(int hotelId);
 
     /**
      * 撤销订单
@@ -67,4 +73,6 @@ public interface OrderService {
      * @return
      */
     List<CommentVO> getHotelComment(Integer hotelId);
+
+
 }
