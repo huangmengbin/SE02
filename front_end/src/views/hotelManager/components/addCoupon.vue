@@ -257,7 +257,8 @@
                     'endTime': '',
                     'discountType':'',
                     'subMoney':'',
-                    'discount':''
+                    'discount':'',
+                    'date':null
                 });
             },
 
@@ -326,8 +327,8 @@
                     target:this.form.getFieldValue('targetMoney'),
                     discount: this.discount,
                     discountMoney: this.subMoney,
-                    startTime:moment(this.form.getFieldValue('date')[0]).format('YYYY-MM-DD'),
-                    endTime:moment(this.form.getFieldValue('date')[1]).format('YYYY-MM-DD'),
+                    startTime:moment(this.form.getFieldValue('date')[0]).format('YYYY-MM-DD')+"T00:00:00",
+                    endTime:moment(this.form.getFieldValue('date')[1]).format('YYYY-MM-DD')+"T23:59:59",
                 };
                 this.addHotelCoupon(data);
             },
