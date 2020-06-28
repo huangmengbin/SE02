@@ -49,6 +49,8 @@ public class HotelServiceImpl implements HotelService {
         hotel.setRate(hotelVO.getRate());
         hotel.setBizRegion(BizRegion.valueOf(hotelVO.getBizRegion()));
         hotel.setHotelStar(HotelStar.valueOf(hotelVO.getHotelStar()));
+        hotel.setTotalCommentScore(0);
+        hotel.setCommentNumber(0);
         hotelMapper.insertHotel(hotel);
     }
 

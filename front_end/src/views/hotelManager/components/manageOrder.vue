@@ -2,7 +2,7 @@
     <div>
         <a-drawer
                 title="订单详情"
-                height="400"
+                height="666"
                 @close="onClose"
                 placement="top"
                 :closable="false"

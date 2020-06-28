@@ -42,22 +42,22 @@
     <!--没考虑信用值-->
 
     <resultMap id="Order" type="com.example.hotel.po.Order">
-        <id column="id" property="id"></id>
-        <result column="userId" property="userId"></result>
-        <result column="hotelId" property="hotelId"></result>
-        <result column="hotelName" property="hotelName"></result>
-        <result column="checkInDate" property="checkInDate"></result>
-        <result column="checkOutDate" property="checkOutDate"></result>
-        <result column="roomType" property="roomType"></result>
-        <result column="roomNum" property="roomNum"></result>
-        <result column="peopleNum" property="peopleNum"></result>
-        <result column="haveChild" property="haveChild"></result>
-        <result column="createDate" property="createDate"></result>
-        <result column="price" property="price"></result>
-        <result column="clientName" property="clientName"></result>
-        <result column="phoneNumber" property="phoneNumber"></result>
-        <result column="orderState" property="orderState"></result>
-        <result column="comment" property="comment"></result>
-        <result column="commentScore" property="commentScore"></result>
+        <id column="id" property="id"/>
+        <result column="userId" property="userId"/>
+        <result column="hotelId" property="hotelId"/>
+        <result column="hotelName" property="hotelName"/>
+        <result column="checkInDate" property="checkInDate"/>
+        <result column="checkOutDate" property="checkOutDate"/>
+        <result column="roomType" property="roomType"/>
+        <result column="roomNum" property="roomNum"/>
+        <result column="peopleNum" property="peopleNum"/>
+        <result column="haveChild" property="haveChild"/>
+        <result column="createDate" property="createDate"/>
+        <result column="price" property="price"/>
+        <result column="clientName" property="clientName"/>
+        <result column="phoneNumber" property="phoneNumber"/>
+        <result column="orderState" property="orderState"/>
+        <result column="comment" property="comment"/>
+        <result column="commentScore" property="commentScore"/>
     </resultMap>
 </mapper>

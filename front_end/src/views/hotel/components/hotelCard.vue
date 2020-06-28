@@ -9,7 +9,7 @@
     <a-tooltip :title="hotel.title" placement="top">
       <a-card-meta :title="hotel.name">
         <template slot="description">
-          <a-rate style="font-size: 15px" :value="hotel.rate" disabled allowHalf/> {{hotel.rate}}分
+          <a-rate style="font-size: 15px" :value="getHotelStar(hotel.hotelStar)" disabled allowHalf/> {{hotel.rate}}分
           <br>
           {{minMoney}}
         </template>
@@ -47,6 +47,12 @@ export default {
       }
     },
   methods: {
+    getHotelStar(value){
+      if(value==='Three')return 3;
+      if(value==='Four')return 4;
+      if(value==='Five')return 5;
+      return 0;
+    }
   }
 }
 </script>
