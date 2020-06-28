@@ -11,7 +11,7 @@
         <template slot="description">
           <a-rate style="font-size: 15px" :value="getHotelStar(hotel.hotelStar)" disabled allowHalf/> {{hotel.rate}}分
           <br>
-          <a-icon type="fire" theme="twoTone" twoToneColor="#FF4500" v-if="minMoney!=='本店没有合适的房间'"/> {{minMoney}}
+          <a-icon type="fire" theme="twoTone" twoToneColor="#FF4500" v-if="minMoney!=='本店没有合适的房间 >_<'"/> {{minMoney}}
         </template>
       </a-card-meta>
     </a-tooltip>
@@ -37,10 +37,10 @@ export default {
           handler (newValue) {
               let money = newValue.minRoomPrice;
               if(money === Number.MAX_VALUE){
-                  this.minMoney = '本店没有合适的房间'
+                  this.minMoney = '本店没有合适的房间 >_<'
               }
               else {
-                  this.minMoney = money + '元起'
+                  this.minMoney = money + '元起！'
               }
 
           }
