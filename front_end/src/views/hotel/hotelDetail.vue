@@ -46,7 +46,17 @@
                         <div>
                             <a-list>
                                 <a-list-item :key="index" v-for="(line, index) in hotelCommentsList">
-                                    {{index+1}}- {{line.userName}}: {{line.commentScore}}分, {{line.comment}}
+                                    <div>
+                                        <a-rate style="font-size: 10px;display: block" :value="line.commentScore" disabled allowHalf/>
+                                        <a-avatar size="large" icon="user" style="background: green;display: block;margin: auto"></a-avatar>
+                                    </div>
+                                        <a-comment
+                                            :author="line.userName"
+                                            :content="line.comment"
+                                            :datetime="line.checkOutTime"
+                                    >
+                                    </a-comment>
+                                    <!--{{index+1}}- : {{line.commentScore}}分-->
                                 </a-list-item>
                             </a-list>
                             <!--todo 有空把这里写得漂亮点-->

@@ -199,6 +199,7 @@ public class OrderServiceImpl implements OrderService {
         CommentVO commentVO = new CommentVO();
         commentVO.setComment(order.getComment());
         commentVO.setCommentScore(order.getCommentScore());
+        commentVO.setCheckOutTime(order.getCheckOutDate());
         commentVO.setUserName(accountService.getUserInfo(order.getUserId()).getUserName());
         return commentVO;
     }

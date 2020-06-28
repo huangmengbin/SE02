@@ -4,6 +4,7 @@ public class CommentVO {
     private String userName;
     private String comment;
     private Integer commentScore;
+    private String checkOutTime;
 
     public String getUserName() {
         return userName;
@@ -27,5 +28,13 @@ public class CommentVO {
 
     public void setCommentScore(Integer commentScore) {
         this.commentScore = commentScore;
+    }
+
+    public String getCheckOutTime() {
+        return checkOutTime;
+    }
+
+    public void setCheckOutTime(String checkOutTime) {
+        this.checkOutTime = checkOutTime;
     }
 }
