@@ -10,6 +10,8 @@ import com.example.hotel.po.User;
 import com.example.hotel.vo.CommentVO;
 import com.example.hotel.vo.OrderVO;
 import com.example.hotel.vo.ResponseVO;
+import org.junit.Assert;
+import org.junit.Test;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -127,8 +129,7 @@ public class OrderServiceImpl implements OrderService {
 
 
 
-
-    private boolean notRevocable(Order order){
+    private boolean notRevocable(Order order){  //不可撤销，指要扣分的意思。
 
         SimpleDateFormat sf=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         Date curTime = new Date(System.currentTimeMillis());
@@ -232,6 +233,22 @@ public class OrderServiceImpl implements OrderService {
         return ResponseVO.buildSuccess(true);
     }
 
+
+
+    @Test
+    public void testNotRevocable01(){
+        //这个在{2020-06-28 06:00 beijing}之后测试才能成功
+        Order order = new Order();
+        order.setCheckInDate("2020-06-28");
+        Assert.assertTrue(OrderServiceImpl.this.notRevocable(order));
+    }
+
+    @Test
+    public void testNotRevocable02(){
+        Order order = new Order();
+        order.setCheckInDate("2020-06-30");
+        Assert.assertFalse(OrderServiceImpl.this.notRevocable(order));
+    }
 
 
 }
