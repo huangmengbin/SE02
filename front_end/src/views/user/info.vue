@@ -69,7 +69,7 @@
                     <span slot="action" slot-scope="record">
                         <a-button type="primary" size="small" @click="showOrder(record)">详细查看</a-button>
                         <a-divider type="vertical"/>
-                        <a-button size="small" @click="comment(record)" v-show="record.orderState === '已完成' || true ">评价</a-button>
+                        <a-button size="small" @click="comment(record)" v-show="record.orderState === '已退房'">评价</a-button>
                         <a-divider type="vertical"/>
                         <a-popconfirm
                             title="你确定撤销该笔订单吗？"
