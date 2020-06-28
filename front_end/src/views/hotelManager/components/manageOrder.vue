@@ -36,7 +36,7 @@
                         <a-divider type="vertical"></a-divider>
                      <a-popconfirm
                              title="你确定ta来了吗？"
-                             @confirm="checkin(record.id)"
+                             @confirm="cIn(record.id)"
                              okText="来了"
                              cancelText="再等等"
                              v-if="record.orderState === '已预订'"
@@ -148,7 +148,7 @@
                     this.set_orderVisible(false)
             },
 
-            checkin(id) {
+            cIn(id) {
                 this.checkIn(id)
             },
 

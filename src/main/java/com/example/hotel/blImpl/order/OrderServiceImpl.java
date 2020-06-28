@@ -34,12 +34,14 @@ public class OrderServiceImpl implements OrderService {
     private final static String UPDATE_ERROR = "修改失败";
 
     private final static String yu_ding = "已预订" ;
-    private final static String wan_cheng = "已完成" ;
-    private final static String ping_jia = "已评价" ;
     private final static String che_xiao = "已撤销" ;
+    private final static String check_in = "已执行" ;
+    private final static String check_out = "已退房" ;
+    private final static String ping_jia = "已评价" ;
 
-    private final static String ru_zhu = "已入住" ;
-    private final static String zhi_xing = "已执行" ;//这两个用其中之一
+
+
+
 
     //private final static String = "" ;
 
@@ -144,7 +146,7 @@ public class OrderServiceImpl implements OrderService {
         List<Order> orderList = this.getAllOrders().stream()
                 .filter(o -> o.getHotelId().equals(orderVO.getHotelId()))
                 .filter(o -> o.getRoomType().equals(orderVO.getRoomType()))
-                .filter(o -> o.getOrderState().equals(yu_ding) || o.getOrderState().equals(ru_zhu))
+                .filter(o -> o.getOrderState().equals(yu_ding) || o.getOrderState().equals(check_in))
                 .collect(Collectors.toList());
 
         SimpleDateFormat sf=new SimpleDateFormat("yyyy-MM-dd");
@@ -203,6 +205,17 @@ public class OrderServiceImpl implements OrderService {
         commentVO.setUserName(accountService.getUserInfo(order.getUserId()).getUserName());
         return commentVO;
     }
+    public ResponseVO checkIn(int id){
+        try{
+            Order order=orderMapper.getOrderById(id);
+            User user = accountService.getUserInfo(order.getUserId());
+            user.setCredit(user.getCredit()+order.getPrice());
+            orderMapper.updateOrderState(id, check_in);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return ResponseVO.buildSuccess(true);
+    }
     public ResponseVO checkOut(int id){
         try{
 
@@ -211,7 +224,7 @@ public class OrderServiceImpl implements OrderService {
             String outdate = sf.format(date);
             orderMapper.updateOutTime(id,outdate);
             Order out=orderMapper.getOrderById(id);
-            orderMapper.updateOrderState(id, wan_cheng);
+            orderMapper.updateOrderState(id, check_out);
             //System.out.println(id);
         }catch (Exception e){
             System.out.println(e.getMessage());

@@ -53,8 +53,14 @@ export function getHotelCommentAPI(hotelId) {
         method: `GET`
     })
 }
+export function checkInAPI(orderId) {
+    return axios({
+        url: `${api.orderPre}/${orderId}/checkIn`,
+        method: 'GET',
+    })
+}
 export function checkOutAPI(orderId) {
-    console.log("wtf?")
+
     return axios({
         url: `${api.orderPre}/${orderId}/checkOut`,
         method: 'GET',

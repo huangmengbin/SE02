@@ -5,6 +5,7 @@ import {
     submitManageHotelParamsAPI,
 } from '../../api/hotelManager'
 import {
+    checkInAPI,
     checkOutAPI,
     getAllOrdersAPI,
     managedHotelOrdersAPI,
@@ -98,7 +99,7 @@ const hotelManager = {
     },
     actions: {
         getMgrHotelList: async ({state, commit}, id) => {
-            console.log(id)
+
             const res = await mgrHotelListAPI(id)
 
             if (res) {
@@ -168,12 +169,21 @@ const hotelManager = {
                 message.error("添加失败");
             }
         },
+        checkIn: async ({state, dispatch}, id) => {
+
+            const res = await checkInAPI(id)
+            if (res) {
+                message.success('已入住')
+                dispatch('getManagedOrders')
+            }
+        },
         checkOut: async({ state, dispatch }, id) => {
 
             let res = await checkOutAPI(id);
-            dispatch('getAllOrders');
+
             if(res){
-                message.success("已完成");
+                message.success("已退房");
+                dispatch('getManagedOrders');
             }else{
                 message.error("fail");
             }

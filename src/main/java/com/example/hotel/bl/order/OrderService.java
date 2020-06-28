@@ -47,10 +47,11 @@ public interface OrderService {
     ResponseVO annulOrder(int orderId);
 
     /**
-     * 退房
+     * 退房he入住
      * @param orderId
      * @return
      */
+    ResponseVO checkIn(int orderId);
     ResponseVO checkOut(int orderId);
 
 

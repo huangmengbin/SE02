@@ -123,6 +123,7 @@ export default {
             'getMgrHotelList',
             'getAllOrders',
             'getHotelCoupon',
+            'checkIn',
             'checkOut',
             'getManagedOrders',
             'getHotelById',
@@ -147,6 +148,9 @@ export default {
         },
         deleteOrder(){
 
+        },
+        cIn(id){
+            this.checkIn(id)
         },
         cOut(id){
             this.checkOut(id);
