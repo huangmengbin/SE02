@@ -29,7 +29,8 @@ import java.util.stream.Collectors;
 @Service
 public class OrderServiceImpl implements OrderService {
     private final static String RESERVE_ERROR = "预订失败";
-    private final static String DATE_ERROR = "宁怎么能预订今天之前的房间???";
+    private final static String DATE_ERROR_Reserve = "宁怎么能预订今天之前的房间???";
+    private final static String DATE_ERROR_CheckIn = "宁怎么来这么晚？？";
     private final static String CREDIT_LACK = "宁的信用分不够了,赶紧充钱吧";
     private final static String ROOM_NUMBER_LACK = "预订房间数量剩余不足";
     private final static String ANNUl_ERROR = "删除订单失败";
@@ -74,7 +75,7 @@ public class OrderServiceImpl implements OrderService {
             Date date = new Date(System.currentTimeMillis());
             String curdate = sf.format(date);
             if(curdate.compareTo(orderVO.getCheckInDate())>0){
-                return ResponseVO.buildFailure(DATE_ERROR);
+                return ResponseVO.buildFailure(DATE_ERROR_Reserve);
             }
             orderVO.setCreateDate(curdate);
             orderVO.setOrderState(yu_ding);
@@ -212,7 +213,16 @@ public class OrderServiceImpl implements OrderService {
     }
     public ResponseVO checkIn(int id){
         try{
+            SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+            Date date = new Date(System.currentTimeMillis());
+            String curdate = sf.format(date);
+
             Order order=orderMapper.getOrderById(id);
+
+            if(curdate.compareTo(order.getCheckOutDate())>=0){
+                return ResponseVO.buildFailure(DATE_ERROR_CheckIn);
+            }
+
             User user = accountService.getUserInfo(order.getUserId());
             user.setCredit(user.getCredit()+order.getPrice());
             orderMapper.updateOrderState(id, check_in);

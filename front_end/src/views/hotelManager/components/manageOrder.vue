@@ -39,7 +39,7 @@
                              @confirm="cIn(record.id)"
                              okText="来了"
                              cancelText="再等等"
-                             v-if="record.orderState === '已预订'"
+                             v-if="record.orderState === '已预订' ||record.orderState ==='异常' "
                      >
                             <a-button type="primary" size="small">入住</a-button>
                         </a-popconfirm>
