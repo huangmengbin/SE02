@@ -32,3 +32,13 @@ POST http://localhost:8080/api/hotel/1/true/acceptOrRefuse
 # 预期：正常转让酒店
 # 结果：成功通过
 ###
+
+GET http://localhost:8080/api/hotel/6/hotelMgr
+# 预期：返回相应酒店列表
+# 结果：通过
+###
+
+GET http://localhost:8080/api/hotel/-1/hotelMgr
+# 预期：空表
+# 结果：通过
+###
