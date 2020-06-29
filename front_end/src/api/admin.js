@@ -15,3 +15,10 @@ export function addManagerAPI(data) {
         data
     })
 }
+export function changeUserTypeAPI(data) {
+    return axios({
+        url:`${api.adminPre}/changeUserType`,
+        method:'POST',
+        data
+    })
+}

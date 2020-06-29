@@ -33,11 +33,13 @@
             </a-tab-pane>
         </a-tabs>
         <AddManagerModal></AddManagerModal>
+        <ChangeUserTypeModal></ChangeUserTypeModal>
     </div>
 </template>
 <script>
 import { mapGetters, mapMutations, mapActions } from 'vuex'
 import AddManagerModal from './components/addManagerModal'
+import ChangeUserTypeModal from './components/changeUserTypeModal'
 const columns = [
     {  
         title: '用户邮箱',
@@ -81,7 +83,8 @@ export default {
         }
     },
     components: {
-        AddManagerModal
+        AddManagerModal,
+        ChangeUserTypeModal
     },
     computed: {
         ...mapGetters([
@@ -99,13 +102,16 @@ export default {
         ]),
         ...mapMutations([
             'set_addManagerModalVisible',
+            'set_changeUserTypeModalVisible',
+            'set_changeUserTypeParams',
         ]),
         addManager(){
             this.set_addManagerModalVisible(true)
         },
         changeUserType(user){
-            console.log(user);
-            alert(user.id);
+            //alert(user.id);
+            this.set_changeUserTypeParams({id : user.id})
+            this.set_changeUserTypeModalVisible(true)
         },
         delUser(record){
             this.deleteUser(record);

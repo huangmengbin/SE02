@@ -28,10 +28,16 @@ public interface AdminService {
     ResponseVO deleteManager(UserVO userVO);
 
     /**
+     * 添加酒店管理人员账号
+     * @param userForm
+     * @return
+     */
+    ResponseVO changeUserType(UserForm userForm);
+
+    /**
      * 获得所有酒店管理人员信息
      * @return
      */
     List<User> getAllManagers();
-
 
 }

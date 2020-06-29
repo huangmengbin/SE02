@@ -46,4 +46,12 @@ public interface AccountMapper {
      * @return
      */
     void updateCredit(@Param("id")int id, @Param("credit")double credit);
+
+    /**
+     * 更新用户职业
+     * @param id
+     * @param usertype
+     * @return
+     */
+    void updateUserType(@Param("id")int id, @Param("usertype")String usertype);
 }

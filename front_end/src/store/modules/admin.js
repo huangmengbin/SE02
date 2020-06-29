@@ -2,6 +2,7 @@ import {
     getManagerListAPI,
     addManagerAPI,
     deleteUserAPI,
+    changeUserTypeAPI,
 } from '../../api/admin'
 import { message } from 'ant-design-vue'
 
@@ -14,7 +15,12 @@ const admin = {
         addManagerParams: {
             email:'',
             password:''
-        }
+        },
+        changeUserTypeModalVisible: false,
+        changeUserTypeParams: {
+            id:0,
+            userType:''
+        },
     },
     mutations: {
         set_managerList: function(state, data) {
@@ -26,6 +32,15 @@ const admin = {
         set_addManagerParams: function(state, data) {
             state.addManagerParams = {
                 ...state.addManagerParams,
+                ...data,
+            }
+        },
+        set_changeUserTypeModalVisible: function(state, data) {
+            state.changeUserTypeModalVisible = data
+        },
+        set_changeUserTypeParams: function(state, data) {
+            state.changeUserTypeParams = {
+                ...state.changeUserTypeParams,
                 ...data,
             }
         },
@@ -56,6 +71,20 @@ const admin = {
             if(res){
                 message.success('删除成功');
                 dispatch('getManagerList');
+            }
+        },
+        changeUserType: async ({state, commit, dispatch})=> {
+            //alert(state.changeUserTypeParams.id);
+            const res = await changeUserTypeAPI(state.changeUserTypeParams);
+            if (res) {
+                commit('set_changeUserTypeParams',{
+                    id:0
+                });
+                commit('set_changeUserTypeModalVisible', false)
+                message.success('变更成功')
+                dispatch('getManagerList')
+            }else{
+                message.error(res.message)
             }
         }
     }

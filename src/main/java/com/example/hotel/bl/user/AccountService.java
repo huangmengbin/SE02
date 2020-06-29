@@ -1,5 +1,6 @@
 package com.example.hotel.bl.user;
 
+import com.example.hotel.enums.UserType;
 import com.example.hotel.po.User;
 import com.example.hotel.vo.*;
 
@@ -57,9 +58,19 @@ public interface AccountService {
      */
     ResponseVO updateCredit(int id, double credit);
 
+    /**
+     * 更新用户职业
+     * @param id
+     * @param userType
+     * @return
+     */
+    ResponseVO updateUserType(int id, UserType userType);
 
+    /**
+     * 根据邮箱获取用户
+     * @param email
+     * @return
+     */
     User getUserByEmail(String email);
-
-
 
 }

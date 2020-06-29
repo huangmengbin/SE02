@@ -18,6 +18,8 @@ public class UserForm {
 
     private UserType userType;
 
+    private Integer id;
+
 
 
     public String getEmail() {
@@ -42,5 +44,13 @@ public class UserForm {
 
     public void setUserType(UserType userType) {
         this.userType = userType;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

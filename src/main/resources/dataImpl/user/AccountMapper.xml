@@ -29,6 +29,10 @@
         where id=#{id}
     </update>
 
+    <update id="updateUserType">
+        update User set usertype=#{usertype}
+        where id=#{id}
+    </update>
 
 
 

@@ -36,4 +36,9 @@ public class AdminController {
     public ResponseVO deleteUser(@RequestBody UserVO userVO){
         return adminService.deleteManager(userVO);
     }
+
+    @PostMapping("/changeUserType")
+    public ResponseVO changeUserType(@RequestBody UserForm userForm){
+        return adminService.changeUserType(userForm);
+    }
 }
