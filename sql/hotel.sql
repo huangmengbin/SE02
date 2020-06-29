@@ -185,7 +185,7 @@ DELIMITER |
 DROP PROCEDURE IF EXISTS e_test |
 CREATE PROCEDURE e_test()
 BEGIN
-  update OrderList o,User u set orderState='异常',credit=credit-o.price  where o.userId=u.id and to_days(now())-TO_DAYS(checkInDate)>=0 and orderState='已预订';
+  update OrderList o,User u set orderState='异常',credit=credit-o.price  where o.userId=u.id and to_days(now())-TO_DAYS(checkInDate)>0 and orderState='已预订';
 END
 |
 
