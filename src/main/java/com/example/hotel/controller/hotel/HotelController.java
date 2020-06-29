@@ -58,4 +58,10 @@ public class HotelController {
         return hotelService.updateHotelInfo(id,hotelVO.getName(),hotelVO.getAddress(),hotelVO.getBizRegion(),hotelVO.getDescription(),hotelVO.getHotelStar(),hotelVO.getPhoneNum());
 
     }
+
+    @PostMapping("/{hotelId}/{email}/giveUpHotel")
+    public ResponseVO giveUpHotel(@PathVariable(value = "hotelId")Integer hotelId,@PathVariable(value = "email")String email){
+
+        return ResponseVO.buildSuccess(true);
+    }
 }

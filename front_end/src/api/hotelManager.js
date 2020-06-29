@@ -29,3 +29,10 @@ export function submitManageHotelParamsAPI(data){
         data,
     })
 }
+export function giveUpAPI(data){
+    return axios({
+        url: `${api.hotelPre}/${data.hotelId}/${data.email}/giveUpHotel`,
+        method: 'POST',
+        data
+    })
+}

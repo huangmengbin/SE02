@@ -15,7 +15,7 @@ Content-Type: application/json
   "checkInDate": "2020-06-29",
   "checkOutDate": "2020-07-03",
   "roomType": "BigBed",
-  "roomNum": 2,
+  "roomNum": 1111,
   "peopleNum": 3,
   "haveChild": true,
   "price": 67.66,

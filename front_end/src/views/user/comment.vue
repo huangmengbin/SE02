@@ -79,7 +79,7 @@
                             comment:this.form.getFieldValue('commentWords'),
                             commentScore:this.commentScore,
                         };
-                        this.commentAction(data)
+                        this.commentAction(data);
                         this.cancelComment();
                     }
                 });

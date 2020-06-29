@@ -15,9 +15,11 @@
                         <a-divider type="vertical"></a-divider>
                         <a-button type="info" size="small" @click="showCoupon(record)">优惠策略</a-button>
                         <a-divider type="vertical"></a-divider>
-                        <a-button type="info" size="small" @click="manageOrder(record.id)">订单管理</a-button>
+                        <a-button type="primary" size="small" @click="manageOrder(record.id)">订单管理</a-button>
                         <a-divider type="vertical"></a-divider>
                         <a-button type="info" size="small" @click="manageHotel(record)">信息修改</a-button>
+                        <a-divider type="vertical"></a-divider>
+                        <a-button type="danger" size="small" @click="giveUpHotel(record)">酒店转让</a-button>
 
 
                     </span>
@@ -26,6 +28,25 @@
 
             
         </a-tabs>
+
+        <a-modal
+                :visible="giveUpVisible"
+                title="转让酒店"
+                cancelText="取消"
+                okText="确定"
+                @cancel="giveUpClear"
+                @ok="giveUpSubmit"
+        >
+            <a-form :form="form" style="margin-top: 10px">
+                <a-form-item label="被转让者的邮箱">
+                    <a-input
+                            size="large"
+                            placeholder="请输入ta的邮箱"
+                            v-decorator="['email', { rules: [{ required: true, message: '您还没输入ta的邮箱' }] }]"
+                    />
+                </a-form-item>
+            </a-form>
+        </a-modal>
         <AddHotelModal></AddHotelModal>
         <AddRoomModal></AddRoomModal>
         <Coupon></Coupon>
@@ -81,7 +102,8 @@ export default {
             pagination: {},
             columns1,
             form: this.$form.createForm(this, { name: 'manageHotel' }),
-            clickedRecord:{}
+            clickedRecord:{},
+            giveUpVisible:false
         }
     },
     components: {
@@ -127,6 +149,7 @@ export default {
             'checkOut',
             'getManagedOrders',
             'getHotelById',
+            'giveUpHotelFunc'
         ]),
         addHotel() {//没有改后端的
             this.set_addHotelModalVisible(true)
@@ -167,6 +190,28 @@ export default {
             this.set_activeHotelId(record.id)
             this.set_manageHotelVisible(true)
         },
+        giveUpHotel(record){
+            this.set_activeHotelId(record.id)
+            this.giveUpVisible=true
+        },
+        giveUpClear(){
+            this.form.setFieldsValue({'email': ''});
+            this.giveUpVisible = false;
+        },
+        giveUpSubmit(e){
+            e.preventDefault();
+            this.form.validateFieldsAndScroll((err, values) => {
+                if(!err){
+                    const data = {
+                        'email':this.form.getFieldValue('email'),
+                        'hotelId':this.activeHotelId
+                    };
+                    this.giveUpHotelFunc(data);
+                    this.giveUpClear();
+                }
+            });
+
+        }
     }
 }
 </script>

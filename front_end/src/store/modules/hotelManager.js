@@ -3,6 +3,7 @@ import {
     addHotelAPI,
     mgrHotelListAPI,
     submitManageHotelParamsAPI,
+    giveUpAPI
 } from '../../api/hotelManager'
 import {
     checkInAPI,
@@ -186,6 +187,12 @@ const hotelManager = {
                 dispatch('getManagedOrders');
             }else{
                 message.error("fail");
+            }
+        },
+        giveUpHotelFunc:async ({state, dispatch}, data)=>{
+            let res= await giveUpAPI(data)
+            if(res){
+                message.success("申请成功,请耐心等待ta接受");
             }
         },
         getManagedOrders: async ({state, commit}) => {
