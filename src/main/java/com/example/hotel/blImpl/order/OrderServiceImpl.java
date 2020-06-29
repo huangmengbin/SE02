@@ -244,7 +244,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Test
     public void testNotRevocable01(){
-        //这个在{2020-06-28 06:00 beijing}之后测试才能成功
+        //这个在{2020-06-28 08:00 beijing}之后测试才能成功
         Order order = new Order();
         order.setCheckInDate("2020-06-28");
         Assert.assertTrue(OrderServiceImpl.this.notRevocable(order));
