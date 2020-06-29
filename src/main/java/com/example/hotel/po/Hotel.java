@@ -15,6 +15,8 @@ public class Hotel {
     private Double rate;
     private String description;
     private String phoneNum;
+
+    private Integer hotelState;
     /**
      * 酒店管理员id
      */
@@ -109,6 +111,14 @@ public class Hotel {
 
     public void setTotalCommentScore(Integer totalCommentScore) {
         this.totalCommentScore = totalCommentScore;
+    }
+
+    public Integer getHotelState() {
+        return hotelState;
+    }
+
+    public void setHotelState(Integer hotelState) {
+        this.hotelState = hotelState;
     }
 }
 

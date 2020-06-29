@@ -50,4 +50,7 @@ public interface HotelService {
 
     ResponseVO updateHotelInfo(Integer hotelId, String name, String address, String bizRegion, String description, String hotelStar, String phoneNum);
 
+    ResponseVO giveUpHotel(Integer hotelId, String email);
+
+    ResponseVO acceptOrRefuseHotel(Integer hotelId, boolean accept);
 }

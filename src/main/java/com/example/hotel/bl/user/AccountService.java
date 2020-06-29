@@ -57,4 +57,9 @@ public interface AccountService {
      */
     ResponseVO updateCredit(int id, double credit);
 
+
+    User getUserByEmail(String email);
+
+
+
 }

@@ -3,8 +3,8 @@
 <mapper namespace="com.example.hotel.data.hotel.HotelMapper">
     <insert id="insertHotel" parameterType="com.example.hotel.po.Hotel"
     useGeneratedKeys="true" keyProperty="id">
-        insert into Hotel(address,bizRegion,hotelDescription,hotelStar,hotelName,phoneNum,rate,manager_id,commentNumber,totalCommentScore)
-        values (#{address},#{bizRegion},#{description},#{hotelStar},#{hotelName},#{phoneNum},#{rate},#{managerId},#{commentNumber},#{totalCommentScore})
+        insert into Hotel(address,bizRegion,hotelDescription,hotelStar,hotelName,phoneNum,rate,hotelState,manager_id,commentNumber,totalCommentScore)
+        values (#{address},#{bizRegion},#{description},#{hotelStar},#{hotelName},#{phoneNum},#{rate},#{hotelState},#{managerId},#{commentNumber},#{totalCommentScore})
     </insert>
 
     <select id="selectAllHotel" resultMap="Hotel">
@@ -33,6 +33,7 @@
           hotelStar=#{hotelStar},
           phoneNum=#{phoneNum},
           rate=#{rate},
+          hotelState=#{hotelState},
           manager_id=#{managerId},
           commentNumber=#{commentNumber},
           totalCommentScore=#{totalCommentScore}
@@ -47,6 +48,7 @@
         <result column="hotelName" property="name"/>
         <result column="phoneNum" property="phoneNum"/>
         <result column="rate" property="rate"/>
+        <result column="hotelState" property="hotelState"/>
         <result column="manager_id" property="managerId"/>
         <result column="commentNumber" property="commentNumber"/>
         <result column="totalCommentScore" property="totalCommentScore"/>

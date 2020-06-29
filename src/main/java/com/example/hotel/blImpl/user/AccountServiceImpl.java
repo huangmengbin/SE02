@@ -81,4 +81,9 @@ public class AccountServiceImpl implements AccountService {
         }
         return ResponseVO.buildSuccess(true);
     }
+
+    @Override
+    public User getUserByEmail(String email) {
+        return accountMapper.getAccountByName(email);
+    }
 }

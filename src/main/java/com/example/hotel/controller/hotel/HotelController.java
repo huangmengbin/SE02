@@ -61,7 +61,11 @@ public class HotelController {
 
     @PostMapping("/{hotelId}/{email}/giveUpHotel")
     public ResponseVO giveUpHotel(@PathVariable(value = "hotelId")Integer hotelId,@PathVariable(value = "email")String email){
+        return hotelService.giveUpHotel(hotelId,email);
+    }
 
-        return ResponseVO.buildSuccess(true);
+    @PostMapping("/{hotelId}/{accept}/acceptOrRefuse")
+    public ResponseVO acceptOrRefuse(@PathVariable("hotelId")Integer hotelId, @PathVariable("accept")boolean accept){
+        return hotelService.acceptOrRefuseHotel(hotelId,accept);
     }
 }

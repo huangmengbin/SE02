@@ -50,6 +50,7 @@ public class HotelServiceImpl implements HotelService {
         hotel.setRate(hotelVO.getRate());
         hotel.setBizRegion(BizRegion.valueOf(hotelVO.getBizRegion()));
         hotel.setHotelStar(HotelStar.valueOf(hotelVO.getHotelStar()));
+        hotel.setHotelState(-1);
         hotel.setTotalCommentScore(0);
         hotel.setCommentNumber(0);
         hotelMapper.insertHotel(hotel);
@@ -91,11 +92,7 @@ public class HotelServiceImpl implements HotelService {
         hotelVO.setTotalCommentScore(hotelVO.getTotalCommentScore()+score);
         hotelVO.setCommentNumber(hotelVO.getCommentNumber()+1);
         hotelVO.setRate(((double)hotelVO.getTotalCommentScore())/((double)hotelVO.getCommentNumber()));
-        Hotel hotel = new Hotel();
-        BeanUtils.copyProperties(hotelVO,hotel);
-        hotel.setBizRegion(BizRegion.valueOf(hotelVO.getBizRegion()));
-        hotel.setHotelStar(HotelStar.valueOf(hotelVO.getHotelStar()));
-        hotel.setHotelName(hotelVO.getName());
+        Hotel hotel = this.hotelVO_TO_Hotel(hotelVO);
         hotelMapper.updateHotel(hotel);
     }
     @Override
@@ -112,5 +109,46 @@ public class HotelServiceImpl implements HotelService {
             return ResponseVO.buildFailure(UPDATE_ERROR);
         }
         return ResponseVO.buildSuccess(true);
-    };
+    }
+
+    @Override
+    public ResponseVO giveUpHotel(Integer hotelId, String email) {
+        User user = accountService.getUserByEmail(email);
+        if(user == null){
+            return ResponseVO.buildFailure("email出错，没用找到这个人");
+        }
+        else if(user.getUserType()!=UserType.HotelManager){
+            return ResponseVO.buildFailure("这个人不是酒店管理人员");
+        }
+        HotelVO hotelVO = hotelMapper.selectById(hotelId);
+        Hotel hotel = hotelVO_TO_Hotel(hotelVO);
+        hotel.setHotelState(user.getId());
+        hotelMapper.updateHotel(hotel);
+        return ResponseVO.buildSuccess(true);
+    }
+
+
+
+    @Override
+    public ResponseVO acceptOrRefuseHotel(Integer hotelId, boolean accept) {
+        Hotel hotel = hotelVO_TO_Hotel(hotelMapper.selectById(hotelId));
+        if(hotel.getHotelState()==-1){
+            return ResponseVO.buildFailure("该酒店不在转让中状态");
+        }
+        if(accept){
+            hotel.setManagerId(hotel.getHotelState());
+        }
+        hotel.setHotelState(-1);
+        hotelMapper.updateHotel(hotel);
+        return ResponseVO.buildSuccess(true);
+    }
+
+    private Hotel hotelVO_TO_Hotel(HotelVO hotelVO){
+        Hotel hotel = new Hotel();
+        BeanUtils.copyProperties(hotelVO,hotel);
+        hotel.setBizRegion(BizRegion.valueOf(hotelVO.getBizRegion()));
+        hotel.setHotelStar(HotelStar.valueOf(hotelVO.getHotelStar()));
+        hotel.setHotelName(hotelVO.getName());
+        return hotel;
+    }
 }
