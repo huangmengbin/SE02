@@ -32,7 +32,6 @@
         <AddRoomModal></AddRoomModal>
         <Coupon></Coupon>
         <manageOrder :hotelId="id"></manageOrder>
-        <unusualOrder :hotelId="id" ></unusualOrder>
         <ManageHotelModal :record="clickedRecord"></ManageHotelModal>
     </div>
 </template>
@@ -102,8 +101,6 @@ export default {
             'hotelList',
             'mgrHotelList',
             'managedOrders',
-            'unusualOrderList',
-            'unusualOrderVisible',
             'addHotelModalVisible',
             'addRoomModalVisible',
             'activeHotelId',
@@ -114,7 +111,6 @@ export default {
     async mounted() {
 
         await this.getMgrHotelList(this.userId)
-        //await this.getHotelById()
     },
     methods: {
         ...mapMutations([
@@ -132,7 +128,6 @@ export default {
             'checkIn',
             'checkOut',
             'getManagedOrders',
-            'getUnusualOrderList',
             'getHotelById',
             'giveUpHotelFunc'
         ]),
@@ -150,10 +145,6 @@ export default {
         },
         showOrder(record){
             alert('不是已经够详细了吗');
-        },
-        showUnusualOrder(id) {
-            this.getUnusualOrderList(id)
-            this.set_unusualOrderVisible(true);
         },
         deleteHotel(){
 

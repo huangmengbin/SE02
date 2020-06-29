@@ -40,6 +40,7 @@ public class OrderServiceImpl implements OrderService {
     private final static String check_in = "已执行" ;
     private final static String check_out = "已退房" ;
     private final static String ping_jia = "已评价" ;
+    private final static String yi_chang = "异常" ;
 
 
 
@@ -150,7 +151,7 @@ public class OrderServiceImpl implements OrderService {
         List<Order> orderList = this.getAllOrders().stream()
                 .filter(o -> o.getHotelId().equals(orderVO.getHotelId()))
                 .filter(o -> o.getRoomType().equals(orderVO.getRoomType()))
-                .filter(o -> o.getOrderState().equals(yu_ding) || o.getOrderState().equals(check_in))
+                .filter(o -> o.getOrderState().equals(yu_ding) || o.getOrderState().equals(check_in)|| o.getOrderState().equals(yi_chang))
                 .collect(Collectors.toList());
 
         SimpleDateFormat sf=new SimpleDateFormat("yyyy-MM-dd");

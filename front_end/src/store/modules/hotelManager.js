@@ -8,10 +8,8 @@ import {
 import {
     checkInAPI,
     checkOutAPI,
-    deleteOrderAPI,
     getAllOrdersAPI,
     managedHotelOrdersAPI,
-    abnormalOrdersOfTheDayAPI,
 } from '../../api/order'
 import {
     addCouponAPI,
@@ -22,7 +20,6 @@ import { message } from 'ant-design-vue'
 const hotelManager = {
     state: {
         orderList: [],
-        unusualOrderList: [],
         managedOrders: [],
         mgrHotelList: [],
         addHotelParams: {
@@ -48,7 +45,6 @@ const hotelManager = {
         addCouponVisible: false,
         orderVisible:false,
         manageHotelVisible: false,
-        unusualOrderVisible: false,
         mgrOrderList: [],
         activeHotelId: 0,
         couponList: [],
@@ -115,12 +111,6 @@ const hotelManager = {
             const res = await getAllOrdersAPI()
             if(res){
                 commit('set_orderList', res)
-            }
-        },
-        getUnusualOrderList: async ({state, commit}, id) => {
-            const res = await abnormalOrdersOfTheDayAPI(id)
-            if (res) {
-                commit('set_unusualOrderList', res)
             }
         },
         addHotel: async({ state, dispatch, commit }) => {
