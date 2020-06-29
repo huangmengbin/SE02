@@ -15,7 +15,10 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
+SET GLOBAL event_scheduler = ON;
+SET @@global.event_scheduler = ON;
+SET GLOBAL event_scheduler = 1;
+SET @@global.event_scheduler = 1;
 --
 -- Table structure for table `Coupon`
 --
@@ -177,6 +180,23 @@ BEGIN;
 INSERT INTO `User` VALUES (3,'2636221659@qq.com','67is666','网站管理员','+86 188...',100,'Manager','1999/05/20'),(4,'1012681@qq.com','123456','用户1','12345678919',100,'Client','1993/05/20'),(5,'123@qq.com','123456','用户2','12345678911',100,'Client','1999/09/20'),(6,'333@qq.com','123456','jd工作人员',NULL,NULL,'HotelManager','1967/06/07'),(7,'67666@qq.com','123456','网站营销人员','10086',1000,'WebMarketer','1967/06/07');
 /*!40000 ALTER TABLE `User` ENABLE KEYS */;
 COMMIT;
+
+DELIMITER |
+DROP PROCEDURE IF EXISTS e_test |
+CREATE PROCEDURE e_test()
+BEGIN
+  update OrderList set orderState='异常' where  to_days(now())-TO_DAYS(checkInDate)>0 and orderState='已预订';
+END
+|
+
+SET GLOBAL event_scheduler = 1;
+CREATE EVENT IF NOT EXISTS event_test
+  ON SCHEDULE EVERY 20 SECOND
+  ON COMPLETION PRESERVE
+  DO CALL e_test();
+
+ALTER EVENT event_test ON
+COMPLETION PRESERVE ENABLE;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

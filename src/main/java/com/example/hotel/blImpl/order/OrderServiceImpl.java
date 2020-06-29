@@ -57,6 +57,7 @@ public class OrderServiceImpl implements OrderService {
     AccountMapper accountMapper;
     @Override
     public ResponseVO addOrder(OrderVO orderVO) {
+
         if(accountService.getUserInfo(orderVO.getUserId()).getCredit()<=0){
             return ResponseVO.buildFailure(CREDIT_LACK);
         }
@@ -102,6 +103,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<Order> getHotelOrders(int hotelId) {
+
         return orderMapper.getHotelOrders(hotelId);
     }
 
