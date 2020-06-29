@@ -28,6 +28,27 @@
 
             
         </a-tabs>
+
+
+        <a-modal
+                :visible="giveUpVisible"
+                title="转让酒店"
+                cancelText="取消"
+                okText="确定"
+                @cancel="giveUpClear"
+                @ok="giveUpSubmit"
+        >
+            <a-form :form="form" style="margin-top: 10px">
+                <a-form-item label="被转让者的邮箱">
+                    <a-input
+                            size="large"
+                            placeholder="请输入ta的邮箱"
+                            v-decorator="['email', { rules: [{ required: true, message: '您还没输入ta的邮箱' }] }]"
+                    />
+                </a-form-item>
+            </a-form>
+        </a-modal>
+
         <AddHotelModal></AddHotelModal>
         <AddRoomModal></AddRoomModal>
         <Coupon></Coupon>

@@ -121,6 +121,9 @@ public class HotelServiceImpl implements HotelService {
             return ResponseVO.buildFailure("这个人不是酒店管理人员");
         }
         HotelVO hotelVO = hotelMapper.selectById(hotelId);
+        if(hotelVO.getHotelState()>=0){
+            return ResponseVO.buildFailure("该酒店已经在转让中状态");
+        }
         Hotel hotel = hotelVO_TO_Hotel(hotelVO);
         hotel.setHotelState(user.getId());
         hotelMapper.updateHotel(hotel);

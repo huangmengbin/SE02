@@ -36,3 +36,10 @@ export function giveUpAPI(data){
         data
     })
 }
+export function acceptOrRefuseAPI(data) {
+    return axios({
+        url: `${api.hotelPre}/${data.hotelId}/${data.accept}/acceptOrRefuse`,
+        method: 'POST',
+        data
+    })
+}

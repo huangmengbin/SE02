@@ -1,7 +1,26 @@
 <template>
     <div class="info-wrapper">
         <Comment :order="order"></Comment>
+        <a-badge :count="replyList.length+applicationList.length"></a-badge>
         <a-tabs>
+            <a-tab-pane  tab="业务消息" key="3" v-if="userInfo.userType==='HotelManager'  ">
+                <div>
+                    <a-list>
+                        <a-list-item :key="index" v-for="(line, index) in replyList">
+                            {{line.userName}} 请求将 {{line.hotelName}} 转让给你
+                            <a-button size="small" type="primary" @click="acceptOrRefuse(line,{'accept':true})" >同意</a-button>
+                            <a-button size="small" type="danger" @click="acceptOrRefuse(line,{'accept':false})" >拒绝</a-button>
+                        </a-list-item>
+                    </a-list>
+                    <a-list>
+                        <a-list-item :key="index" v-for="(line, index) in applicationList">
+                            你申请的将 {{line.hotelName}} 转让给 {{line.userName}} 正在等待回复
+                            <a-button size="small" type="danger" @click="acceptOrRefuse(line,{'accept':false})">撤回请求</a-button>
+                        </a-list-item>
+                    </a-list>
+                </div>
+            </a-tab-pane>
+
             <a-tab-pane tab="我的信息" key="1">
                 <a-form :form="form" style="margin-top: 30px">
                     
@@ -84,6 +103,9 @@
                     </span>
                 </a-table>
             </a-tab-pane>
+
+
+
         </a-tabs>
     </div>
 </template>
@@ -146,6 +168,9 @@ export default {
             columns,
             data: [],
             form: this.$form.createForm(this, { name: 'coordinated' }),
+            replyList:[],
+            applicationList:[]
+
         }
     },
     components: {
@@ -157,11 +182,29 @@ export default {
             'userInfo',
             'userOrderList',
             'commentVisible',
+            'hotelList',
+            'managerList'
         ])
     },
     async mounted() {
-        await this.getUserInfo()
-        await this.getUserOrders()
+        await this.getUserInfo();
+        await this.getUserOrders();
+        if(this.userInfo.userType==='HotelManager'){
+            await this.getManagerList();
+            await this.getHotelList();
+            console.log(this.managerList);
+            console.log(this.hotelList)
+            this.hotelList.forEach(aHotel =>{
+                if(this.userId === aHotel.hotelState){//别人申请给你
+                    let userName = this.managerList.find(value => value.id===aHotel.managerId).userName;
+                    this.replyList.push({'hotelId':aHotel.id,'hotelName':aHotel.name,'userName':userName})
+                }
+                if(this.userId === aHotel.managerId && aHotel.hotelState>0){//你申请给别人
+                    let userName = this.managerList.find(value => value.id===aHotel.hotelState).userName;
+                    this.applicationList.push({'hotelId':aHotel.id,'hotelName':aHotel.name,'userName':userName})
+                }
+            })
+        }
     },
     methods: {
         ...mapActions([
@@ -169,6 +212,9 @@ export default {
             'getUserOrders',
             'updateUserInfo',
             'cancelOrder',
+            'getManagerList',
+            'getHotelList',
+            'acceptOrRefuseFunc'
         ]),
         ...mapMutations([
             'set_CommentVisible',
@@ -214,7 +260,13 @@ export default {
             this.set_OrderActive(record);
             this.set_CommentVisible(true);
         },
-
+        acceptOrRefuse(hotel, state){
+            const data = {
+                hotelId:hotel.hotelId,
+                accept:state.accept
+            };
+            this.acceptOrRefuseFunc(data)
+        }
     }
 }
 </script>
