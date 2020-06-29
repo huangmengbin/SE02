@@ -52,7 +52,12 @@ public class OrderController {
 
     @GetMapping("/{orderId}/getCommentByOrderId")
     public ResponseVO getCommentByOrderId(@PathVariable int orderId){
-        return orderService.getCommentByOrderId(orderId);
+        try {
+            return orderService.getCommentByOrderId(orderId);
+        }catch (Exception e){
+            return ResponseVO.buildFailure("fail to fetch the order");
+        }
+
     }
 
     @GetMapping("/{hotelId}/getHotelComment")

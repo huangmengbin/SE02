@@ -1,0 +1,42 @@
+# For a quick start check out our HTTP Requests collection (Tools|HTTP Client|Open HTTP Requests Collection).
+#
+# Following HTTP Request Live Templates are available:
+# * 'gtrp' and 'gtr' create a GET request with or without query parameters;
+# * 'ptr' and 'ptrp' create a POST request with a simple or parameter-like body;
+# * 'mptr' and 'fptr' create a POST request to submit a form with a text or file field (multipart/form-data);
+POST http://localhost:8080/api/order/addOrder
+Content-Type: application/json
+# 预期：正常添加订单
+
+{
+  "hotelId": 5,
+  "userId": 3,
+  "hotelName": "这个居然生效了？",
+  "checkInDate": "2020-06-29",
+  "checkOutDate": "2020-07-03",
+  "roomType": "BigBed",
+  "roomNum": 2,
+  "peopleNum": 3,
+  "haveChild": true,
+  "price": 67.66,
+  "clientName": "这个没用。。。",
+  "phoneNumber": "这个东西也没用？丢"
+}
+# 结果：测试通过
+###
+
+GET http://localhost:8080/api/order/getAllOrders
+# 预期结果：成功获取所有订单
+# 结果：测试通过
+###
+
+GET http://localhost:8080/api/order/15/getCommentByOrderId
+# 预期结果：获取此订单（如果数据库有的话
+# 结果：测试通过
+###
+
+
+GET http://localhost:8080/api/order/-1/getCommentByOrderId
+# 预期结果：因为orderList库有这个id,故返回buildFailure.
+# 结果：第一次测试服务器报错，返回500状态码，测试失败；debug后第二次测试通过
+###

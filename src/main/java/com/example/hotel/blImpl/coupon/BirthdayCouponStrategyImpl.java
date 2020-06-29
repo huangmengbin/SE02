@@ -18,7 +18,7 @@ public class BirthdayCouponStrategyImpl implements CouponMatchStrategy {
 
     /**
      * 判断某个订单是否满足某种生日优惠策略
-     * @param orderVO
+     * @param orderVO,coupon
      * @return
      */
 
