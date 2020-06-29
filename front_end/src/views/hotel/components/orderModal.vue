@@ -14,7 +14,7 @@
             <a-form-item v-bind="formItemLayout" label="入住人姓名">
                 <a-input
                     v-decorator="[
-                        'clientName',
+                        'tenantName',
                         { rules: [{required: true, message: '请填写入住人姓名', }] }
                     ]"
                 />
@@ -235,6 +235,7 @@ export default {
                         hotelId: this.currentHotelId,
                         hotelName: this.currentHotelInfo.name,
                         userId: Number(this.userId),
+                        tenantName:this.form.getFieldValue('tenantName'),
                         checkInDate: moment(this.form.getFieldValue('date')[0]).format('YYYY-MM-DD'),
                         checkOutDate: moment(this.form.getFieldValue('date')[1]).format('YYYY-MM-DD'),
                         roomType: this.currentOrderRoom.roomType === '大床房' ? 'BigBed' : this.currentOrderRoom.roomType === '双床房' ? 'DoubleBed' : 'Family',
@@ -244,6 +245,7 @@ export default {
                         createDate: '',
                         price: this.checkedList.length > 0 ? this.finalPrice: this.totalPrice
                     }
+
                     this.addOrder(data)
                 }
             });

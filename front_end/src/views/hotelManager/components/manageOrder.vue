@@ -5,7 +5,7 @@
                 height="666"
                 @close="onClose"
                 placement="top"
-                :closable="false"
+                :closable="true"
                 :visible="orderVisible"
         >
             <a-table
@@ -44,8 +44,6 @@
                             <a-button type="primary" size="small">入住</a-button>
                         </a-popconfirm>
 
-
-                     <a-divider type="vertical"></a-divider>
                       <a-popconfirm
                               title="你确定ta走了吗？"
                               @confirm="cOut(record.id)"
@@ -74,8 +72,14 @@
             dataIndex: 'id',
         },
         {
-            title: '酒店名',
-            dataIndex: 'hotelName',
+            title: '用户Id',
+            dataIndex: 'userId',
+            scopedSlots: {customRender: 'userId'}
+        },
+        {
+            title: '用户姓名',
+            dataIndex: 'tenantName',
+            scopedSlots: { customRender: 'tenantName' }
         },
         {
             title: '房型',
@@ -96,13 +100,14 @@
             title: '入住人数',
             dataIndex: 'peopleNum',
         },
+
         {
             title: '房价',
             dataIndex: 'price',
         },
         {
             title: '状态',
-            filters: [{ text: '已预订', value: '已预订' }, { text: '已撤销', value: '已撤销' },{ text: '已执行', value: '已执行' }, { text: '已退房', value: '已退房' },{text: '已评价', value: '已评价'}],
+            filters: [{ text: '已预订', value: '已预订' },{ text: '未按时入住', value: '未按时入住' }, { text: '已撤销', value: '已撤销' },{ text: '已执行', value: '已执行' }, { text: '已退房', value: '已退房' },{text: '已评价', value: '已评价'}],
             onFilter: (value, record) => record.orderState.includes(value),
             dataIndex: 'orderState',
             scopedSlots: { customRender: 'orderState' }
@@ -144,8 +149,7 @@
                 'checkOut',
             ]),
             onClose() {
-                console.log('cancel'),
-                    this.set_orderVisible(false)
+                this.set_orderVisible(false)
             },
 
             cIn(id) {

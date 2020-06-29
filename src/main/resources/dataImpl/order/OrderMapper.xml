@@ -13,10 +13,13 @@
         select * from OrderList where hotelId=#{hotelId}
     </select>
 
+    <select id="getHotelAbOrders" resultMap="Order">
+        select * from OrderList where hotelId=#{hotelId} and orderState='已预订'
+    </select>
 
     <insert id="addOrder" parameterType="com.example.hotel.po.Order" useGeneratedKeys="true" keyProperty="id">
-        insert into OrderList(userId,hotelId,hotelName,checkInDate,checkOutDate,roomType,roomNum,peopleNum,haveChild,createDate,price,clientName,phoneNumber,orderState,comment,commentScore)
-        values(#{userId},#{hotelId},#{hotelName},#{checkInDate},#{checkOutDate},#{roomType},#{roomNum},#{peopleNum},#{haveChild},#{createDate},#{price},#{clientName},#{phoneNumber},#{orderState},#{comment},#{commentScore})
+        insert into OrderList(userId,hotelId,hotelName,checkInDate,checkOutDate,roomType,roomNum,peopleNum,haveChild,createDate,price,tenantName,phoneNumber,orderState,comment,commentScore)
+        values(#{userId},#{hotelId},#{hotelName},#{checkInDate},#{checkOutDate},#{roomType},#{roomNum},#{peopleNum},#{haveChild},#{createDate},#{price},#{tenantName},#{phoneNumber},#{orderState},#{comment},#{commentScore})
     </insert>
 
     <select id="getOrderById" resultMap="Order">
@@ -54,7 +57,7 @@
         <result column="haveChild" property="haveChild"/>
         <result column="createDate" property="createDate"/>
         <result column="price" property="price"/>
-        <result column="clientName" property="clientName"/>
+        <result column="tenantName" property="tenantName"/>
         <result column="phoneNumber" property="phoneNumber"/>
         <result column="orderState" property="orderState"/>
         <result column="comment" property="comment"/>

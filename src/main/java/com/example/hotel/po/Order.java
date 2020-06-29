@@ -19,7 +19,7 @@ public class Order {
     private boolean haveChild;
     private String createDate;
     private Double price;
-    private String clientName;
+    private String tenantName;
     private String phoneNumber;
     private String orderState;
     private String comment;
@@ -121,12 +121,12 @@ public class Order {
         this.hotelName = hotelName;
     }
 
-    public String getClientName() {
-        return clientName;
+    public String getTenantName() {
+        return tenantName;
     }
 
-    public void setClientName(String clientName) {
-        this.clientName = clientName;
+    public void setTenantName(String tenantName) {
+        this.tenantName = tenantName;
     }
 
     public String getPhoneNumber() {

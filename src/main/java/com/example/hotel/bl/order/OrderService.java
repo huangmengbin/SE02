@@ -53,8 +53,13 @@ public interface OrderService {
      */
     ResponseVO checkIn(int orderId);
     ResponseVO checkOut(int orderId);
+    /**
+     * 异常订单
+     * @param hotelId
+     * @return
+     */
 
-
+    List<Order> getHotelAbOrders(Integer hotelId);
 
 
     ResponseVO addComment(OrderVO orderVO);

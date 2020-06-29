@@ -24,6 +24,8 @@ public interface OrderMapper {
 
     List<Order> getHotelOrders(@Param("hotelId") int hotelId);
 
+    List<Order> getHotelAbOrders(@Param("hotelId") Integer hotelId);
+
 
     int updateOrderState(@Param("orderid") int orderid, @Param("orderState") String orderState);
 

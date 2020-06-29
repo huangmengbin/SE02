@@ -77,7 +77,7 @@ public class OrderServiceImpl implements OrderService {
             orderVO.setCreateDate(curdate);
             orderVO.setOrderState(yu_ding);
             User user = accountService.getUserInfo(orderVO.getUserId());
-            orderVO.setClientName(user.getUserName());
+            //orderVO.setTenantName(orderVO.getTenantName());
             orderVO.setPhoneNumber(user.getPhoneNumber());
             Order order = new Order();
             BeanUtils.copyProperties(orderVO,order);
@@ -129,13 +129,14 @@ public class OrderServiceImpl implements OrderService {
 
 
 
+
     private boolean notRevocable(Order order){  //不可撤销，指要扣分的意思。
 
         SimpleDateFormat sf=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         Date curTime = new Date(System.currentTimeMillis());
-        String latestTime=order.getCheckInDate()+" 08:00:00";
+        String latestAnnulTime=order.getCheckInDate()+" 08:00:00";//14:00为订单最晚执行时间
         try{
-            int result=curTime.compareTo(sf.parse(latestTime));
+            int result=curTime.compareTo(sf.parse(latestAnnulTime));
             return result>0;
         }catch(ParseException e){
             e.printStackTrace();
@@ -233,6 +234,10 @@ public class OrderServiceImpl implements OrderService {
         return ResponseVO.buildSuccess(true);
     }
 
+    @Override
+    public List<Order> getHotelAbOrders(Integer hotelId){
+        return orderMapper.getHotelAbOrders(hotelId);
+    }
 
 
     @Test

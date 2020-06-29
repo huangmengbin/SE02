@@ -15,7 +15,7 @@
                         <a-divider type="vertical"></a-divider>
                         <a-button type="info" size="small" @click="showCoupon(record)">优惠策略</a-button>
                         <a-divider type="vertical"></a-divider>
-                        <a-button type="primary" size="small" @click="manageOrder(record.id)">订单管理</a-button>
+                        <a-button type="info" size="small" @click="manageOrder(record.id)">订单管理</a-button>
                         <a-divider type="vertical"></a-divider>
                         <a-button type="info" size="small" @click="manageHotel(record)">信息修改</a-button>
                         <a-divider type="vertical"></a-divider>
@@ -28,29 +28,11 @@
 
             
         </a-tabs>
-
-        <a-modal
-                :visible="giveUpVisible"
-                title="转让酒店"
-                cancelText="取消"
-                okText="确定"
-                @cancel="giveUpClear"
-                @ok="giveUpSubmit"
-        >
-            <a-form :form="form" style="margin-top: 10px">
-                <a-form-item label="被转让者的邮箱">
-                    <a-input
-                            size="large"
-                            placeholder="请输入ta的邮箱"
-                            v-decorator="['email', { rules: [{ required: true, message: '您还没输入ta的邮箱' }] }]"
-                    />
-                </a-form-item>
-            </a-form>
-        </a-modal>
         <AddHotelModal></AddHotelModal>
         <AddRoomModal></AddRoomModal>
         <Coupon></Coupon>
         <manageOrder :hotelId="id"></manageOrder>
+        <unusualOrder :hotelId="id" ></unusualOrder>
         <ManageHotelModal :record="clickedRecord"></ManageHotelModal>
     </div>
 </template>
@@ -120,6 +102,8 @@ export default {
             'hotelList',
             'mgrHotelList',
             'managedOrders',
+            'unusualOrderList',
+            'unusualOrderVisible',
             'addHotelModalVisible',
             'addRoomModalVisible',
             'activeHotelId',
@@ -148,6 +132,7 @@ export default {
             'checkIn',
             'checkOut',
             'getManagedOrders',
+            'getUnusualOrderList',
             'getHotelById',
             'giveUpHotelFunc'
         ]),
@@ -165,6 +150,10 @@ export default {
         },
         showOrder(record){
             alert('不是已经够详细了吗');
+        },
+        showUnusualOrder(id) {
+            this.getUnusualOrderList(id)
+            this.set_unusualOrderVisible(true);
         },
         deleteHotel(){
 
