@@ -22,3 +22,10 @@ export function changeUserTypeAPI(data) {
         data
     })
 }
+export function deleteUserAPI(data) {
+    return axios({
+        url:`${api.adminPre}/deleteUser`,
+        method:'POST',
+        data
+    })
+}
