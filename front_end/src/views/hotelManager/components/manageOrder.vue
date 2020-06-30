@@ -25,15 +25,7 @@
 
                  <span slot="action" slot-scope="record">
 
-                        <a-popconfirm
-                                title="确定想删除该订单吗？"
-                                @confirm="deleteOrder(record)"
-                                okText="确定"
-                                cancelText="取消"
-                        >
-                            <a-button type="danger" size="small">删除订单</a-button>
-                        </a-popconfirm>
-                        <a-divider type="vertical"></a-divider>
+
                      <a-popconfirm
                              title="你确定ta来了吗？"
                              @confirm="cIn(record.id)"
